@@ -1,0 +1,13 @@
+import type { IPageHeadingProps } from "@/types/layout";
+
+export const PageHeading = ({ title, description, children }: IPageHeadingProps) => (
+  <div className="flex flex-wrap items-center justify-between gap-4">
+    <div className="space-y-1">
+      <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
+      {description ? (
+        <p className="text-sm text-muted-foreground">{description}</p>
+      ) : null}
+    </div>
+    {children}
+  </div>
+);

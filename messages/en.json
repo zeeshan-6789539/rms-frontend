@@ -1,0 +1,196 @@
+{
+  "common": {
+    "appName": "RMS",
+    "appTagline": "Restaurant Management System",
+    "loading": "Loading…",
+    "retry": "Retry",
+    "error": "Something went wrong",
+    "close": "Close",
+    "cancel": "Cancel",
+    "save": "Save",
+    "actions": "Actions",
+    "active": "Active",
+    "deactivated": "Deactivated",
+    "viewAll": "View all"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "companies": "Companies",
+    "users": "Users"
+  },
+  "sidebar": {
+    "open": "Open menu",
+    "close": "Close menu"
+  },
+  "theme": {
+    "label": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "language": {
+    "label": "Language",
+    "en": "English",
+    "ur": "اردو"
+  },
+  "filters": {
+    "searchLabel": "Search",
+    "statusLabel": "Filter by status",
+    "roleLabel": "Filter by role",
+    "companyLabel": "Filter by company",
+    "allStatuses": "All statuses",
+    "allRoles": "All roles",
+    "allCompanies": "All companies"
+  },
+  "pagination": {
+    "summary": "Showing {from}–{to} of {total}",
+    "pageOf": "Page {page} of {totalPages}",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "auth": {
+    "title": "Sign in",
+    "subtitle": "Use your RMS username and password to continue.",
+    "username": "Username",
+    "usernamePlaceholder": "superadmin",
+    "password": "Password",
+    "passwordPlaceholder": "••••••••",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "submit": "Sign in",
+    "submitting": "Signing in…",
+    "errors": {
+      "usernameLength": "Username must be between 3 and 50 characters.",
+      "passwordLength": "Password must be between 8 and 128 characters.",
+      "generic": "Could not sign you in. Please try again."
+    }
+  },
+  "account": {
+    "signedInAs": "Signed in as",
+    "signOut": "Sign out",
+    "noAccess": "This area is limited to super admins. Sign in with a super admin account to manage companies and users.",
+    "roles": {
+      "super_admin": "Super admin",
+      "client_admin": "Client admin",
+      "manager": "Manager",
+      "staff": "Staff",
+      "customer": "Customer"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Platform overview for super admins.",
+    "stats": {
+      "companies": "Companies",
+      "activeCompanies": "Active companies",
+      "users": "Users",
+      "activeUsers": "Active users"
+    },
+    "recentCompanies": "Newest companies",
+    "recentUsers": "Newest users",
+    "noCompanies": "No companies yet.",
+    "noUsers": "No users yet."
+  },
+  "companies": {
+    "title": "Companies",
+    "subtitle": "Every tenant on the platform.",
+    "create": "New company",
+    "createTitle": "New company",
+    "createSubtitle": "Add a tenant to the platform.",
+    "editTitle": "Edit company",
+    "editSubtitle": "Update this tenant's details.",
+    "edit": "Edit company",
+    "deactivate": "Deactivate",
+    "restore": "Reactivate",
+    "deactivateTitle": "Deactivate company",
+    "restoreTitle": "Reactivate company",
+    "deactivateConfirm": "\"{name}\" will be hidden from active listings. Its users and data are kept, and you can reactivate it at any time.",
+    "restoreConfirm": "\"{name}\" will be active again and appear in active listings.",
+    "created": "Company \"{name}\" created.",
+    "updated": "Company \"{name}\" updated.",
+    "deactivated": "Company \"{name}\" deactivated.",
+    "restored": "Company \"{name}\" reactivated.",
+    "emptyTitle": "No companies found",
+    "emptySubtitle": "Adjust your filters, or add the first tenant.",
+    "searchPlaceholder": "Search name, email, city…",
+    "phoneHint": "Pakistani number, e.g. 03296789539.",
+    "fields": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "address": "Address",
+      "city": "City",
+      "status": "Status",
+      "contact": "Contact",
+      "location": "Location",
+      "createdAt": "Created"
+    },
+    "errors": {
+      "nameLength": "Name must be between 2 and 255 characters.",
+      "emailInvalid": "Enter a valid email address.",
+      "emailLength": "Email must be at most 255 characters.",
+      "phoneInvalid": "Enter a valid Pakistani number, e.g. 03296789539.",
+      "addressLength": "Address must be at most 500 characters.",
+      "cityLength": "City must be at most 100 characters."
+    }
+  },
+  "users": {
+    "title": "Users",
+    "subtitle": "Accounts across every company.",
+    "create": "New user",
+    "createTitle": "New user",
+    "createSubtitle": "Create an account and set its role.",
+    "editTitle": "Edit user",
+    "editSubtitle": "Update this account's details.",
+    "edit": "Edit user",
+    "deactivate": "Deactivate",
+    "restore": "Reactivate",
+    "deactivateTitle": "Deactivate user",
+    "restoreTitle": "Reactivate user",
+    "deactivateConfirm": "\"{name}\" will not be able to sign in. The account is kept and can be reactivated at any time.",
+    "restoreConfirm": "\"{name}\" will be able to sign in again.",
+    "created": "User \"{name}\" created.",
+    "updated": "User \"{name}\" updated.",
+    "deactivated": "User \"{name}\" deactivated.",
+    "restored": "User \"{name}\" reactivated.",
+    "emptyTitle": "No users found",
+    "emptySubtitle": "Adjust your filters, or create the first account.",
+    "searchPlaceholder": "Search username, email, name…",
+    "platformLevel": "Platform level",
+    "noCompany": "No company",
+    "you": "(you)",
+    "cannotEditSelf": "You cannot deactivate your own account.",
+    "usernameHint": "Letters, digits, dots, dashes and underscores.",
+    "passwordHint": "At least 8 characters.",
+    "phoneHint": "Pakistani number, e.g. 03296789539.",
+    "superAdminHint": "A super admin is platform-level and cannot belong to a company.",
+    "passwordHintUpdate": "Leave blank to keep the current password.",
+    "fields": {
+      "user": "User",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "username": "Username",
+      "email": "Email",
+      "password": "Password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "phone": "Phone",
+      "role": "Role",
+      "company": "Company",
+      "status": "Status",
+      "lastLoginAt": "Last sign-in"
+    },
+    "errors": {
+      "usernameLength": "Username must be between 3 and 50 characters.",
+      "usernameFormat": "Use letters, digits, dots, dashes and underscores only.",
+      "emailInvalid": "Enter a valid email address.",
+      "emailLength": "Email must be at most 255 characters.",
+      "passwordLength": "Password must be between 8 and 128 characters.",
+      "required": "This field is required.",
+      "nameLength": "Must be at most 100 characters.",
+      "phoneInvalid": "Enter a valid Pakistani number, e.g. 03296789539.",
+      "companyInvalid": "Choose a valid company.",
+      "superAdminNoCompany": "A super admin cannot belong to a company — clear the company, or pick another role."
+    }
+  }
+}
