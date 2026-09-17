@@ -1,7 +1,6 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { PageHeading } from "@/components/layout/page-heading";
-import { RequireRole } from "@/components/layout/require-role";
-import { DashboardOverview } from "@/features/dashboard/components/dashboard-overview";
+import { DashboardRouter } from "@/features/dashboard/components/dashboard-router";
 
 const DashboardPage = async ({ params }: PageProps<"/[locale]">) => {
   const { locale } = await params;
@@ -13,9 +12,7 @@ const DashboardPage = async ({ params }: PageProps<"/[locale]">) => {
     <div className="space-y-6">
       <PageHeading title={t("title")} description={t("subtitle")} />
 
-      <RequireRole roles={["super_admin"]}>
-        <DashboardOverview />
-      </RequireRole>
+      <DashboardRouter />
     </div>
   );
 };
