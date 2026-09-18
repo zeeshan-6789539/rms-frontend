@@ -24,3 +24,7 @@ export interface IUpdateLeaseRentDialogProps {
   lease: ILease | null;
   onClose: () => void;
 }
+
+export interface ILeaseDetailViewProps {
+  leaseId: string;
+}

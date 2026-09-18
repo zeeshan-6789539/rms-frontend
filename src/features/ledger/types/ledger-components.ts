@@ -7,4 +7,6 @@ export interface ILedgerTableProps {
 export interface ILedgerEntryFormDialogProps {
   isOpen: boolean;
   onClose: () => void;
+  defaultLeaseId?: string;
+  defaultLeaseLabel?: string;
 }

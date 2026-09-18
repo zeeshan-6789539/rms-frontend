@@ -34,21 +34,28 @@ const EMPTY_VALUES: IPaymentFormValues = {
 
 const METHODS: TPaymentMethod[] = ["cash", "bank_transfer", "cheque", "online"];
 
-export const PaymentFormDialog = ({ isOpen, onClose }: IPaymentFormDialogProps) => {
+export const PaymentFormDialog = ({
+  isOpen,
+  onClose,
+  defaultLeaseId,
+  defaultLeaseLabel,
+}: IPaymentFormDialogProps) => {
   const t = useTranslations("payments");
   const tMethod = useTranslations("payments.methods");
   const tCommon = useTranslations("common");
   const { showToast } = useToast();
   const { values, errors, setValue, setErrors, reset } = useFormState(EMPTY_VALUES);
   const { mutate, isPending, error, reset: resetMutation } = useCreatePayment();
-  const { options: leaseOptions, isPending: isLeasesPending } = useLeaseOptions(isOpen);
+  const { options: leaseOptions, isPending: isLeasesPending } = useLeaseOptions(
+    isOpen && !defaultLeaseId,
+  );
 
   useEffect(() => {
     if (!isOpen) return;
 
-    reset(EMPTY_VALUES);
+    reset({ ...EMPTY_VALUES, leaseId: defaultLeaseId ?? "" });
     resetMutation();
-  }, [isOpen, reset, resetMutation]);
+  }, [isOpen, defaultLeaseId, reset, resetMutation]);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -102,14 +109,18 @@ export const PaymentFormDialog = ({ isOpen, onClose }: IPaymentFormDialogProps) 
         {error ? <Alert>{getApiErrorMessage(error, tCommon("error"))}</Alert> : null}
 
         <FormField id="leaseId" label={t("fields.lease")} error={errors.leaseId}>
-          <Select
-            id="leaseId"
-            value={values.leaseId}
-            onChange={(event) => setValue("leaseId", event.target.value)}
-            options={[{ value: "", label: t("selectLease") }, ...leaseOptions]}
-            hasError={Boolean(errors.leaseId)}
-            disabled={isPending || isLeasesPending}
-          />
+          {defaultLeaseId ? (
+            <Input id="leaseId" value={defaultLeaseLabel ?? ""} disabled readOnly />
+          ) : (
+            <Select
+              id="leaseId"
+              value={values.leaseId}
+              onChange={(event) => setValue("leaseId", event.target.value)}
+              options={[{ value: "", label: t("selectLease") }, ...leaseOptions]}
+              hasError={Boolean(errors.leaseId)}
+              disabled={isPending || isLeasesPending}
+            />
+          )}
         </FormField>
 
         <div className="grid gap-4 sm:grid-cols-2">

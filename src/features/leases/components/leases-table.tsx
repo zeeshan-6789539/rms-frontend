@@ -1,7 +1,7 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { Banknote, Pencil, RefreshCw } from "lucide-react";
+import { Banknote, Eye, Pencil, RefreshCw } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,6 +12,8 @@ import {
   TableHeaderCell,
   TableRow,
 } from "@/components/ui/table";
+import { Link } from "@/i18n/navigation";
+import { cn } from "@/utils/cn";
 import { formatCurrency, formatDate } from "@/utils/format";
 import type { TBadgeVariant } from "@/types/ui";
 import type { TLeaseStatus } from "@/types/lease";
@@ -79,6 +81,17 @@ export const LeasesTable = ({
 
             <TableCell>
               <div className="flex items-center justify-end gap-1">
+                <Link
+                  href={`/leases/${lease.id}`}
+                  aria-label={t("viewDetails")}
+                  title={t("viewDetails")}
+                  className={cn(
+                    "inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-muted-foreground transition-colors duration-150 hover:bg-muted hover:text-foreground",
+                  )}
+                >
+                  <Eye className="h-4 w-4" aria-hidden />
+                </Link>
+
                 <Button
                   variant="ghost"
                   size="icon"

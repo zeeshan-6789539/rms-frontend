@@ -9,3 +9,8 @@ export const getInitials = (...parts: string[]): string =>
     .map((part) => part.trim().charAt(0).toUpperCase())
     .filter(Boolean)
     .join("");
+
+export const matchesSearch = (
+  search: string,
+  ...values: (string | null | undefined)[]
+): boolean => search === "" || values.some((value) => value?.toLowerCase().includes(search));

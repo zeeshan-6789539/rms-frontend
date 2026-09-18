@@ -7,4 +7,6 @@ export interface IPaymentsTableProps {
 export interface IPaymentFormDialogProps {
   isOpen: boolean;
   onClose: () => void;
+  defaultLeaseId?: string;
+  defaultLeaseLabel?: string;
 }

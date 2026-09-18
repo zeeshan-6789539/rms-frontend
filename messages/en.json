@@ -43,6 +43,7 @@
     "statusLabel": "Filter by status",
     "roleLabel": "Filter by role",
     "companyLabel": "Filter by company",
+    "periodLabel": "Filter by period",
     "allStatuses": "All statuses",
     "allRoles": "All roles",
     "allCompanies": "All companies"
@@ -313,6 +314,21 @@
     "searchPlaceholder": "Search property, tenant…",
     "selectProperty": "Select a property",
     "selectTenant": "Select a tenant",
+    "viewDetails": "View details",
+    "backToList": "Back to leases",
+    "notFoundTitle": "Lease not found",
+    "notFoundSubtitle": "This lease may have been removed. Go back and pick another one.",
+    "ledgerSection": "Ledger",
+    "invoicePdf": "Invoice",
+    "ledgerPdf": "Ledger PDF",
+    "searchLedgerPlaceholder": "Search ledger…",
+    "periods": {
+      "all": "All time",
+      "current_month": "Current month",
+      "last_month": "Last month",
+      "last_3_months": "Last 3 months",
+      "last_6_months": "Last 6 months"
+    },
     "fields": {
       "property": "Property",
       "tenant": "Tenant",

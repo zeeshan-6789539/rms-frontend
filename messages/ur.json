@@ -43,6 +43,7 @@
     "statusLabel": "حیثیت کے مطابق چھانٹیں",
     "roleLabel": "کردار کے مطابق چھانٹیں",
     "companyLabel": "کمپنی کے مطابق چھانٹیں",
+    "periodLabel": "مدت کے مطابق چھانٹیں",
     "allStatuses": "تمام حیثیتیں",
     "allRoles": "تمام کردار",
     "allCompanies": "تمام کمپنیاں"
@@ -313,6 +314,21 @@
     "searchPlaceholder": "پراپرٹی، ٹیننٹ تلاش کریں…",
     "selectProperty": "پراپرٹی منتخب کریں",
     "selectTenant": "ٹیننٹ منتخب کریں",
+    "viewDetails": "تفصیلات دیکھیں",
+    "backToList": "لیز کی فہرست پر واپس جائیں",
+    "notFoundTitle": "لیز نہیں ملی",
+    "notFoundSubtitle": "یہ لیز شاید ہٹا دی گئی ہے۔ واپس جائیں اور کوئی دوسری منتخب کریں۔",
+    "ledgerSection": "لیجر",
+    "invoicePdf": "انوائس",
+    "ledgerPdf": "لیجر پی ڈی ایف",
+    "searchLedgerPlaceholder": "لیجر تلاش کریں…",
+    "periods": {
+      "all": "ہمیشہ",
+      "current_month": "موجودہ مہینہ",
+      "last_month": "پچھلا مہینہ",
+      "last_3_months": "پچھلے 3 مہینے",
+      "last_6_months": "پچھلے 6 مہینے"
+    },
     "fields": {
       "property": "پراپرٹی",
       "tenant": "ٹیننٹ",

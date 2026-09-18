@@ -1,11 +1,4 @@
-import {
-  BookText,
-  Building2,
-  CreditCard,
-  FileText,
-  LayoutDashboard,
-  Users,
-} from "lucide-react";
+import { Building2, FileText, LayoutDashboard, Users } from "lucide-react";
 import type { INavItem } from "@/types/navigation";
 
 export const navItems: readonly INavItem[] = [
@@ -33,18 +26,6 @@ export const navItems: readonly INavItem[] = [
     href: "/leases",
     labelKey: "leases",
     icon: FileText,
-    roles: ["client_admin"],
-  },
-  {
-    href: "/payments",
-    labelKey: "payments",
-    icon: CreditCard,
-    roles: ["client_admin"],
-  },
-  {
-    href: "/ledger",
-    labelKey: "ledger",
-    icon: BookText,
     roles: ["client_admin"],
   },
 ];
