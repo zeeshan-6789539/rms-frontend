@@ -10,7 +10,7 @@ import type {
 export const Table = ({ children, className }: ITableProps) => (
   <div
     className={cn(
-      "w-full overflow-x-auto rounded-card border border-border bg-card shadow-md",
+      "w-full max-h-[80vh] overflow-auto rounded-card border border-border bg-card shadow-md",
       className,
     )}
   >
@@ -19,7 +19,7 @@ export const Table = ({ children, className }: ITableProps) => (
 );
 
 export const TableHead = ({ children, className, ...props }: ITableSectionProps) => (
-  <thead className={cn("bg-card-muted", className)} {...props}>
+  <thead className={cn("sticky top-0 z-10 bg-card-muted", className)} {...props}>
     {children}
   </thead>
 );

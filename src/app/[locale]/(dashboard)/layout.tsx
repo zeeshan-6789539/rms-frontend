@@ -12,7 +12,7 @@ const DashboardLayout = async ({
     <div className="flex min-h-dvh">
       <AppSidebar />
       <div className="flex min-w-0 flex-1 flex-col">
-        <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-10 pt-20 sm:px-6 md:pt-10">
+        <main className="w-full flex-1 pt-2 px-2 pb-4 sm:px-3">
           {children}
         </main>
       </div>
