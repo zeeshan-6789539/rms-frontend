@@ -141,6 +141,8 @@
       "status": "حیثیت",
       "contact": "رابطہ",
       "location": "مقام",
+      "propertyCount": "پراپرٹیز",
+      "tenantCount": "ٹیننٹس",
       "createdAt": "تاریخ اندراج"
     },
     "errors": {

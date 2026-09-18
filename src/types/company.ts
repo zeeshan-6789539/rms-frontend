@@ -8,6 +8,8 @@ export interface ICompany {
   status: boolean;
   createdAt: string;
   updatedAt: string;
+  propertyCount: number;
+  tenantCount: number;
 }
 
 export interface ICompanyFilters {

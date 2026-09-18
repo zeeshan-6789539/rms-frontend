@@ -141,6 +141,8 @@
       "status": "Status",
       "contact": "Contact",
       "location": "Location",
+      "propertyCount": "Properties",
+      "tenantCount": "Tenants",
       "createdAt": "Created"
     },
     "errors": {

@@ -31,6 +31,8 @@ export const CompaniesTable = ({
           <TableHeaderCell>{t("fields.name")}</TableHeaderCell>
           <TableHeaderCell>{t("fields.contact")}</TableHeaderCell>
           <TableHeaderCell>{t("fields.location")}</TableHeaderCell>
+          <TableHeaderCell>{t("fields.propertyCount")}</TableHeaderCell>
+          <TableHeaderCell>{t("fields.tenantCount")}</TableHeaderCell>
           <TableHeaderCell>{t("fields.status")}</TableHeaderCell>
           <TableHeaderCell>{t("fields.createdAt")}</TableHeaderCell>
           <TableHeaderCell className="text-end">{tCommon("actions")}</TableHeaderCell>
@@ -53,6 +55,14 @@ export const CompaniesTable = ({
 
             <TableCell className="text-muted-foreground">
               <p>{company.city ?? "—"}</p>
+            </TableCell>
+
+            <TableCell className="text-muted-foreground">
+              <p>{company.propertyCount}</p>
+            </TableCell>
+
+            <TableCell className="text-muted-foreground">
+              <p>{company.tenantCount}</p>
             </TableCell>
 
             <TableCell>
