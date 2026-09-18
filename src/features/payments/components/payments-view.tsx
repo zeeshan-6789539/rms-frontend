@@ -48,21 +48,23 @@ export const PaymentsView = () => {
   const { data, isPending, isError, error, refetch } = usePayments(params);
 
   return (
-    <div className="space-y-6">
-      <PageHeading title={t("title")} description={t("subtitle")}>
-        <Button onClick={() => setIsFormOpen(true)}>
-          <Plus className="h-4 w-4" aria-hidden />
-          {t("create")}
-        </Button>
-      </PageHeading>
+    <div className="space-y-4">
+      <PageHeading title={t("title")}>
+        <div className="flex flex-wrap sm:flex-nowrap items-center gap-2">
+          <SearchInput
+            value={searchTerm}
+            onChange={handleSearchChange}
+            label={tFilters("searchLabel")}
+            placeholder={t("searchPlaceholder")}
+            className="w-full shrink-0 sm:w-56"
+          />
 
-      <SearchInput
-        value={searchTerm}
-        onChange={handleSearchChange}
-        label={tFilters("searchLabel")}
-        placeholder={t("searchPlaceholder")}
-        className="w-full sm:max-w-xs"
-      />
+          <Button className="shrink-0" onClick={() => setIsFormOpen(true)}>
+            <Plus className="h-4 w-4" aria-hidden />
+            {t("create")}
+          </Button>
+        </div>
+      </PageHeading>
 
       {isPending ? <Skeleton className="h-72" /> : null}
 

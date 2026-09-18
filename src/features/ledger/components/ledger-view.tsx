@@ -59,34 +59,34 @@ export const LedgerView = () => {
   const { data, isPending, isError, error, refetch } = useLedgerEntries(params);
 
   return (
-    <div className="space-y-6">
-      <PageHeading title={t("title")} description={t("subtitle")}>
-        <div className="flex flex-wrap gap-2">
-          <GenerateMonthlyRentButton />
-          <Button onClick={() => setIsFormOpen(true)}>
-            <Plus className="h-4 w-4" aria-hidden />
-            {t("create")}
-          </Button>
+    <div className="space-y-4">
+      <PageHeading title={t("title")}>
+        <div className="flex flex-wrap sm:flex-nowrap items-center gap-2">
+          <SearchInput
+            value={searchTerm}
+            onChange={handleSearchChange}
+            label={tFilters("searchLabel")}
+            placeholder={t("searchPlaceholder")}
+            className="w-full shrink-0 sm:w-56"
+          />
+
+          <Select
+            value={leaseFilter}
+            onChange={(event) => handleLeaseChange(event.target.value)}
+            options={[{ value: "", label: t("allLeases") }, ...leaseOptions]}
+            aria-label={t("fields.lease")}
+            className="w-full shrink-0 sm:w-44"
+          />
+
+          <div className="flex shrink-0 gap-2">
+            <GenerateMonthlyRentButton />
+            <Button onClick={() => setIsFormOpen(true)}>
+              <Plus className="h-4 w-4" aria-hidden />
+              {t("create")}
+            </Button>
+          </div>
         </div>
       </PageHeading>
-
-      <div className="flex flex-wrap items-center gap-3">
-        <SearchInput
-          value={searchTerm}
-          onChange={handleSearchChange}
-          label={tFilters("searchLabel")}
-          placeholder={t("searchPlaceholder")}
-          className="w-full sm:max-w-xs"
-        />
-
-        <Select
-          value={leaseFilter}
-          onChange={(event) => handleLeaseChange(event.target.value)}
-          options={[{ value: "", label: t("allLeases") }, ...leaseOptions]}
-          aria-label={t("fields.lease")}
-          className="w-full sm:w-56"
-        />
-      </div>
 
       {isPending ? <Skeleton className="h-72" /> : null}
 

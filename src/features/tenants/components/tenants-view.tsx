@@ -101,31 +101,31 @@ export const TenantsView = () => {
   };
 
   return (
-    <div className="space-y-6">
-      <PageHeading title={t("title")} description={t("subtitle")}>
-        <Button onClick={openCreateDialog}>
-          <Plus className="h-4 w-4" aria-hidden />
-          {t("create")}
-        </Button>
+    <div className="space-y-4">
+      <PageHeading title={t("title")}>
+        <div className="flex flex-wrap sm:flex-nowrap items-center gap-2">
+          <SearchInput
+            value={searchTerm}
+            onChange={handleSearchChange}
+            label={tFilters("searchLabel")}
+            placeholder={t("searchPlaceholder")}
+            className="w-full shrink-0 sm:w-56"
+          />
+
+          <Select
+            value={statusFilter}
+            onChange={(event) => handleStatusChange(event.target.value as TStatusFilter)}
+            options={statusOptions}
+            aria-label={tFilters("statusLabel")}
+            className="w-full shrink-0 sm:w-36"
+          />
+
+          <Button className="shrink-0" onClick={openCreateDialog}>
+            <Plus className="h-4 w-4" aria-hidden />
+            {t("create")}
+          </Button>
+        </div>
       </PageHeading>
-
-      <div className="flex flex-wrap items-center gap-3">
-        <SearchInput
-          value={searchTerm}
-          onChange={handleSearchChange}
-          label={tFilters("searchLabel")}
-          placeholder={t("searchPlaceholder")}
-          className="w-full sm:max-w-xs"
-        />
-
-        <Select
-          value={statusFilter}
-          onChange={(event) => handleStatusChange(event.target.value as TStatusFilter)}
-          options={statusOptions}
-          aria-label={tFilters("statusLabel")}
-          className="w-full sm:w-44"
-        />
-      </div>
 
       {isPending ? <Skeleton className="h-72" /> : null}
 
