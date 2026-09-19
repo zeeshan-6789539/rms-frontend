@@ -16,7 +16,11 @@
   "nav": {
     "dashboard": "Dashboard",
     "companies": "Companies",
-    "users": "Users"
+    "users": "Users",
+    "categories": "Categories",
+    "products": "Products",
+    "orders": "Orders",
+    "cart": "Cart"
   },
   "sidebar": {
     "open": "Open menu",
@@ -40,7 +44,8 @@
     "companyLabel": "Filter by company",
     "allStatuses": "All statuses",
     "allRoles": "All roles",
-    "allCompanies": "All companies"
+    "allCompanies": "All companies",
+    "allCategories": "All categories"
   },
   "pagination": {
     "summary": "Showing {from}–{to} of {total}",
@@ -79,7 +84,7 @@
   },
   "dashboard": {
     "title": "Dashboard",
-    "subtitle": "Platform overview for super admins.",
+    "subtitle": "An overview tailored to your role.",
     "stats": {
       "companies": "Companies",
       "activeCompanies": "Active companies",
@@ -89,7 +94,15 @@
     "recentCompanies": "Newest companies",
     "recentUsers": "Newest users",
     "noCompanies": "No companies yet.",
-    "noUsers": "No users yet."
+    "noUsers": "No users yet.",
+    "shop": {
+      "todayRevenue": "Today's revenue",
+      "monthRevenue": "This month's revenue",
+      "stockValue": "Stock value",
+      "stockValueHint": "Sell price × remaining stock",
+      "revenueTrend": "Revenue this month",
+      "revenueTrendTooltip": "Day {day}: {amount}"
+    }
   },
   "companies": {
     "title": "Companies",
@@ -191,6 +204,138 @@
       "phoneInvalid": "Enter a valid Pakistani number, e.g. 03296789539.",
       "companyInvalid": "Choose a valid company.",
       "superAdminNoCompany": "A super admin cannot belong to a company — clear the company, or pick another role."
+    }
+  },
+  "categories": {
+    "title": "Categories",
+    "subtitle": "Organize your products into categories and subcategories.",
+    "newCategoryPlaceholder": "New category name",
+    "addCategory": "Add category",
+    "newSubcategoryPlaceholder": "New subcategory name",
+    "addSubcategory": "Add",
+    "noSubcategories": "No subcategories yet.",
+    "productCount": "{count} products",
+    "rename": "Rename",
+    "save": "Save",
+    "cancelEdit": "Cancel",
+    "created": "Category \"{name}\" created.",
+    "updated": "Category \"{name}\" updated.",
+    "subcategoryCreated": "Subcategory \"{name}\" created.",
+    "subcategoryUpdated": "Subcategory \"{name}\" updated.",
+    "emptyTitle": "No categories yet",
+    "emptySubtitle": "Add your first category to start organizing products."
+  },
+  "products": {
+    "title": "Products",
+    "subtitle": "Manage your product catalog, pricing and stock.",
+    "create": "New product",
+    "createTitle": "New product",
+    "createSubtitle": "Add a product under a category and subcategory.",
+    "editTitle": "Edit product",
+    "editSubtitle": "Update this product's details.",
+    "edit": "Edit product",
+    "view": "View product",
+    "deactivate": "Deactivate",
+    "restore": "Reactivate",
+    "deactivateTitle": "Deactivate product",
+    "restoreTitle": "Reactivate product",
+    "deactivateConfirm": "\"{name}\" will be hidden from checkout. It can be reactivated at any time.",
+    "restoreConfirm": "\"{name}\" will be available again.",
+    "created": "Product \"{name}\" created.",
+    "updated": "Product \"{name}\" updated.",
+    "deactivated": "Product \"{name}\" deactivated.",
+    "restored": "Product \"{name}\" reactivated.",
+    "emptyTitle": "No products found",
+    "emptySubtitle": "Adjust your filters, or add the first product.",
+    "searchPlaceholder": "Search products…",
+    "selectCategory": "Select a category",
+    "selectSubcategory": "Select a subcategory",
+    "outOfStock": "Out of stock",
+    "lowStock": "Low stock",
+    "backToList": "Back to products",
+    "priceHistory": "Price history",
+    "current": "Current",
+    "fields": {
+      "product": "Product",
+      "name": "Name",
+      "sku": "SKU",
+      "category": "Category",
+      "subcategory": "Subcategory",
+      "price": "Price",
+      "sellPrice": "Sell price",
+      "purchasePrice": "Purchase price",
+      "quantity": "Quantity",
+      "stock": "Stock",
+      "remainingStock": "Remaining stock",
+      "status": "Status",
+      "createdAt": "Created",
+      "updatedAt": "Last updated",
+      "effectiveFrom": "Effective from",
+      "effectiveTo": "Effective to"
+    },
+    "errors": {
+      "required": "This field is required.",
+      "nameLength": "Must be at most 255 characters.",
+      "priceInvalid": "Enter a valid, non-negative price.",
+      "quantityInvalid": "Enter a valid, non-negative whole number.",
+      "subcategoryInvalid": "Choose a subcategory."
+    }
+  },
+  "orders": {
+    "title": "Orders",
+    "subtitle": "Track orders placed by your team.",
+    "view": "View order",
+    "orderRef": "Order #{ref}",
+    "searchPlaceholder": "Search by order id…",
+    "clearFilters": "Clear filters",
+    "emptyTitle": "No orders found",
+    "emptySubtitle": "Adjust your filters, or check out a cart to create the first order.",
+    "statusUpdated": "Order status updated.",
+    "removedProduct": "Removed product",
+    "fields": {
+      "order": "Order",
+      "placedAt": "Placed at",
+      "items": "Items",
+      "total": "Total",
+      "status": "Status",
+      "from": "From",
+      "to": "To",
+      "product": "Product",
+      "quantity": "Quantity",
+      "unitPrice": "Unit price",
+      "lineTotal": "Line total"
+    },
+    "statuses": {
+      "pending": "Pending",
+      "processing": "Processing",
+      "paid": "Paid",
+      "shipped": "Shipped",
+      "delivered": "Delivered",
+      "cancelled": "Cancelled",
+      "refunded": "Refunded",
+      "failed": "Failed"
+    }
+  },
+  "cart": {
+    "title": "Cart",
+    "subtitle": "Add products and check out an order.",
+    "searchPlaceholder": "Search products to add…",
+    "add": "Add",
+    "empty": "Your cart is empty.",
+    "cartTitle": "Cart ({count})",
+    "outOfStock": "Out of stock",
+    "checkout": "Checkout",
+    "checkoutSuccess": "Order placed successfully.",
+    "checkoutConfirmTitle": "Confirm checkout",
+    "checkoutConfirmDescription": "Place an order for {count} item(s) totalling {total}?",
+    "decreaseQuantity": "Decrease quantity",
+    "increaseQuantity": "Increase quantity",
+    "remove": "Remove from cart",
+    "fields": {
+      "product": "Product",
+      "price": "Price",
+      "stock": "Stock",
+      "total": "Total"
     }
   }
 }

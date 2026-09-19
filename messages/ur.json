@@ -16,7 +16,11 @@
   "nav": {
     "dashboard": "ڈیش بورڈ",
     "companies": "کمپنیاں",
-    "users": "صارفین"
+    "users": "صارفین",
+    "categories": "زمرہ جات",
+    "products": "مصنوعات",
+    "orders": "آرڈرز",
+    "cart": "کارٹ"
   },
   "sidebar": {
     "open": "مینو کھولیں",
@@ -40,7 +44,8 @@
     "companyLabel": "کمپنی کے مطابق چھانٹیں",
     "allStatuses": "تمام حیثیتیں",
     "allRoles": "تمام کردار",
-    "allCompanies": "تمام کمپنیاں"
+    "allCompanies": "تمام کمپنیاں",
+    "allCategories": "تمام زمرہ جات"
   },
   "pagination": {
     "summary": "{total} میں سے {from}–{to} دکھائے جا رہے ہیں",
@@ -79,7 +84,7 @@
   },
   "dashboard": {
     "title": "ڈیش بورڈ",
-    "subtitle": "سپر ایڈمن کے لیے پلیٹ فارم کا جائزہ۔",
+    "subtitle": "آپ کے کردار کے مطابق جائزہ۔",
     "stats": {
       "companies": "کمپنیاں",
       "activeCompanies": "فعال کمپنیاں",
@@ -89,7 +94,15 @@
     "recentCompanies": "نئی کمپنیاں",
     "recentUsers": "نئے صارفین",
     "noCompanies": "ابھی کوئی کمپنی نہیں۔",
-    "noUsers": "ابھی کوئی صارف نہیں۔"
+    "noUsers": "ابھی کوئی صارف نہیں۔",
+    "shop": {
+      "todayRevenue": "آج کی آمدنی",
+      "monthRevenue": "اس ماہ کی آمدنی",
+      "stockValue": "اسٹاک کی مالیت",
+      "stockValueHint": "فروخت قیمت × باقی اسٹاک",
+      "revenueTrend": "اس ماہ کی آمدنی کا رجحان",
+      "revenueTrendTooltip": "دن {day}: {amount}"
+    }
   },
   "companies": {
     "title": "کمپنیاں",
@@ -191,6 +204,138 @@
       "phoneInvalid": "درست پاکستانی نمبر درج کریں، مثلاً 03296789539۔",
       "companyInvalid": "درست کمپنی منتخب کریں۔",
       "superAdminNoCompany": "سپر ایڈمن کسی کمپنی سے منسلک نہیں ہو سکتا — کمپنی ہٹا دیں یا دوسرا کردار منتخب کریں۔"
+    }
+  },
+  "categories": {
+    "title": "زمرہ جات",
+    "subtitle": "اپنی مصنوعات کو زمروں اور ذیلی زمروں میں ترتیب دیں۔",
+    "newCategoryPlaceholder": "نئے زمرے کا نام",
+    "addCategory": "زمرہ شامل کریں",
+    "newSubcategoryPlaceholder": "نئے ذیلی زمرے کا نام",
+    "addSubcategory": "شامل کریں",
+    "noSubcategories": "ابھی کوئی ذیلی زمرہ نہیں۔",
+    "productCount": "{count} مصنوعات",
+    "rename": "نام تبدیل کریں",
+    "save": "محفوظ کریں",
+    "cancelEdit": "منسوخ کریں",
+    "created": "زمرہ \"{name}\" بنا دیا گیا۔",
+    "updated": "زمرہ \"{name}\" اپ ڈیٹ ہو گیا۔",
+    "subcategoryCreated": "ذیلی زمرہ \"{name}\" بنا دیا گیا۔",
+    "subcategoryUpdated": "ذیلی زمرہ \"{name}\" اپ ڈیٹ ہو گیا۔",
+    "emptyTitle": "ابھی کوئی زمرہ نہیں",
+    "emptySubtitle": "مصنوعات کو ترتیب دینے کے لیے پہلا زمرہ شامل کریں۔"
+  },
+  "products": {
+    "title": "مصنوعات",
+    "subtitle": "اپنی مصنوعات، قیمتوں اور اسٹاک کا انتظام کریں۔",
+    "create": "نئی مصنوعہ",
+    "createTitle": "نئی مصنوعہ",
+    "createSubtitle": "ایک زمرے اور ذیلی زمرے کے تحت مصنوعہ شامل کریں۔",
+    "editTitle": "مصنوعہ میں ترمیم",
+    "editSubtitle": "اس مصنوعہ کی تفصیلات اپ ڈیٹ کریں۔",
+    "edit": "مصنوعہ میں ترمیم کریں",
+    "view": "مصنوعہ دیکھیں",
+    "deactivate": "غیر فعال کریں",
+    "restore": "دوبارہ فعال کریں",
+    "deactivateTitle": "مصنوعہ غیر فعال کریں",
+    "restoreTitle": "مصنوعہ دوبارہ فعال کریں",
+    "deactivateConfirm": "\"{name}\" چیک آؤٹ سے چھپا دی جائے گی۔ اسے کسی بھی وقت دوبارہ فعال کیا جا سکتا ہے۔",
+    "restoreConfirm": "\"{name}\" دوبارہ دستیاب ہو جائے گی۔",
+    "created": "مصنوعہ \"{name}\" بنا دی گئی۔",
+    "updated": "مصنوعہ \"{name}\" اپ ڈیٹ ہو گئی۔",
+    "deactivated": "مصنوعہ \"{name}\" غیر فعال کر دی گئی۔",
+    "restored": "مصنوعہ \"{name}\" دوبارہ فعال کر دی گئی۔",
+    "emptyTitle": "کوئی مصنوعہ نہیں ملی",
+    "emptySubtitle": "فلٹر تبدیل کریں، یا پہلی مصنوعہ شامل کریں۔",
+    "searchPlaceholder": "مصنوعات تلاش کریں…",
+    "selectCategory": "زمرہ منتخب کریں",
+    "selectSubcategory": "ذیلی زمرہ منتخب کریں",
+    "outOfStock": "اسٹاک ختم",
+    "lowStock": "کم اسٹاک",
+    "backToList": "مصنوعات کی فہرست پر واپس جائیں",
+    "priceHistory": "قیمت کی تاریخ",
+    "current": "موجودہ",
+    "fields": {
+      "product": "مصنوعہ",
+      "name": "نام",
+      "sku": "ایس کے یو",
+      "category": "زمرہ",
+      "subcategory": "ذیلی زمرہ",
+      "price": "قیمت",
+      "sellPrice": "فروخت قیمت",
+      "purchasePrice": "خریداری قیمت",
+      "quantity": "مقدار",
+      "stock": "اسٹاک",
+      "remainingStock": "باقی اسٹاک",
+      "status": "حیثیت",
+      "createdAt": "تخلیق شدہ",
+      "updatedAt": "آخری اپ ڈیٹ",
+      "effectiveFrom": "قابل اطلاق از",
+      "effectiveTo": "قابل اطلاق تا"
+    },
+    "errors": {
+      "required": "یہ خانہ ضروری ہے۔",
+      "nameLength": "زیادہ سے زیادہ 255 حروف۔",
+      "priceInvalid": "درست، غیر منفی قیمت درج کریں۔",
+      "quantityInvalid": "درست، غیر منفی عدد درج کریں۔",
+      "subcategoryInvalid": "ذیلی زمرہ منتخب کریں۔"
+    }
+  },
+  "orders": {
+    "title": "آرڈرز",
+    "subtitle": "اپنی ٹیم کے بنائے گئے آرڈرز کو ٹریک کریں۔",
+    "view": "آرڈر دیکھیں",
+    "orderRef": "آرڈر #{ref}",
+    "searchPlaceholder": "آرڈر آئی ڈی سے تلاش کریں…",
+    "clearFilters": "فلٹرز ہٹائیں",
+    "emptyTitle": "کوئی آرڈر نہیں ملا",
+    "emptySubtitle": "فلٹر تبدیل کریں، یا پہلا آرڈر بنانے کے لیے کارٹ چیک آؤٹ کریں۔",
+    "statusUpdated": "آرڈر کی حیثیت اپ ڈیٹ ہو گئی۔",
+    "removedProduct": "ہٹائی گئی مصنوعہ",
+    "fields": {
+      "order": "آرڈر",
+      "placedAt": "آرڈر کا وقت",
+      "items": "اشیاء",
+      "total": "کل",
+      "status": "حیثیت",
+      "from": "از",
+      "to": "تا",
+      "product": "مصنوعہ",
+      "quantity": "مقدار",
+      "unitPrice": "فی یونٹ قیمت",
+      "lineTotal": "لائن ٹوٹل"
+    },
+    "statuses": {
+      "pending": "زیر التواء",
+      "processing": "زیر عمل",
+      "paid": "ادا شدہ",
+      "shipped": "بھیج دیا گیا",
+      "delivered": "پہنچا دیا گیا",
+      "cancelled": "منسوخ شدہ",
+      "refunded": "رقم واپس",
+      "failed": "ناکام"
+    }
+  },
+  "cart": {
+    "title": "کارٹ",
+    "subtitle": "مصنوعات شامل کریں اور آرڈر چیک آؤٹ کریں۔",
+    "searchPlaceholder": "شامل کرنے کے لیے مصنوعات تلاش کریں…",
+    "add": "شامل کریں",
+    "empty": "آپ کا کارٹ خالی ہے۔",
+    "cartTitle": "کارٹ ({count})",
+    "outOfStock": "اسٹاک ختم",
+    "checkout": "چیک آؤٹ",
+    "checkoutSuccess": "آرڈر کامیابی سے دیا گیا۔",
+    "checkoutConfirmTitle": "چیک آؤٹ کی تصدیق کریں",
+    "checkoutConfirmDescription": "{count} اشیاء کے لیے آرڈر دیں جس کی کل مالیت {total} ہے؟",
+    "decreaseQuantity": "مقدار کم کریں",
+    "increaseQuantity": "مقدار بڑھائیں",
+    "remove": "کارٹ سے ہٹائیں",
+    "fields": {
+      "product": "مصنوعہ",
+      "price": "قیمت",
+      "stock": "اسٹاک",
+      "total": "کل"
     }
   }
 }
