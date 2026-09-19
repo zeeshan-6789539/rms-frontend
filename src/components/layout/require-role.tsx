@@ -9,7 +9,6 @@ import type { IRequireRoleProps } from "@/types/layout";
 
 // The backend enforces the real rule — this keeps the UI honest about it
 export const RequireRole = ({ roles, children, fallback }: IRequireRoleProps) => {
-  const t = useTranslations("account");
   const tCommon = useTranslations("common");
   const { data: user, isPending, isError, error } = useCurrentUser();
 
@@ -18,7 +17,7 @@ export const RequireRole = ({ roles, children, fallback }: IRequireRoleProps) =>
   if (isError) return <Alert>{getApiErrorMessage(error, tCommon("error"))}</Alert>;
 
   if (!user || !roles.includes(user.role)) {
-    return fallback ?? <Alert variant="info">{t("noAccess")}</Alert>;
+    return fallback === undefined ? <Alert variant="info">{tCommon("error")}</Alert> : fallback;
   }
 
   return children;

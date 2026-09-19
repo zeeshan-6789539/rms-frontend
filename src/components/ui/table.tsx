@@ -7,14 +7,16 @@ import type {
   ITableSectionProps,
 } from "@/types/table";
 
-export const Table = ({ children, className }: ITableProps) => (
+export const Table = ({ children, className, tableClassName }: ITableProps) => (
   <div
     className={cn(
       "w-full max-h-[80vh] overflow-auto rounded-card border border-border bg-card shadow-md",
       className,
     )}
   >
-    <table className="w-full min-w-3xl border-collapse text-sm">{children}</table>
+    <table className={cn("w-full min-w-3xl border-collapse text-sm", tableClassName)}>
+      {children}
+    </table>
   </div>
 );
 

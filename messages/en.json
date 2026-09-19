@@ -73,7 +73,6 @@
   "account": {
     "signedInAs": "Signed in as",
     "signOut": "Sign out",
-    "noAccess": "This area is limited to super admins. Sign in with a super admin account to manage companies and users.",
     "roles": {
       "super_admin": "Super admin",
       "client_admin": "Client admin",
@@ -292,6 +291,13 @@
     "emptySubtitle": "Adjust your filters, or check out a cart to create the first order.",
     "statusUpdated": "Order status updated.",
     "removedProduct": "Removed product",
+    "sendBill": "Send bill",
+    "whatsappNumber": "WhatsApp number",
+    "whatsappNumberHint": "Pakistani number, e.g. 03296789539.",
+    "send": "Send",
+    "billErrors": {
+      "phoneInvalid": "Enter a valid Pakistani number, e.g. 03296789539."
+    },
     "fields": {
       "order": "Order",
       "placedAt": "Placed at",

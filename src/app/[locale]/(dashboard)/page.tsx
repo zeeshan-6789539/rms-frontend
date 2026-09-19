@@ -14,7 +14,7 @@ const DashboardPage = async ({ params }: PageProps<"/[locale]">) => {
     <div className="space-y-6">
       <PageHeading title={t("title")} description={t("subtitle")} />
 
-      <RequireRole roles={["super_admin"]}>
+      <RequireRole roles={["super_admin"]} fallback={null}>
         <DashboardOverview />
       </RequireRole>
 

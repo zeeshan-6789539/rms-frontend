@@ -5,8 +5,12 @@ export interface IOrdersTableProps {
   onView: (order: IOrder) => void;
 }
 
-export interface IOrderDetailModalProps {
+export interface IOrderDetailDrawerProps {
   order: IOrder | null;
   canUpdateStatus: boolean;
   onClose: () => void;
+}
+
+export interface ISendBillFormProps {
+  order: IOrder;
 }

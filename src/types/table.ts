@@ -8,6 +8,7 @@ import type {
 export interface ITableProps {
   children: ReactNode;
   className?: string;
+  tableClassName?: string;
 }
 
 export interface ITableSectionProps extends HTMLAttributes<HTMLTableSectionElement> {

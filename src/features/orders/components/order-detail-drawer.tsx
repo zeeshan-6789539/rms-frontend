@@ -2,7 +2,7 @@
 
 import { useLocale, useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
-import { Modal } from "@/components/ui/modal";
+import { Drawer } from "@/components/ui/drawer";
 import { Select } from "@/components/ui/select";
 import {
   Table,
@@ -13,18 +13,19 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { ORDER_STATUS_BADGE_VARIANT, ORDER_STATUS_TRANSITIONS } from "@/config/order-status";
+import { SendBillForm } from "@/features/orders/components/send-bill-form";
 import { useUpdateOrderStatus } from "@/features/orders/hooks/use-update-order-status";
-import type { IOrderDetailModalProps } from "@/features/orders/types/order-components";
+import type { IOrderDetailDrawerProps } from "@/features/orders/types/order-components";
 import { useToast } from "@/hooks/use-toast";
 import { getApiErrorMessage } from "@/utils/api";
 import { formatCurrency, formatDateTime } from "@/utils/format";
 import type { TOrderStatus } from "@/config/order-status";
 
-export const OrderDetailModal = ({
+export const OrderDetailDrawer = ({
   order,
   canUpdateStatus,
   onClose,
-}: IOrderDetailModalProps) => {
+}: IOrderDetailDrawerProps) => {
   const t = useTranslations("orders");
   const tStatus = useTranslations("orders.statuses");
   const tCommon = useTranslations("common");
@@ -54,7 +55,7 @@ export const OrderDetailModal = ({
   };
 
   return (
-    <Modal
+    <Drawer
       isOpen={order !== null}
       title={order ? t("orderRef", { ref: order.id.slice(-8).toUpperCase() }) : ""}
       description={order ? formatDateTime(order.createdAt, locale) : undefined}
@@ -80,7 +81,9 @@ export const OrderDetailModal = ({
             ) : null}
           </div>
 
-          <Table className="border-0 shadow-none">
+          <SendBillForm key={order.id} order={order} />
+
+          <Table className="border-0 shadow-none" tableClassName="min-w-0">
             <TableHead>
               <TableRow className="hover:bg-transparent">
                 <TableHeaderCell>{t("fields.product")}</TableHeaderCell>
@@ -113,6 +116,6 @@ export const OrderDetailModal = ({
           </div>
         </div>
       ) : null}
-    </Modal>
+    </Drawer>
   );
 };

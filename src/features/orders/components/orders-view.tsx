@@ -14,7 +14,7 @@ import { Select } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PageHeading } from "@/components/layout/page-heading";
 import { useCurrentUser } from "@/features/auth/hooks/use-current-user";
-import { OrderDetailModal } from "@/features/orders/components/order-detail-modal";
+import { OrderDetailDrawer } from "@/features/orders/components/order-detail-drawer";
 import { OrdersTable } from "@/features/orders/components/orders-table";
 import { useOrders } from "@/features/orders/hooks/use-orders";
 import { useDebouncedValue } from "@/hooks/use-debounced-value";
@@ -180,7 +180,7 @@ export const OrdersView = () => {
         </div>
       ) : null}
 
-      <OrderDetailModal
+      <OrderDetailDrawer
         order={viewOrder}
         canUpdateStatus={canUpdateStatus}
         onClose={() => setViewTargetId(null)}
