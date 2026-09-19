@@ -3,7 +3,6 @@ import type {
   HTMLAttributes,
   InputHTMLAttributes,
   ReactNode,
-  SelectHTMLAttributes,
   TextareaHTMLAttributes,
 } from "react";
 
@@ -41,9 +40,16 @@ export interface ISelectOption {
   label: string;
 }
 
-export interface ISelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
+export interface ISelectProps {
+  id?: string;
   options: readonly ISelectOption[];
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
   hasError?: boolean;
+  disabled?: boolean;
+  className?: string;
+  "aria-label"?: string;
 }
 
 export interface IFormFieldProps {

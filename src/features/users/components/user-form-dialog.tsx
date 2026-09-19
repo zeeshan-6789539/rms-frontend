@@ -268,7 +268,7 @@ export const UserFormDialog = ({ isOpen, user, onClose }: IUserFormDialogProps) 
             <Select
               id="role"
               value={values.role}
-              onChange={(event) => handleRoleChange(event.target.value as TUserRole)}
+              onChange={(value) => handleRoleChange(value as TUserRole)}
               options={roleOptions}
               hasError={Boolean(errors.role)}
               disabled={isPending}
@@ -284,7 +284,7 @@ export const UserFormDialog = ({ isOpen, user, onClose }: IUserFormDialogProps) 
             <Select
               id="companyId"
               value={values.companyId}
-              onChange={(event) => setValue("companyId", event.target.value)}
+              onChange={(value) => setValue("companyId", value)}
               options={companySelectOptions}
               hasError={Boolean(errors.companyId)}
               disabled={isPending || isPlatformLevel}
@@ -295,7 +295,7 @@ export const UserFormDialog = ({ isOpen, user, onClose }: IUserFormDialogProps) 
             <Select
               id="status"
               value={String(values.status)}
-              onChange={(event) => setValue("status", event.target.value === "true")}
+              onChange={(value) => setValue("status", value === "true")}
               options={statusOptions}
               disabled={isPending}
             />

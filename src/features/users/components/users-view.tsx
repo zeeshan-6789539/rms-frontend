@@ -147,9 +147,7 @@ export const UsersView = () => {
 
           <Select
             value={roleFilter}
-            onChange={(event) =>
-              handleRoleChange(event.target.value as TUserRole | typeof ALL_ROLES)
-            }
+            onChange={(value) => handleRoleChange(value as TUserRole | typeof ALL_ROLES)}
             options={roleOptions}
             aria-label={tFilters("roleLabel")}
             className="w-full shrink-0 sm:w-36"
@@ -157,7 +155,7 @@ export const UsersView = () => {
 
           <Select
             value={companyFilter}
-            onChange={(event) => handleCompanyChange(event.target.value)}
+            onChange={(value) => handleCompanyChange(value)}
             options={companyFilterOptions}
             aria-label={tFilters("companyLabel")}
             className="w-full shrink-0 sm:w-44"
@@ -165,7 +163,7 @@ export const UsersView = () => {
 
           <Select
             value={statusFilter}
-            onChange={(event) => handleStatusChange(event.target.value as TStatusFilter)}
+            onChange={(value) => handleStatusChange(value as TStatusFilter)}
             options={statusOptions}
             aria-label={tFilters("statusLabel")}
             className="w-full shrink-0 sm:w-36"

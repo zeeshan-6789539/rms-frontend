@@ -163,7 +163,7 @@ export const CompanyFormDialog = ({
             <Select
               id="status"
               value={String(values.status)}
-              onChange={(event) => setValue("status", event.target.value === "true")}
+              onChange={(value) => setValue("status", value === "true")}
               options={statusOptions}
               disabled={isPending}
             />
