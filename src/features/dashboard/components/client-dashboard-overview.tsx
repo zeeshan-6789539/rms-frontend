@@ -24,7 +24,7 @@ import { StatCard } from "@/components/ui/stat-card";
 import { Link } from "@/i18n/navigation";
 import { useDashboardStats } from "@/features/dashboard/hooks/use-dashboard-stats";
 import { getApiErrorMessage } from "@/utils/api";
-import { formatCurrency, formatDate, formatNumber } from "@/utils/format";
+import { formatCompactCurrency, formatCurrency, formatDate, formatNumber } from "@/utils/format";
 import type { TBadgeVariant, ISelectOption } from "@/types/ui";
 import type { TLeaseStatus } from "@/types/lease";
 import type { TDashboardTrendRange } from "@/types/dashboard-stats";
@@ -164,8 +164,8 @@ export const ClientDashboardOverview = () => {
                   fontSize={12}
                   tickLine={false}
                   axisLine={false}
-                  width={40}
-                  tickFormatter={(value: number) => formatCurrency(value, locale)}
+                  width={64}
+                  tickFormatter={(value: number) => formatCompactCurrency(value, locale)}
                 />
                 <Tooltip
                   contentStyle={tooltipStyle}
