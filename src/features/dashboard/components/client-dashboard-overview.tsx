@@ -183,12 +183,14 @@ export const ClientDashboardOverview = () => {
           </div>
         </Card>
 
-        <Card className="space-y-4">
+        <Card className="flex flex-col space-y-4">
           <h2 className="font-semibold tracking-tight">{t("propertyAssignmentBreakdown")}</h2>
           {data.totals.properties === 0 ? (
-            <p className="text-sm text-muted-foreground">{t("noProperties")}</p>
+            <p className="flex flex-1 items-center justify-center text-sm text-muted-foreground">
+              {t("noProperties")}
+            </p>
           ) : (
-            <div className="flex flex-wrap items-center gap-6">
+            <div className="flex flex-1 flex-wrap items-center justify-center gap-6">
               <div className="relative h-48 w-48 shrink-0">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
