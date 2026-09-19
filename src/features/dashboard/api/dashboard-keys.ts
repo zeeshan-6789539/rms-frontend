@@ -1,4 +1,7 @@
+import type { TDashboardTrendRange } from "@/types/dashboard-stats";
+
 export const dashboardKeys = {
   all: ["dashboard"] as const,
-  stats: () => [...dashboardKeys.all, "stats"] as const,
+  stats: (trendRange: TDashboardTrendRange) =>
+    [...dashboardKeys.all, "stats", trendRange] as const,
 };

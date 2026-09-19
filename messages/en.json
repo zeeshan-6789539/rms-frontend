@@ -103,9 +103,21 @@
     "recentUsers": "Newest users",
     "noCompanies": "No companies yet.",
     "noUsers": "No users yet.",
-    "paymentsTrend": "Payments, last 6 months",
-    "leaseStatusBreakdown": "Leases by status",
-    "paymentMethodBreakdown": "Payments by method",
+    "paymentsTrend": "Payments trend",
+    "trendRangeLabel": "Range",
+    "trendRange": {
+      "sixMonths": "Last 6 months",
+      "oneYear": "Last 12 months",
+      "all": "All time"
+    },
+    "propertyAssignmentBreakdown": "Assigned properties",
+    "propertyAssignment": {
+      "assigned": "Assigned",
+      "vacant": "Vacant"
+    },
+    "noProperties": "No properties yet.",
+    "outstandingLeases": "Leases with a remaining balance",
+    "noOutstandingLeases": "All leases are settled.",
     "recentPayments": "Recent payments",
     "noPayments": "No payments yet."
   },

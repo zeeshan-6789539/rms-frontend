@@ -1,11 +1,14 @@
 import type { TLeaseStatus } from "@/types/lease";
 import type { TPaymentMethod } from "@/types/payment";
 
+export type TDashboardTrendRange = "6m" | "1y" | "all";
+
 export interface IDashboardTotals {
   tenants: number;
   activeTenants: number;
   properties: number;
   activeLeases: number;
+  assignedProperties: number;
   paymentsThisMonthCount: number;
   paymentsThisMonthTotal: string;
   paymentsLastMonthTotal: string;
@@ -16,20 +19,9 @@ export interface IDashboardTrendPoint {
   total: string;
 }
 
-export interface IDashboardLeaseStatusBreakdown {
-  status: TLeaseStatus;
-  count: number;
-}
-
 export interface IDashboardPropertyStatusBreakdown {
   status: boolean;
   count: number;
-}
-
-export interface IDashboardPaymentMethodBreakdown {
-  method: TPaymentMethod;
-  count: number;
-  total: string;
 }
 
 export interface IDashboardRecentPayment {
@@ -41,11 +33,18 @@ export interface IDashboardRecentPayment {
   propertyName: string;
 }
 
+export interface IDashboardOutstandingLease {
+  id: string;
+  propertyName: string;
+  tenantName: string;
+  status: TLeaseStatus;
+  outstandingBalance: string;
+}
+
 export interface IDashboardStats {
   totals: IDashboardTotals;
   paymentsTrend: IDashboardTrendPoint[];
-  leaseStatusBreakdown: IDashboardLeaseStatusBreakdown[];
   propertyStatusBreakdown: IDashboardPropertyStatusBreakdown[];
-  paymentMethodBreakdown: IDashboardPaymentMethodBreakdown[];
   recentPayments: IDashboardRecentPayment[];
+  outstandingLeases: IDashboardOutstandingLease[];
 }

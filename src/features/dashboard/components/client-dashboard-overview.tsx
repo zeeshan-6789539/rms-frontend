@@ -1,15 +1,16 @@
 "use client";
 
+import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import {
   Area,
   AreaChart,
-  Bar,
-  BarChart,
-  CartesianGrid,
   Cell,
+  Pie,
+  PieChart,
   ResponsiveContainer,
   Tooltip,
+  CartesianGrid,
   XAxis,
   YAxis,
 } from "recharts";
@@ -17,23 +18,25 @@ import { Banknote, Building2, CircleCheck, FileText, Users } from "lucide-react"
 import { Alert } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import { Select } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { StatCard } from "@/components/ui/stat-card";
+import { Link } from "@/i18n/navigation";
 import { useDashboardStats } from "@/features/dashboard/hooks/use-dashboard-stats";
 import { getApiErrorMessage } from "@/utils/api";
-import { formatCurrency, formatDate } from "@/utils/format";
+import { formatCurrency, formatDate, formatNumber } from "@/utils/format";
+import type { TBadgeVariant, ISelectOption } from "@/types/ui";
 import type { TLeaseStatus } from "@/types/lease";
-import type { TPaymentMethod } from "@/types/payment";
+import type { TDashboardTrendRange } from "@/types/dashboard-stats";
 
-const LEASE_STATUS_ORDER: TLeaseStatus[] = ["active", "terminated", "expired"];
-const LEASE_STATUS_COLORS = ["var(--chart-1)", "var(--chart-4)", "var(--chart-2)"];
-const PAYMENT_METHOD_ORDER: TPaymentMethod[] = ["cash", "bank_transfer", "cheque", "online"];
-const PAYMENT_METHOD_COLORS = [
-  "var(--chart-1)",
-  "var(--chart-2)",
-  "var(--chart-3)",
-  "var(--chart-5)",
-];
+const STATUS_VARIANT: Record<TLeaseStatus, TBadgeVariant> = {
+  active: "success",
+  terminated: "danger",
+  expired: "muted",
+};
+
+const ASSIGNED_COLOR = "var(--chart-1)";
+const VACANT_COLOR = "var(--muted-foreground)";
 
 const tooltipStyle = {
   background: "var(--card)",
@@ -49,8 +52,15 @@ export const ClientDashboardOverview = () => {
   const tLeaseStatus = useTranslations("leases.status");
   const tMethod = useTranslations("payments.methods");
   const locale = useLocale();
+  const [trendRange, setTrendRange] = useState<TDashboardTrendRange>("6m");
 
-  const { data, isPending, isError, error } = useDashboardStats();
+  const trendRangeOptions: ISelectOption[] = [
+    { value: "6m", label: t("trendRange.sixMonths") },
+    { value: "1y", label: t("trendRange.oneYear") },
+    { value: "all", label: t("trendRange.all") },
+  ];
+
+  const { data, isPending, isError, error } = useDashboardStats(trendRange);
 
   if (isPending) {
     return (
@@ -72,28 +82,21 @@ export const ClientDashboardOverview = () => {
     return <Alert>{getApiErrorMessage(error, tCommon("error"))}</Alert>;
   }
 
-  const leaseStatusData = LEASE_STATUS_ORDER.map((status) => ({
-    status,
-    label: tLeaseStatus(status),
-    count: data.leaseStatusBreakdown.find((row) => row.status === status)?.count ?? 0,
-  }));
-
-  const paymentMethodData = PAYMENT_METHOD_ORDER.map((method) => ({
-    method,
-    label: tMethod(method),
-    total: Number(
-      data.paymentMethodBreakdown.find((row) => row.method === method)?.total ?? 0,
-    ),
-  }));
-
   const trendData = data.paymentsTrend.map((point) => ({
     ...point,
     label: new Date(`${point.month}-01T00:00:00Z`).toLocaleDateString(locale, {
       month: "short",
+      year: trendRange === "all" ? "2-digit" : undefined,
       timeZone: "UTC",
     }),
     total: Number(point.total),
   }));
+
+  const vacantProperties = Math.max(data.totals.properties - data.totals.assignedProperties, 0);
+  const propertyAssignmentData = [
+    { key: "assigned", label: t("propertyAssignment.assigned"), value: data.totals.assignedProperties, color: ASSIGNED_COLOR },
+    { key: "vacant", label: t("propertyAssignment.vacant"), value: vacantProperties, color: VACANT_COLOR },
+  ];
 
   return (
     <div className="space-y-6">
@@ -129,7 +132,16 @@ export const ClientDashboardOverview = () => {
 
       <div className="grid gap-4 lg:grid-cols-2">
         <Card className="space-y-4">
-          <h2 className="font-semibold tracking-tight">{t("paymentsTrend")}</h2>
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <h2 className="font-semibold tracking-tight">{t("paymentsTrend")}</h2>
+            <Select
+              value={trendRange}
+              onChange={(event) => setTrendRange(event.target.value as TDashboardTrendRange)}
+              options={trendRangeOptions}
+              aria-label={t("trendRangeLabel")}
+              className="w-36"
+            />
+          </div>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={trendData} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
@@ -172,70 +184,88 @@ export const ClientDashboardOverview = () => {
         </Card>
 
         <Card className="space-y-4">
-          <h2 className="font-semibold tracking-tight">{t("leaseStatusBreakdown")}</h2>
-          <div className="h-64">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={leaseStatusData} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
-                <XAxis
-                  dataKey="label"
-                  stroke="var(--muted-foreground)"
-                  fontSize={12}
-                  tickLine={false}
-                  axisLine={false}
-                />
-                <YAxis
-                  stroke="var(--muted-foreground)"
-                  fontSize={12}
-                  tickLine={false}
-                  axisLine={false}
-                  width={32}
-                  allowDecimals={false}
-                />
-                <Tooltip contentStyle={tooltipStyle} />
-                <Bar dataKey="count" radius={[4, 4, 0, 0]}>
-                  {leaseStatusData.map((entry, index) => (
-                    <Cell key={entry.status} fill={LEASE_STATUS_COLORS[index]} />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
+          <h2 className="font-semibold tracking-tight">{t("propertyAssignmentBreakdown")}</h2>
+          {data.totals.properties === 0 ? (
+            <p className="text-sm text-muted-foreground">{t("noProperties")}</p>
+          ) : (
+            <div className="flex flex-wrap items-center gap-6">
+              <div className="relative h-48 w-48 shrink-0">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Tooltip
+                      contentStyle={tooltipStyle}
+                      formatter={(value, name) => [formatNumber(Number(value ?? 0), locale), String(name)]}
+                    />
+                    <Pie
+                      data={propertyAssignmentData}
+                      dataKey="value"
+                      nameKey="label"
+                      innerRadius="70%"
+                      outerRadius="100%"
+                      paddingAngle={vacantProperties > 0 ? 3 : 0}
+                      stroke="none"
+                    >
+                      {propertyAssignmentData.map((entry) => (
+                        <Cell key={entry.key} fill={entry.color} />
+                      ))}
+                    </Pie>
+                  </PieChart>
+                </ResponsiveContainer>
+                <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
+                  <span className="text-2xl font-semibold tracking-tight">
+                    {formatNumber(data.totals.properties, locale)}
+                  </span>
+                  <span className="text-xs text-muted-foreground">{t("stats.properties")}</span>
+                </div>
+              </div>
+
+              <ul className="space-y-2">
+                {propertyAssignmentData.map((entry) => (
+                  <li key={entry.key} className="flex items-center gap-2 text-sm">
+                    <span
+                      className="h-2.5 w-2.5 shrink-0 rounded-full"
+                      style={{ backgroundColor: entry.color }}
+                      aria-hidden
+                    />
+                    <span className="text-muted-foreground">{entry.label}</span>
+                    <span className="font-medium">{formatNumber(entry.value, locale)}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </Card>
 
         <Card className="space-y-4">
-          <h2 className="font-semibold tracking-tight">{t("paymentMethodBreakdown")}</h2>
-          <div className="h-64">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={paymentMethodData} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
-                <XAxis
-                  dataKey="label"
-                  stroke="var(--muted-foreground)"
-                  fontSize={12}
-                  tickLine={false}
-                  axisLine={false}
-                />
-                <YAxis
-                  stroke="var(--muted-foreground)"
-                  fontSize={12}
-                  tickLine={false}
-                  axisLine={false}
-                  width={40}
-                  tickFormatter={(value: number) => formatCurrency(value, locale)}
-                />
-                <Tooltip
-                  contentStyle={tooltipStyle}
-                  formatter={(value) => formatCurrency(Number(value), locale)}
-                />
-                <Bar dataKey="total" radius={[4, 4, 0, 0]}>
-                  {paymentMethodData.map((entry, index) => (
-                    <Cell key={entry.method} fill={PAYMENT_METHOD_COLORS[index]} />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
+          <h2 className="font-semibold tracking-tight">{t("outstandingLeases")}</h2>
+
+          {data.outstandingLeases.length === 0 ? (
+            <p className="text-sm text-muted-foreground">{t("noOutstandingLeases")}</p>
+          ) : (
+            <ul className="divide-y divide-border">
+              {data.outstandingLeases.map((lease) => (
+                <li key={lease.id}>
+                  <Link
+                    href={`/leases/${lease.id}`}
+                    className="flex items-center justify-between gap-3 py-2.5 hover:opacity-80"
+                  >
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-medium">{lease.tenantName}</p>
+                      <p className="truncate text-xs text-muted-foreground">{lease.propertyName}</p>
+                    </div>
+                    <div className="flex shrink-0 flex-col items-end gap-1">
+                      <span className="text-sm font-medium text-danger">
+                        {formatCurrency(Number(lease.outstandingBalance), locale)}
+                      </span>
+                      <Badge variant={STATUS_VARIANT[lease.status]}>
+                        {tLeaseStatus(lease.status)}
+                      </Badge>
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
         </Card>
 
         <Card className="space-y-4">

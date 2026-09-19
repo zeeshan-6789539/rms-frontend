@@ -103,9 +103,21 @@
     "recentUsers": "نئے صارفین",
     "noCompanies": "ابھی کوئی کمپنی نہیں۔",
     "noUsers": "ابھی کوئی صارف نہیں۔",
-    "paymentsTrend": "گزشتہ 6 ماہ کی ادائیگیاں",
-    "leaseStatusBreakdown": "حیثیت کے مطابق لیزیں",
-    "paymentMethodBreakdown": "طریقہ کار کے مطابق ادائیگیاں",
+    "paymentsTrend": "ادائیگیوں کا رجحان",
+    "trendRangeLabel": "مدت",
+    "trendRange": {
+      "sixMonths": "گزشتہ 6 ماہ",
+      "oneYear": "گزشتہ 12 ماہ",
+      "all": "تمام وقت"
+    },
+    "propertyAssignmentBreakdown": "تفویض شدہ پراپرٹیز",
+    "propertyAssignment": {
+      "assigned": "تفویض شدہ",
+      "vacant": "خالی"
+    },
+    "noProperties": "ابھی کوئی پراپرٹی نہیں۔",
+    "outstandingLeases": "بقایا رقم والی لیزیں",
+    "noOutstandingLeases": "تمام لیزوں کا حساب برابر ہے۔",
     "recentPayments": "حالیہ ادائیگیاں",
     "noPayments": "ابھی کوئی ادائیگی نہیں۔"
   },
