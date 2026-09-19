@@ -31,6 +31,7 @@ export const PropertiesTable = ({
           <TableHeaderCell>{t("fields.name")}</TableHeaderCell>
           <TableHeaderCell>{t("fields.address")}</TableHeaderCell>
           <TableHeaderCell>{t("fields.city")}</TableHeaderCell>
+          <TableHeaderCell>{t("fields.tenants")}</TableHeaderCell>
           <TableHeaderCell>{t("fields.status")}</TableHeaderCell>
           <TableHeaderCell>{t("fields.createdAt")}</TableHeaderCell>
           <TableHeaderCell className="text-end">{tCommon("actions")}</TableHeaderCell>
@@ -58,6 +59,18 @@ export const PropertiesTable = ({
               {property.state ? (
                 <p className="text-xs">{property.state}</p>
               ) : null}
+            </TableCell>
+
+            <TableCell className="text-muted-foreground">
+              {property.tenants.length > 0 ? (
+                <div className="space-y-0.5">
+                  {property.tenants.map((tenant) => (
+                    <p key={tenant.id}>{tenant.name}</p>
+                  ))}
+                </div>
+              ) : (
+                <p>—</p>
+              )}
             </TableCell>
 
             <TableCell>

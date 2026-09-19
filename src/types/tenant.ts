@@ -1,3 +1,5 @@
+import type { IAssignedEntity } from "@/types/assigned-entity";
+
 export interface ITenant {
   id: string;
   companyId: string;
@@ -7,6 +9,11 @@ export interface ITenant {
   status: boolean;
   createdAt: string;
   updatedAt: string;
+}
+
+// Returned by the list endpoint only — the property/properties this tenant has an active lease on
+export interface ITenantListItem extends ITenant {
+  properties: IAssignedEntity[];
 }
 
 export interface ITenantFilters {

@@ -1,7 +1,7 @@
-import type { IProperty } from "@/types/property";
+import type { IProperty, IPropertyListItem } from "@/types/property";
 
 export interface IPropertiesTableProps {
-  properties: readonly IProperty[];
+  properties: readonly IPropertyListItem[];
   onEdit: (property: IProperty) => void;
   onToggleStatus: (property: IProperty) => void;
 }

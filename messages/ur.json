@@ -243,7 +243,8 @@
       "state": "صوبہ",
       "postalCode": "پوسٹل کوڈ",
       "status": "حیثیت",
-      "createdAt": "تاریخ اندراج"
+      "createdAt": "تاریخ اندراج",
+      "tenants": "ٹیننٹ(س)"
     },
     "errors": {
       "nameLength": "نام 2 سے 255 حروف کے درمیان ہونا چاہیے۔",
@@ -283,7 +284,8 @@
       "phone": "فون",
       "status": "حیثیت",
       "contact": "رابطہ",
-      "createdAt": "تاریخ اندراج"
+      "createdAt": "تاریخ اندراج",
+      "properties": "پراپرٹیز"
     },
     "errors": {
       "nameLength": "نام 2 سے 255 حروف کے درمیان ہونا چاہیے۔",
@@ -419,7 +421,7 @@
     "allLeases": "تمام لیزیں",
     "generateMonthlyRent": "ماہانہ کرایہ تیار کریں",
     "generateMonthlyRentTitle": "اس ماہ کا کرایہ تیار کریں",
-    "generateMonthlyRentConfirm": "یہ ہر اس فعال لیز کے لیے ماہانہ کرایہ چارج درج کرے گا جس کا اس ماہ ابھی تک کوئی چارج نہیں بنا۔",
+    "generateMonthlyRentConfirm": "یہ تمام کمپنیوں کی ہر اس فعال لیز کے لیے ماہانہ کرایہ چارج درج کرے گا جس کا اس ماہ ابھی تک کوئی چارج نہیں بنا۔",
     "generateMonthlyRentResult": "{generated} چارج تیار ہوئے، {skipped} لیز نظرانداز ہوئیں۔",
     "fields": {
       "property": "پراپرٹی",

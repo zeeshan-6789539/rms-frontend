@@ -21,7 +21,6 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { SearchInput } from "@/components/ui/search-input";
 import { Select } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
-import { StatCard } from "@/components/ui/stat-card";
 import { Link } from "@/i18n/navigation";
 import { LeaseFormDialog } from "@/features/leases/components/lease-form-dialog";
 import { LeaseStatusDialog } from "@/features/leases/components/lease-status-dialog";
@@ -197,21 +196,23 @@ export const LeaseDetailView = ({ leaseId }: ILeaseDetailViewProps) => {
 
   return (
     <div className="space-y-6">
-      <Link
-        href="/leases"
-        className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
-      >
-        <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden />
-        {t("backToList")}
-      </Link>
-
       <div className="flex flex-wrap items-start justify-between gap-4">
-        <div className="space-y-1">
-          <div className="flex flex-wrap items-center gap-3">
-            <h1 className="text-2xl font-semibold tracking-tight">{lease.propertyName}</h1>
-            <Badge variant={STATUS_VARIANT[lease.status]}>{tStatus(lease.status)}</Badge>
+        <div className="flex items-start gap-3">
+          <Link
+            href="/leases"
+            aria-label={t("backToList")}
+            className="mt-1 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground"
+          >
+            <ArrowLeft className="h-5 w-5 rtl:rotate-180" aria-hidden />
+          </Link>
+
+          <div className="space-y-1">
+            <div className="flex flex-wrap items-center gap-3">
+              <h1 className="text-2xl font-semibold tracking-tight">{lease.propertyName}</h1>
+              <Badge variant={STATUS_VARIANT[lease.status]}>{tStatus(lease.status)}</Badge>
+            </div>
+            <p className="text-sm text-muted-foreground">{lease.tenantName}</p>
           </div>
-          <p className="text-sm text-muted-foreground">{lease.tenantName}</p>
         </div>
 
         <div className="flex flex-wrap gap-2">
@@ -238,24 +239,34 @@ export const LeaseDetailView = ({ leaseId }: ILeaseDetailViewProps) => {
         </div>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard
-          label={t("fields.term")}
-          value={`${formatDate(lease.startDate, locale)} – ${formatDate(lease.endDate, locale)}`}
-        />
-        <StatCard
-          label={t("fields.currentRent")}
-          value={lease.currentRent ? formatCurrency(Number(lease.currentRent), locale) : "—"}
-        />
-        <StatCard
-          label={t("fields.advanceAmount")}
-          value={formatCurrency(Number(lease.advanceAmount), locale)}
-        />
-        <StatCard
-          label={t("fields.outstandingBalance")}
-          value={formatCurrency(Number(lease.outstandingBalance), locale)}
-        />
-      </div>
+      <Card className="grid grid-cols-2 gap-4 p-4 sm:grid-cols-4 sm:gap-0 sm:divide-x sm:divide-border sm:p-0">
+        <div className="space-y-0.5 sm:px-4 sm:py-3">
+          <p className="text-xs font-medium text-muted-foreground">{t("fields.term")}</p>
+          <p className="text-sm font-semibold tracking-tight">
+            {formatDate(lease.startDate, locale)} – {formatDate(lease.endDate, locale)}
+          </p>
+        </div>
+        <div className="space-y-0.5 sm:px-4 sm:py-3">
+          <p className="text-xs font-medium text-muted-foreground">{t("fields.currentRent")}</p>
+          <p className="text-sm font-semibold tracking-tight">
+            {lease.currentRent ? formatCurrency(Number(lease.currentRent), locale) : "—"}
+          </p>
+        </div>
+        <div className="space-y-0.5 sm:px-4 sm:py-3">
+          <p className="text-xs font-medium text-muted-foreground">{t("fields.advanceAmount")}</p>
+          <p className="text-sm font-semibold tracking-tight">
+            {formatCurrency(Number(lease.advanceAmount), locale)}
+          </p>
+        </div>
+        <div className="space-y-0.5 sm:px-4 sm:py-3">
+          <p className="text-xs font-medium text-muted-foreground">
+            {t("fields.outstandingBalance")}
+          </p>
+          <p className="text-sm font-semibold tracking-tight">
+            {formatCurrency(Number(lease.outstandingBalance), locale)}
+          </p>
+        </div>
+      </Card>
 
       <div className="space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-3">

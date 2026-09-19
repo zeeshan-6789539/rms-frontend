@@ -17,7 +17,6 @@ import { LeaseStatusDialog } from "@/features/leases/components/lease-status-dia
 import { LeasesTable } from "@/features/leases/components/leases-table";
 import { UpdateLeaseRentDialog } from "@/features/leases/components/update-lease-rent-dialog";
 import { useLeases } from "@/features/leases/hooks/use-leases";
-import { GenerateMonthlyRentButton } from "@/features/ledger/components/generate-monthly-rent-button";
 import { useDebouncedValue } from "@/hooks/use-debounced-value";
 import { getApiErrorMessage } from "@/utils/api";
 import { emptyToUndefined } from "@/utils/string";
@@ -102,7 +101,6 @@ export const LeasesView = () => {
           />
 
           <div className="flex shrink-0 gap-2">
-            <GenerateMonthlyRentButton />
             <Button onClick={openCreateDialog}>
               <Plus className="h-4 w-4" aria-hidden />
               {t("create")}

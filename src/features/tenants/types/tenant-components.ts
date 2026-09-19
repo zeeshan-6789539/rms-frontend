@@ -1,7 +1,7 @@
-import type { ITenant } from "@/types/tenant";
+import type { ITenant, ITenantListItem } from "@/types/tenant";
 
 export interface ITenantsTableProps {
-  tenants: readonly ITenant[];
+  tenants: readonly ITenantListItem[];
   onEdit: (tenant: ITenant) => void;
   onToggleStatus: (tenant: ITenant) => void;
 }

@@ -3,6 +3,7 @@ import { buildQueryParams } from "@/utils/query-params";
 import type { IPaginatedResult } from "@/types/api";
 import type {
   IProperty,
+  IPropertyListItem,
   IPropertyPayload,
   IPropertyQueryParams,
 } from "@/types/property";
@@ -11,10 +12,11 @@ const PROPERTIES_PATH = "/properties";
 
 export const fetchProperties = async (
   params: IPropertyQueryParams,
-): Promise<IPaginatedResult<IProperty>> => {
-  const { data } = await apiClient.get<IPaginatedResult<IProperty>>(PROPERTIES_PATH, {
-    params: buildQueryParams({ ...params }),
-  });
+): Promise<IPaginatedResult<IPropertyListItem>> => {
+  const { data } = await apiClient.get<IPaginatedResult<IPropertyListItem>>(
+    PROPERTIES_PATH,
+    { params: buildQueryParams({ ...params }) },
+  );
 
   return data;
 };

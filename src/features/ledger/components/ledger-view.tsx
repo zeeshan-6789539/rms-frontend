@@ -13,7 +13,6 @@ import { Select } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PageHeading } from "@/components/layout/page-heading";
 import { useLeaseOptions } from "@/features/leases/hooks/use-lease-options";
-import { GenerateMonthlyRentButton } from "@/features/ledger/components/generate-monthly-rent-button";
 import { LedgerEntryFormDialog } from "@/features/ledger/components/ledger-entry-form-dialog";
 import { LedgerTable } from "@/features/ledger/components/ledger-table";
 import { useLedgerEntries } from "@/features/ledger/hooks/use-ledger-entries";
@@ -79,7 +78,6 @@ export const LedgerView = () => {
           />
 
           <div className="flex shrink-0 gap-2">
-            <GenerateMonthlyRentButton />
             <Button onClick={() => setIsFormOpen(true)}>
               <Plus className="h-4 w-4" aria-hidden />
               {t("create")}

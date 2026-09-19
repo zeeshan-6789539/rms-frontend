@@ -26,6 +26,7 @@ export const TenantsTable = ({ tenants, onEdit, onToggleStatus }: ITenantsTableP
         <TableRow className="hover:bg-transparent">
           <TableHeaderCell>{t("fields.name")}</TableHeaderCell>
           <TableHeaderCell>{t("fields.contact")}</TableHeaderCell>
+          <TableHeaderCell>{t("fields.properties")}</TableHeaderCell>
           <TableHeaderCell>{t("fields.status")}</TableHeaderCell>
           <TableHeaderCell>{t("fields.createdAt")}</TableHeaderCell>
           <TableHeaderCell className="text-end">{tCommon("actions")}</TableHeaderCell>
@@ -44,6 +45,18 @@ export const TenantsTable = ({ tenants, onEdit, onToggleStatus }: ITenantsTableP
                 <p>{tenant.email ?? "—"}</p>
                 <p className="text-xs">{tenant.phone ?? "—"}</p>
               </div>
+            </TableCell>
+
+            <TableCell className="text-muted-foreground">
+              {tenant.properties.length > 0 ? (
+                <div className="space-y-0.5">
+                  {tenant.properties.map((property) => (
+                    <p key={property.id}>{property.name}</p>
+                  ))}
+                </div>
+              ) : (
+                <p>—</p>
+              )}
             </TableCell>
 
             <TableCell>

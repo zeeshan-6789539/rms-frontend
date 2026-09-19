@@ -243,7 +243,8 @@
       "state": "State",
       "postalCode": "Postal code",
       "status": "Status",
-      "createdAt": "Created"
+      "createdAt": "Created",
+      "tenants": "Tenant(s)"
     },
     "errors": {
       "nameLength": "Name must be between 2 and 255 characters.",
@@ -283,7 +284,8 @@
       "phone": "Phone",
       "status": "Status",
       "contact": "Contact",
-      "createdAt": "Created"
+      "createdAt": "Created",
+      "properties": "Properties"
     },
     "errors": {
       "nameLength": "Name must be between 2 and 255 characters.",
@@ -419,7 +421,7 @@
     "allLeases": "All leases",
     "generateMonthlyRent": "Generate monthly rent",
     "generateMonthlyRentTitle": "Generate this month's rent",
-    "generateMonthlyRentConfirm": "This posts a monthly rent charge for every active lease that doesn't have one yet this month.",
+    "generateMonthlyRentConfirm": "This posts a monthly rent charge for every active lease across all companies that doesn't have one yet this month.",
     "generateMonthlyRentResult": "{generated} charge(s) generated, {skipped} lease(s) skipped.",
     "fields": {
       "property": "Property",

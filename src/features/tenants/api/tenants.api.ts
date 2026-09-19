@@ -1,14 +1,19 @@
 import { apiClient } from "@/lib/api-client";
 import { buildQueryParams } from "@/utils/query-params";
 import type { IPaginatedResult } from "@/types/api";
-import type { ITenant, ITenantPayload, ITenantQueryParams } from "@/types/tenant";
+import type {
+  ITenant,
+  ITenantListItem,
+  ITenantPayload,
+  ITenantQueryParams,
+} from "@/types/tenant";
 
 const TENANTS_PATH = "/tenants";
 
 export const fetchTenants = async (
   params: ITenantQueryParams,
-): Promise<IPaginatedResult<ITenant>> => {
-  const { data } = await apiClient.get<IPaginatedResult<ITenant>>(TENANTS_PATH, {
+): Promise<IPaginatedResult<ITenantListItem>> => {
+  const { data } = await apiClient.get<IPaginatedResult<ITenantListItem>>(TENANTS_PATH, {
     params: buildQueryParams({ ...params }),
   });
 
