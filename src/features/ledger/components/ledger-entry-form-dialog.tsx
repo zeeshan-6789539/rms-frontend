@@ -114,7 +114,7 @@ export const LedgerEntryFormDialog = ({
             <Select
               id="leaseId"
               value={values.leaseId}
-              onChange={(event) => setValue("leaseId", event.target.value)}
+              onChange={(value) => setValue("leaseId", value)}
               options={[{ value: "", label: t("selectLease") }, ...leaseOptions]}
               hasError={Boolean(errors.leaseId)}
               disabled={isPending || isLeasesPending}
@@ -126,9 +126,7 @@ export const LedgerEntryFormDialog = ({
           <Select
             id="entryType"
             value={values.entryType}
-            onChange={(event) =>
-              setValue("entryType", event.target.value as TPostableChargeType)
-            }
+            onChange={(value) => setValue("entryType", value as TPostableChargeType)}
             options={ENTRY_TYPES.map((value) => ({ value, label: tEntryType(value) }))}
             disabled={isPending}
           />

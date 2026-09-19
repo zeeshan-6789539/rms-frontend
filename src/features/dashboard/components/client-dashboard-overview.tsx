@@ -136,7 +136,7 @@ export const ClientDashboardOverview = () => {
             <h2 className="font-semibold tracking-tight">{t("paymentsTrend")}</h2>
             <Select
               value={trendRange}
-              onChange={(event) => setTrendRange(event.target.value as TDashboardTrendRange)}
+              onChange={(value) => setTrendRange(value as TDashboardTrendRange)}
               options={trendRangeOptions}
               aria-label={t("trendRangeLabel")}
               className="w-36"

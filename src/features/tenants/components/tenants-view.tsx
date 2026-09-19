@@ -114,7 +114,7 @@ export const TenantsView = () => {
 
           <Select
             value={statusFilter}
-            onChange={(event) => handleStatusChange(event.target.value as TStatusFilter)}
+            onChange={(value) => handleStatusChange(value as TStatusFilter)}
             options={statusOptions}
             aria-label={tFilters("statusLabel")}
             className="w-full shrink-0 sm:w-36"

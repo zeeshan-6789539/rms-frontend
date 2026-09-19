@@ -275,7 +275,7 @@ export const LeaseDetailView = ({ leaseId }: ILeaseDetailViewProps) => {
           <div className="flex flex-wrap items-center gap-2">
             <Select
               value={ledgerPeriod}
-              onChange={(event) => setLedgerPeriod(event.target.value as TPeriodFilter)}
+              onChange={(value) => setLedgerPeriod(value as TPeriodFilter)}
               options={periodOptions}
               aria-label={tFilters("periodLabel")}
               className="w-full sm:w-40"

@@ -75,7 +75,7 @@ export const LeaseStatusDialog = ({ isOpen, lease, onClose }: ILeaseStatusDialog
           <Select
             id="leaseStatus"
             value={values.status}
-            onChange={(event) => setValue("status", event.target.value as TLeaseStatus)}
+            onChange={(value) => setValue("status", value as TLeaseStatus)}
             options={STATUSES.map((value) => ({ value, label: tStatus(value) }))}
             disabled={isPending}
           />

@@ -71,7 +71,7 @@ export const LedgerView = () => {
 
           <Select
             value={leaseFilter}
-            onChange={(event) => handleLeaseChange(event.target.value)}
+            onChange={(value) => handleLeaseChange(value)}
             options={[{ value: "", label: t("allLeases") }, ...leaseOptions]}
             aria-label={t("fields.lease")}
             className="w-full shrink-0 sm:w-44"

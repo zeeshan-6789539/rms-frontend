@@ -145,7 +145,7 @@ export const LeaseFormDialog = ({ isOpen, lease, onClose }: ILeaseFormDialogProp
                 <Select
                   id="propertyId"
                   value={values.propertyId}
-                  onChange={(event) => setValue("propertyId", event.target.value)}
+                  onChange={(value) => setValue("propertyId", value)}
                   options={[{ value: "", label: t("selectProperty") }, ...propertyOptions]}
                   hasError={Boolean(errors.propertyId)}
                   disabled={isPending || isPropertiesPending}
@@ -156,7 +156,7 @@ export const LeaseFormDialog = ({ isOpen, lease, onClose }: ILeaseFormDialogProp
                 <Select
                   id="tenantId"
                   value={values.tenantId}
-                  onChange={(event) => setValue("tenantId", event.target.value)}
+                  onChange={(value) => setValue("tenantId", value)}
                   options={[{ value: "", label: t("selectTenant") }, ...tenantOptions]}
                   hasError={Boolean(errors.tenantId)}
                   disabled={isPending || isTenantsPending}
