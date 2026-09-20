@@ -24,6 +24,7 @@ import { StatCard } from "@/components/ui/stat-card";
 import { Link } from "@/i18n/navigation";
 import { useDashboardStats } from "@/features/dashboard/hooks/use-dashboard-stats";
 import { getApiErrorMessage } from "@/utils/api";
+import { cn } from "@/utils/cn";
 import { formatCompactCurrency, formatCurrency, formatDate, formatNumber } from "@/utils/format";
 import type { TBadgeVariant, ISelectOption } from "@/types/ui";
 import type { TLeaseStatus } from "@/types/lease";
@@ -282,7 +283,10 @@ export const ClientDashboardOverview = () => {
               {data.recentPayments.map((payment) => (
                 <li
                   key={payment.id}
-                  className="flex items-center justify-between gap-3 py-2.5"
+                  className={cn(
+                    "flex items-center justify-between gap-3 py-2.5",
+                    !payment.status && "line-through opacity-60",
+                  )}
                 >
                   <div className="min-w-0">
                     <p className="truncate text-sm font-medium">{payment.tenantName}</p>

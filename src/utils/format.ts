@@ -1,3 +1,5 @@
+export const getTodayIsoDate = (): string => new Date().toISOString().slice(0, 10);
+
 export const formatCurrency = (
   value: number,
   locale: string,

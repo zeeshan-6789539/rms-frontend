@@ -8,10 +8,11 @@ export const PAGE_MARGIN = 12;
 // PDFs stay English-only — jsPDF's built-in helvetica font has no Urdu glyphs
 const PDF_LOCALE = "en";
 
-export const buildPdfFileName = (tenantName: string): string => {
+export const buildPdfFileName = (title: string, tenantName: string): string => {
+  const safeTitle = title.trim().replace(/\s+/g, "_") || "document";
   const safeName = tenantName.trim().replace(/\s+/g, "_") || "document";
   const datePart = formatDate(new Date(), PDF_LOCALE);
-  return `${safeName}_${datePart}.pdf`;
+  return `${safeTitle}_${safeName}_${datePart}.pdf`;
 };
 
 export const buildDocumentNumber = (prefix: string, leaseId: string): string => {

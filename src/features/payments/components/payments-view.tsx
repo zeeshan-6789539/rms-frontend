@@ -6,6 +6,7 @@ import { CreditCard, Plus } from "lucide-react";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Pagination } from "@/components/ui/pagination";
 import { SearchInput } from "@/components/ui/search-input";
@@ -13,21 +14,25 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { PageHeading } from "@/components/layout/page-heading";
 import { PaymentFormDialog } from "@/features/payments/components/payment-form-dialog";
 import { PaymentsTable } from "@/features/payments/components/payments-table";
+import { usePaymentStatus } from "@/features/payments/hooks/use-payment-status";
 import { usePayments } from "@/features/payments/hooks/use-payments";
 import { useDebouncedValue } from "@/hooks/use-debounced-value";
+import { useToast } from "@/hooks/use-toast";
 import { getApiErrorMessage } from "@/utils/api";
 import { emptyToUndefined } from "@/utils/string";
 import { DEFAULT_PAGE_SIZE } from "@/config/pagination";
-import type { IPaymentQueryParams } from "@/types/payment";
+import type { IPayment, IPaymentQueryParams } from "@/types/payment";
 
 export const PaymentsView = () => {
   const t = useTranslations("payments");
   const tCommon = useTranslations("common");
   const tFilters = useTranslations("filters");
+  const { showToast } = useToast();
 
   const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [statusTarget, setStatusTarget] = useState<IPayment | null>(null);
 
   const debouncedSearch = useDebouncedValue(searchTerm);
 
@@ -46,6 +51,23 @@ export const PaymentsView = () => {
   );
 
   const { data, isPending, isError, error, refetch } = usePayments(params);
+  const { mutate: changeStatus, isPending: isChangingStatus } = usePaymentStatus();
+
+  const handleConfirmStatus = () => {
+    if (!statusTarget) return;
+
+    changeStatus(
+      { id: statusTarget.id, nextStatus: !statusTarget.status },
+      {
+        onSuccess: (updated) => {
+          showToast(updated.status ? t("restored") : t("deactivated"));
+          setStatusTarget(null);
+        },
+        onError: (mutationError) =>
+          showToast(getApiErrorMessage(mutationError, tCommon("error")), "danger"),
+      },
+    );
+  };
 
   return (
     <div className="space-y-4">
@@ -97,12 +119,23 @@ export const PaymentsView = () => {
 
       {data && data.items.length > 0 ? (
         <div className="space-y-4">
-          <PaymentsTable payments={data.items} />
+          <PaymentsTable payments={data.items} onToggleStatus={setStatusTarget} />
           <Pagination meta={data.meta} onPageChange={setPage} />
         </div>
       ) : null}
 
       <PaymentFormDialog isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} />
+
+      <ConfirmDialog
+        isOpen={statusTarget !== null}
+        title={statusTarget?.status ? t("deactivateTitle") : t("restoreTitle")}
+        description={statusTarget?.status ? t("deactivateConfirm") : t("restoreConfirm")}
+        confirmLabel={statusTarget?.status ? t("deactivate") : t("restore")}
+        isDestructive={statusTarget?.status ?? false}
+        isPending={isChangingStatus}
+        onConfirm={handleConfirmStatus}
+        onClose={() => setStatusTarget(null)}
+      />
     </div>
   );
 };

@@ -31,6 +31,7 @@ export interface IDashboardRecentPayment {
   paymentMethod: TPaymentMethod;
   tenantName: string;
   propertyName: string;
+  status: boolean;
 }
 
 export interface IDashboardOutstandingLease {

@@ -16,6 +16,7 @@ export interface IPayment {
   bankName: string | null;
   chequeClearanceDate: string | null;
   notes: string | null;
+  status: boolean;
   createdAt: string;
   createdBy: string | null;
 }

@@ -6,6 +6,7 @@ import { BookText, Plus } from "lucide-react";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Pagination } from "@/components/ui/pagination";
 import { SearchInput } from "@/components/ui/search-input";
@@ -15,22 +16,27 @@ import { PageHeading } from "@/components/layout/page-heading";
 import { useLeaseOptions } from "@/features/leases/hooks/use-lease-options";
 import { LedgerEntryFormDialog } from "@/features/ledger/components/ledger-entry-form-dialog";
 import { LedgerTable } from "@/features/ledger/components/ledger-table";
+import { useChargeStatus } from "@/features/ledger/hooks/use-charge-status";
 import { useLedgerEntries } from "@/features/ledger/hooks/use-ledger-entries";
+import { usePaymentStatus } from "@/features/payments/hooks/use-payment-status";
 import { useDebouncedValue } from "@/hooks/use-debounced-value";
+import { useToast } from "@/hooks/use-toast";
 import { getApiErrorMessage } from "@/utils/api";
 import { emptyToUndefined } from "@/utils/string";
 import { DEFAULT_PAGE_SIZE } from "@/config/pagination";
-import type { ILedgerQueryParams } from "@/types/ledger";
+import type { ILedgerEntry, ILedgerQueryParams } from "@/types/ledger";
 
 export const LedgerView = () => {
   const t = useTranslations("ledger");
   const tCommon = useTranslations("common");
   const tFilters = useTranslations("filters");
+  const { showToast } = useToast();
 
   const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [leaseFilter, setLeaseFilter] = useState("");
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [statusTarget, setStatusTarget] = useState<ILedgerEntry | null>(null);
 
   const debouncedSearch = useDebouncedValue(searchTerm);
   const { options: leaseOptions } = useLeaseOptions();
@@ -56,6 +62,27 @@ export const LedgerView = () => {
   );
 
   const { data, isPending, isError, error, refetch } = useLedgerEntries(params);
+  const { mutate: changeChargeStatus, isPending: isChangingChargeStatus } = useChargeStatus();
+  const { mutate: changePaymentStatus, isPending: isChangingPaymentStatus } = usePaymentStatus();
+  const isChangingStatus = isChangingChargeStatus || isChangingPaymentStatus;
+
+  const handleConfirmStatus = () => {
+    if (!statusTarget) return;
+
+    const changeStatus = statusTarget.paymentId ? changePaymentStatus : changeChargeStatus;
+
+    changeStatus(
+      { id: statusTarget.id, nextStatus: !statusTarget.status },
+      {
+        onSuccess: () => {
+          showToast(statusTarget.status ? t("deactivated") : t("restored"));
+          setStatusTarget(null);
+        },
+        onError: (mutationError) =>
+          showToast(getApiErrorMessage(mutationError, tCommon("error")), "danger"),
+      },
+    );
+  };
 
   return (
     <div className="space-y-4">
@@ -117,12 +144,23 @@ export const LedgerView = () => {
 
       {data && data.items.length > 0 ? (
         <div className="space-y-4">
-          <LedgerTable entries={data.items} />
+          <LedgerTable entries={data.items} onToggleStatus={setStatusTarget} />
           <Pagination meta={data.meta} onPageChange={setPage} />
         </div>
       ) : null}
 
       <LedgerEntryFormDialog isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} />
+
+      <ConfirmDialog
+        isOpen={statusTarget !== null}
+        title={statusTarget?.status ? t("deactivateTitle") : t("restoreTitle")}
+        description={statusTarget?.status ? t("deactivateConfirm") : t("restoreConfirm")}
+        confirmLabel={statusTarget?.status ? t("deactivate") : t("restore")}
+        isDestructive={statusTarget?.status ?? false}
+        isPending={isChangingStatus}
+        onConfirm={handleConfirmStatus}
+        onClose={() => setStatusTarget(null)}
+      />
     </div>
   );
 };

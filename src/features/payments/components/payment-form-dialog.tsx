@@ -15,6 +15,7 @@ import { useCreatePayment } from "@/features/payments/hooks/use-create-payment";
 import { useFormState } from "@/hooks/use-form-state";
 import { useToast } from "@/hooks/use-toast";
 import { getApiErrorMessage } from "@/utils/api";
+import { getTodayIsoDate } from "@/utils/format";
 import { emptyToUndefined } from "@/utils/string";
 import { toTranslatedFieldErrors } from "@/utils/zod";
 import type { IPaymentFormValues, TPaymentMethod } from "@/types/payment";
@@ -145,6 +146,7 @@ export const PaymentFormDialog = ({
               id="paymentDate"
               type="date"
               value={values.paymentDate}
+              max={getTodayIsoDate()}
               onChange={(event) => setValue("paymentDate", event.target.value)}
               hasError={Boolean(errors.paymentDate)}
               disabled={isPending}

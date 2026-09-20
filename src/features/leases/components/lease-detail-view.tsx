@@ -17,6 +17,7 @@ import { Alert } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { EmptyState } from "@/components/ui/empty-state";
 import { SearchInput } from "@/components/ui/search-input";
 import { Select } from "@/components/ui/select";
@@ -28,10 +29,13 @@ import { UpdateLeaseRentDialog } from "@/features/leases/components/update-lease
 import { useLease } from "@/features/leases/hooks/use-lease";
 import { LedgerEntryFormDialog } from "@/features/ledger/components/ledger-entry-form-dialog";
 import { LedgerTable } from "@/features/ledger/components/ledger-table";
+import { useChargeStatus } from "@/features/ledger/hooks/use-charge-status";
 import { useLedgerEntries } from "@/features/ledger/hooks/use-ledger-entries";
 import { PaymentFormDialog } from "@/features/payments/components/payment-form-dialog";
+import { usePaymentStatus } from "@/features/payments/hooks/use-payment-status";
 import { usePayments } from "@/features/payments/hooks/use-payments";
 import { useDebouncedValue } from "@/hooks/use-debounced-value";
+import { useToast } from "@/hooks/use-toast";
 import { getApiErrorMessage } from "@/utils/api";
 import { formatCurrency, formatDate } from "@/utils/format";
 import { generateInvoicePdf } from "@/utils/invoice-pdf";
@@ -43,7 +47,7 @@ import { matchesSearch } from "@/utils/string";
 import { MAX_PAGE_SIZE } from "@/config/pagination";
 import type { TBadgeVariant } from "@/types/ui";
 import type { TLeaseStatus } from "@/types/lease";
-import type { ILedgerQueryParams } from "@/types/ledger";
+import type { ILedgerEntry, ILedgerQueryParams } from "@/types/ledger";
 import type { IPaymentQueryParams } from "@/types/payment";
 import type { TPeriodFilter } from "@/types/query-params";
 import type { ILeaseDetailViewProps } from "@/features/leases/types/lease-components";
@@ -72,6 +76,7 @@ export const LeaseDetailView = ({ leaseId }: ILeaseDetailViewProps) => {
   const tCommon = useTranslations("common");
   const tFilters = useTranslations("filters");
   const locale = useLocale();
+  const { showToast } = useToast();
 
   const [ledgerSearch, setLedgerSearch] = useState("");
   const [ledgerPeriod, setLedgerPeriod] = useState<TPeriodFilter>("all");
@@ -80,6 +85,7 @@ export const LeaseDetailView = ({ leaseId }: ILeaseDetailViewProps) => {
   const [isRentOpen, setIsRentOpen] = useState(false);
   const [isChargeOpen, setIsChargeOpen] = useState(false);
   const [isPaymentOpen, setIsPaymentOpen] = useState(false);
+  const [ledgerStatusTarget, setLedgerStatusTarget] = useState<ILedgerEntry | null>(null);
 
   const debouncedLedgerSearch = useDebouncedValue(ledgerSearch).trim().toLowerCase();
 
@@ -99,6 +105,27 @@ export const LeaseDetailView = ({ leaseId }: ILeaseDetailViewProps) => {
     Boolean(lease),
   );
   const { data: paymentsData } = usePayments(paymentsParams, Boolean(lease));
+  const { mutate: changeChargeStatus, isPending: isChangingChargeStatus } = useChargeStatus();
+  const { mutate: changePaymentStatus, isPending: isChangingPaymentStatus } = usePaymentStatus();
+  const isChangingLedgerStatus = isChangingChargeStatus || isChangingPaymentStatus;
+
+  const handleConfirmLedgerStatus = () => {
+    if (!ledgerStatusTarget) return;
+
+    const changeStatus = ledgerStatusTarget.paymentId ? changePaymentStatus : changeChargeStatus;
+
+    changeStatus(
+      { id: ledgerStatusTarget.id, nextStatus: !ledgerStatusTarget.status },
+      {
+        onSuccess: () => {
+          showToast(ledgerStatusTarget.status ? tLedger("deactivated") : tLedger("restored"));
+          setLedgerStatusTarget(null);
+        },
+        onError: (mutationError) =>
+          showToast(getApiErrorMessage(mutationError, tCommon("error")), "danger"),
+      },
+    );
+  };
 
   const ledgerEntries = useMemo(() => ledgerData?.items ?? [], [ledgerData]);
   const payments = useMemo(() => paymentsData?.items ?? [], [paymentsData]);
@@ -178,7 +205,7 @@ export const LeaseDetailView = ({ leaseId }: ILeaseDetailViewProps) => {
   }
 
   const handleDownloadInvoice = () => {
-    openPdfInNewTab(generateInvoicePdf(lease, ledgerEntries), buildPdfFileName(lease.tenantName));
+    openPdfInNewTab(generateInvoicePdf(lease, ledgerEntries), buildPdfFileName("Invoice", lease.tenantName));
   };
 
   const handleDownloadLedgerPdf = () => {
@@ -190,7 +217,7 @@ export const LeaseDetailView = ({ leaseId }: ILeaseDetailViewProps) => {
         PERIOD_PDF_LABELS[ledgerPeriod],
         debouncedLedgerSearch,
       ),
-      buildPdfFileName(lease.tenantName),
+      buildPdfFileName("Ledger_statement", lease.tenantName),
     );
   };
 
@@ -307,7 +334,7 @@ export const LeaseDetailView = ({ leaseId }: ILeaseDetailViewProps) => {
         ) : null}
 
         {!isLedgerPending && filteredLedgerEntries.length > 0 ? (
-          <LedgerTable entries={filteredLedgerEntries} />
+          <LedgerTable entries={filteredLedgerEntries} onToggleStatus={setLedgerStatusTarget} />
         ) : null}
       </div>
 
@@ -337,6 +364,19 @@ export const LeaseDetailView = ({ leaseId }: ILeaseDetailViewProps) => {
         onClose={() => setIsPaymentOpen(false)}
         defaultLeaseId={lease.id}
         defaultLeaseLabel={`${lease.propertyName} – ${lease.tenantName}`}
+      />
+
+      <ConfirmDialog
+        isOpen={ledgerStatusTarget !== null}
+        title={ledgerStatusTarget?.status ? tLedger("deactivateTitle") : tLedger("restoreTitle")}
+        description={
+          ledgerStatusTarget?.status ? tLedger("deactivateConfirm") : tLedger("restoreConfirm")
+        }
+        confirmLabel={ledgerStatusTarget?.status ? tLedger("deactivate") : tLedger("restore")}
+        isDestructive={ledgerStatusTarget?.status ?? false}
+        isPending={isChangingLedgerStatus}
+        onConfirm={handleConfirmLedgerStatus}
+        onClose={() => setLedgerStatusTarget(null)}
       />
     </div>
   );

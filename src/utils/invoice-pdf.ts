@@ -20,6 +20,7 @@ const PDF_LOCALE = "en";
 export const generateInvoicePdf = (lease: ILease, entries: ILedgerEntry[]): jsPDF => {
   const periodRange = getPeriodRange("current_month");
   const entriesThisMonth = entries.filter((entry) => {
+    if (!entry.status) return false;
     if (!periodRange) return true;
     const entryDate = new Date(entry.dueDate ?? entry.createdAt);
     return entryDate >= periodRange.start && entryDate < periodRange.end;
@@ -28,6 +29,7 @@ export const generateInvoicePdf = (lease: ILease, entries: ILedgerEntry[]): jsPD
   const paymentsThisMonth = entriesThisMonth.filter((entry) => entry.entryType === "payment_received");
   const chargesTotal = chargesThisMonth.reduce((sum, entry) => sum + Number(entry.amount), 0);
   const paymentsTotal = paymentsThisMonth.reduce((sum, entry) => sum + Number(entry.amount), 0);
+  const getEntryTime = (entry: ILedgerEntry) => new Date(entry.dueDate ?? entry.createdAt).getTime();
   const totalDue = chargesTotal - paymentsTotal;
   const invoiceMonthLabel = new Date().toLocaleDateString(PDF_LOCALE, {
     month: "long",
@@ -48,7 +50,9 @@ export const generateInvoicePdf = (lease: ILease, entries: ILedgerEntry[]): jsPD
   ]);
 
   let tableBottomY = sectionBottomY;
-  const combinedEntries = [...chargesThisMonth, ...paymentsThisMonth];
+  const combinedEntries = [...chargesThisMonth, ...paymentsThisMonth].sort(
+    (a, b) => getEntryTime(a) - getEntryTime(b),
+  );
 
   autoTable(doc, {
     startY: sectionBottomY,

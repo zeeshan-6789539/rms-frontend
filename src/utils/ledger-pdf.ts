@@ -70,9 +70,22 @@ export const generateLedgerPdf = (
     alternateRowStyles: { fillColor: PDF_COLORS.rowStripe },
     columnStyles: { 3: { halign: "right" }, 4: { halign: "right" } },
     didParseCell: (data) => {
-      if (data.section === "body" && entries[data.row.index]?.entryType === "payment_received") {
+      if (data.section !== "body") return;
+      const entry = entries[data.row.index];
+      if (entry?.entryType === "payment_received") {
         data.cell.styles.fillColor = PDF_COLORS.paymentHighlight;
       }
+      if (entry?.status === false) {
+        data.cell.styles.textColor = PDF_COLORS.textMuted;
+      }
+    },
+    didDrawCell: (data) => {
+      if (data.section !== "body") return;
+      if (entries[data.row.index]?.status !== false) return;
+      const lineY = data.cell.y + data.cell.height / 2;
+      doc.setDrawColor(...PDF_COLORS.textMuted);
+      doc.setLineWidth(0.3);
+      doc.line(data.cell.x + 1, lineY, data.cell.x + data.cell.width - 1, lineY);
     },
     didDrawPage: (data) => {
       if (data.cursor) tableBottomY = data.cursor.y;

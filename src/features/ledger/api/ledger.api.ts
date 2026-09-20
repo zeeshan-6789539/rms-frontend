@@ -38,3 +38,14 @@ export const generateMonthlyRent = async (): Promise<IGenerateMonthlyRentResult>
   );
   return data;
 };
+
+// DELETE deactivates — the row is kept and stays visible in the ledger, excluded from calculations
+export const deactivateCharge = async (id: string): Promise<ILedgerEntry> => {
+  const { data } = await apiClient.delete<ILedgerEntry>(`${LEDGER_PATH}/charges/${id}`);
+  return data;
+};
+
+export const restoreCharge = async (id: string): Promise<ILedgerEntry> => {
+  const { data } = await apiClient.patch<ILedgerEntry>(`${LEDGER_PATH}/charges/${id}/restore`);
+  return data;
+};
