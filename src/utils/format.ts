@@ -36,3 +36,12 @@ export const formatDateTime = (
     hour: "2-digit",
     minute: "2-digit",
   }).format(new Date(value));
+
+/** Returns today's date as an ISO date string (YYYY-MM-DD) in local time. */
+export const getTodayIsoDate = (): string => {
+  const now = new Date();
+  const y = now.getFullYear();
+  const m = String(now.getMonth() + 1).padStart(2, "0");
+  const d = String(now.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+};

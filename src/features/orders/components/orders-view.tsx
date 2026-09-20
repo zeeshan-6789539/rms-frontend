@@ -6,8 +6,8 @@ import { ClipboardList, RefreshCw } from "lucide-react";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { DateTimePicker } from "@/components/ui/date-time-picker";
 import { EmptyState } from "@/components/ui/empty-state";
-import { Input } from "@/components/ui/input";
 import { Pagination } from "@/components/ui/pagination";
 import { SearchInput } from "@/components/ui/search-input";
 import { Select } from "@/components/ui/select";
@@ -112,19 +112,25 @@ export const OrdersView = () => {
             className="w-full shrink-0 sm:w-40"
           />
 
-          <Input
-            type="datetime-local"
+          <DateTimePicker
             value={from}
-            onChange={(event) => setFrom(event.target.value)}
+            onChange={(value) => {
+              setFrom(value);
+              setPage(1);
+            }}
             aria-label={t("fields.from")}
+            placeholder={t("fields.from")}
             className="w-full shrink-0 sm:w-48"
           />
 
-          <Input
-            type="datetime-local"
+          <DateTimePicker
             value={to}
-            onChange={(event) => setTo(event.target.value)}
+            onChange={(value) => {
+              setTo(value);
+              setPage(1);
+            }}
             aria-label={t("fields.to")}
+            placeholder={t("fields.to")}
             className="w-full shrink-0 sm:w-48"
           />
 
