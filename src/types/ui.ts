@@ -98,3 +98,31 @@ export interface IStatCardProps {
   hint?: string;
   icon?: ReactNode;
 }
+
+export interface IDatePickerProps {
+  id?: string;
+  value?: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+  min?: string;
+  max?: string;
+  hasError?: boolean;
+  disabled?: boolean;
+  className?: string;
+  locale?: string;
+  "aria-label"?: string;
+}
+
+export interface IDateTimePickerProps {
+  id?: string;
+  value?: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+  min?: string;
+  max?: string;
+  hasError?: boolean;
+  disabled?: boolean;
+  className?: string;
+  locale?: string;
+  "aria-label"?: string;
+}

@@ -4,6 +4,7 @@ import { useEffect, type FormEvent } from "react";
 import { useTranslations } from "next-intl";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
+import { DatePicker } from "@/components/ui/date-picker";
 import { FormField } from "@/components/ui/form-field";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
@@ -111,11 +112,10 @@ export const UpdateLeaseRentDialog = ({
           label={t("fields.effectiveFrom")}
           error={errors.effectiveFrom}
         >
-          <Input
+          <DatePicker
             id="effectiveFrom"
-            type="date"
             value={values.effectiveFrom}
-            onChange={(event) => setValue("effectiveFrom", event.target.value)}
+            onChange={(date) => setValue("effectiveFrom", date)}
             hasError={Boolean(errors.effectiveFrom)}
             disabled={isPending}
           />

@@ -4,6 +4,7 @@ import { useEffect, type FormEvent } from "react";
 import { useTranslations } from "next-intl";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
+import { DatePicker } from "@/components/ui/date-picker";
 import { FormField } from "@/components/ui/form-field";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
@@ -166,22 +167,21 @@ export const LeaseFormDialog = ({ isOpen, lease, onClose }: ILeaseFormDialogProp
           )}
 
           <FormField id="startDate" label={t("fields.startDate")} error={errors.startDate}>
-            <Input
+            <DatePicker
               id="startDate"
-              type="date"
               value={values.startDate}
-              onChange={(event) => setValue("startDate", event.target.value)}
+              onChange={(date) => setValue("startDate", date)}
               hasError={Boolean(errors.startDate)}
               disabled={isPending}
             />
           </FormField>
 
           <FormField id="endDate" label={t("fields.endDate")} error={errors.endDate}>
-            <Input
+            <DatePicker
               id="endDate"
-              type="date"
               value={values.endDate}
-              onChange={(event) => setValue("endDate", event.target.value)}
+              min={values.startDate || undefined}
+              onChange={(date) => setValue("endDate", date)}
               hasError={Boolean(errors.endDate)}
               disabled={isPending}
             />

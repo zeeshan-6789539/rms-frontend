@@ -13,6 +13,23 @@
     "deactivated": "Deactivated",
     "viewAll": "View all"
   },
+  "datePicker": {
+    "selectDate": "Select date",
+    "selectDateTime": "Select date & time",
+    "today": "Today",
+    "now": "Now",
+    "clear": "Clear",
+    "close": "Close",
+    "previousMonth": "Previous month",
+    "nextMonth": "Next month",
+    "time": "Time",
+    "hour": "Hour",
+    "minute": "Minute"
+  },
+  "select": {
+    "searchPlaceholder": "Search…",
+    "noResults": "No results found"
+  },
   "nav": {
     "dashboard": "Dashboard",
     "companies": "Companies",

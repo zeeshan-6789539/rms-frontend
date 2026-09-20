@@ -4,6 +4,7 @@ import { useEffect, type FormEvent } from "react";
 import { useTranslations } from "next-intl";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
+import { DatePicker } from "@/components/ui/date-picker";
 import { FormField } from "@/components/ui/form-field";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
@@ -146,11 +147,10 @@ export const LedgerEntryFormDialog = ({
           </FormField>
 
           <FormField id="dueDate" label={t("fields.dueDate")} error={errors.dueDate}>
-            <Input
+            <DatePicker
               id="dueDate"
-              type="date"
               value={values.dueDate}
-              onChange={(event) => setValue("dueDate", event.target.value)}
+              onChange={(date) => setValue("dueDate", date)}
               hasError={Boolean(errors.dueDate)}
               disabled={isPending}
             />
