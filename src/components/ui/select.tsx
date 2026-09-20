@@ -232,7 +232,7 @@ export const Select = ({
   };
 
   return (
-    <div ref={containerRef} className="relative w-full">
+    <div ref={containerRef} className="relative">
       {/* Trigger Button */}
       <button
         ref={triggerRef}
@@ -267,101 +267,101 @@ export const Select = ({
       {/* Popover rendered via Portal to document.body */}
       {isOpen && isHydrated
         ? createPortal(
-            <div
-              ref={popoverRef}
-              style={{
-                position: "fixed",
-                top: `${popoverPosition.top}px`,
-                left: `${popoverPosition.left}px`,
-                width: `${popoverPosition.width}px`,
-              }}
-              className="animate-in fade-in zoom-in-95 z-[100] rounded-lg border border-input bg-popover shadow-xl outline-none"
-            >
-              {/* Optional Search Bar for > 3 options */}
-              {showSearch ? (
-                <div className="border-b border-border p-1.5">
-                  <div className="relative flex items-center">
-                    <Search
-                      className="pointer-events-none absolute start-2.5 h-3.5 w-3.5 text-muted-foreground"
-                      aria-hidden
-                    />
-                    <input
-                      ref={searchInputRef}
-                      type="text"
-                      value={searchQuery}
-                      onChange={(e) => {
-                        setSearchQuery(e.target.value);
+          <div
+            ref={popoverRef}
+            style={{
+              position: "fixed",
+              top: `${popoverPosition.top}px`,
+              left: `${popoverPosition.left}px`,
+              width: `${popoverPosition.width}px`,
+            }}
+            className="animate-in fade-in zoom-in-95 z-[100] rounded-lg border border-input bg-popover shadow-xl outline-none"
+          >
+            {/* Optional Search Bar for > 3 options */}
+            {showSearch ? (
+              <div className="border-b border-border p-1.5">
+                <div className="relative flex items-center">
+                  <Search
+                    className="pointer-events-none absolute start-2.5 h-3.5 w-3.5 text-muted-foreground"
+                    aria-hidden
+                  />
+                  <input
+                    ref={searchInputRef}
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => {
+                      setSearchQuery(e.target.value);
+                      setActiveIndex(0);
+                    }}
+                    onKeyDown={handleSearchKeyDown}
+                    placeholder={t("searchPlaceholder")}
+                    className="h-8 w-full rounded-md border border-input bg-card ps-8 pe-7 text-xs text-foreground placeholder:text-muted-foreground outline-none transition-colors focus:border-ring focus:ring-1 focus:ring-ring/30"
+                  />
+                  {searchQuery ? (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSearchQuery("");
                         setActiveIndex(0);
+                        searchInputRef.current?.focus();
                       }}
-                      onKeyDown={handleSearchKeyDown}
-                      placeholder={t("searchPlaceholder")}
-                      className="h-8 w-full rounded-md border border-input bg-card ps-8 pe-7 text-xs text-foreground placeholder:text-muted-foreground outline-none transition-colors focus:border-ring focus:ring-1 focus:ring-ring/30"
-                    />
-                    {searchQuery ? (
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setSearchQuery("");
-                          setActiveIndex(0);
-                          searchInputRef.current?.focus();
-                        }}
-                        className="absolute end-2 flex h-4 w-4 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-foreground"
-                      >
-                        <X className="h-3 w-3" />
-                      </button>
-                    ) : null}
-                  </div>
+                      className="absolute end-2 flex h-4 w-4 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  ) : null}
                 </div>
-              ) : null}
+              </div>
+            ) : null}
 
-              {/* Options Listbox */}
-              <ul
-                ref={listRef}
-                id={listboxId}
-                role="listbox"
-                tabIndex={showSearch ? -1 : 0}
-                aria-activedescendant={
-                  filteredOptions[activeIndex]
-                    ? `${listboxId}-option-${activeIndex}`
-                    : undefined
-                }
-                onKeyDown={handleListKeyDown}
-                className="max-h-60 overflow-auto p-1 outline-none"
-              >
-                {filteredOptions.length === 0 ? (
-                  <li className="px-3 py-4 text-center text-xs text-muted-foreground">
-                    {t("noResults")}
-                  </li>
-                ) : (
-                  filteredOptions.map((option, index) => {
-                    const isSelected = option.value === value;
-                    const isActive = index === activeIndex;
-                    return (
-                      <li
-                        key={option.value}
-                        id={`${listboxId}-option-${index}`}
-                        role="option"
-                        aria-selected={isSelected}
-                        onMouseEnter={() => setActiveIndex(index)}
-                        onClick={() => commitSelection(index)}
-                        className={cn(
-                          "flex cursor-pointer items-center justify-between gap-2 rounded-md px-3 py-2 text-sm text-foreground transition-colors",
-                          isActive && "bg-accent text-accent-foreground",
-                          isSelected && "font-medium text-primary",
-                        )}
-                      >
-                        <span className="truncate">{option.label}</span>
-                        {isSelected ? (
-                          <Check className="h-4 w-4 shrink-0" aria-hidden />
-                        ) : null}
-                      </li>
-                    );
-                  })
-                )}
-              </ul>
-            </div>,
-            document.body,
-          )
+            {/* Options Listbox */}
+            <ul
+              ref={listRef}
+              id={listboxId}
+              role="listbox"
+              tabIndex={showSearch ? -1 : 0}
+              aria-activedescendant={
+                filteredOptions[activeIndex]
+                  ? `${listboxId}-option-${activeIndex}`
+                  : undefined
+              }
+              onKeyDown={handleListKeyDown}
+              className="max-h-60 overflow-auto p-1 outline-none"
+            >
+              {filteredOptions.length === 0 ? (
+                <li className="px-3 py-4 text-center text-xs text-muted-foreground">
+                  {t("noResults")}
+                </li>
+              ) : (
+                filteredOptions.map((option, index) => {
+                  const isSelected = option.value === value;
+                  const isActive = index === activeIndex;
+                  return (
+                    <li
+                      key={option.value}
+                      id={`${listboxId}-option-${index}`}
+                      role="option"
+                      aria-selected={isSelected}
+                      onMouseEnter={() => setActiveIndex(index)}
+                      onClick={() => commitSelection(index)}
+                      className={cn(
+                        "flex cursor-pointer items-center justify-between gap-2 rounded-md px-3 py-2 text-sm text-foreground transition-colors",
+                        isActive && "bg-accent text-accent-foreground",
+                        isSelected && "font-medium text-primary",
+                      )}
+                    >
+                      <span className="truncate">{option.label}</span>
+                      {isSelected ? (
+                        <Check className="h-4 w-4 shrink-0" aria-hidden />
+                      ) : null}
+                    </li>
+                  );
+                })
+              )}
+            </ul>
+          </div>,
+          document.body,
+        )
         : null}
     </div>
   );
