@@ -13,6 +13,23 @@
     "deactivated": "غیر فعال",
     "viewAll": "سب دیکھیں"
   },
+  "datePicker": {
+    "selectDate": "تاریخ منتخب کریں",
+    "selectDateTime": "تاریخ اور وقت منتخب کریں",
+    "today": "آج",
+    "now": "ابھی",
+    "clear": "صاف کریں",
+    "close": "بند کریں",
+    "previousMonth": "پچھلا مہینہ",
+    "nextMonth": "اگلا مہینہ",
+    "time": "وقت",
+    "hour": "گھنٹہ",
+    "minute": "منٹ"
+  },
+  "select": {
+    "searchPlaceholder": "تلاش کریں…",
+    "noResults": "کوئی نتائج نہیں ملے"
+  },
   "nav": {
     "dashboard": "ڈیش بورڈ",
     "companies": "کمپنیاں",
