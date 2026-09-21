@@ -4,6 +4,7 @@ import { ChefHat } from "lucide-react";
 import { LanguageSwitcher } from "@/components/layout/language-switcher";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { Card } from "@/components/ui/card";
+import { siteConfig } from "@/config/site";
 import { LoginForm } from "@/features/auth/components/login-form";
 
 export const generateMetadata = async ({
@@ -20,7 +21,6 @@ const LoginPage = async ({ params }: PageProps<"/[locale]/login">) => {
   setRequestLocale(locale);
 
   const t = await getTranslations("auth");
-  const tCommon = await getTranslations("common");
 
   return (
     <div className="flex min-h-dvh flex-col items-center justify-center gap-6 px-4 py-10">
@@ -29,7 +29,7 @@ const LoginPage = async ({ params }: PageProps<"/[locale]/login">) => {
           <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-brand-gradient text-primary-foreground shadow-brand">
             <ChefHat className="h-5 w-5" aria-hidden />
           </span>
-          {tCommon("appName")}
+          {siteConfig.name}
         </span>
 
         <span className="flex items-center gap-2">
@@ -49,7 +49,7 @@ const LoginPage = async ({ params }: PageProps<"/[locale]/login">) => {
         <LoginForm />
       </Card>
 
-      <p className="text-xs text-muted-foreground">{tCommon("appTagline")}</p>
+      <p className="text-xs text-muted-foreground">{siteConfig.description}</p>
     </div>
   );
 };

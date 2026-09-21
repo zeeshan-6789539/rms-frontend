@@ -351,7 +351,7 @@ export const DatePicker = ({
   const isTodayDisabled = (Boolean(min) && todayIso < min!) || (Boolean(max) && todayIso > max!);
 
   return (
-    <div className="relative w-full">
+    <div className="relative">
       {/* Trigger Button */}
       <button
         ref={triggerRef}

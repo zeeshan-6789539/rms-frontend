@@ -1,7 +1,5 @@
 {
   "common": {
-    "appName": "RMS",
-    "appTagline": "Restaurant Management System",
     "loading": "Loading…",
     "retry": "Retry",
     "error": "Something went wrong",

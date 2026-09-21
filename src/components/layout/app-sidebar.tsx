@@ -8,19 +8,19 @@ import { LanguageSwitcher } from "@/components/layout/language-switcher";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { UserMenu } from "@/components/layout/user-menu";
 import { Button } from "@/components/ui/button";
+import { siteConfig } from "@/config/site";
 import { useCurrentUser } from "@/features/auth/hooks/use-current-user";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/utils/cn";
 
 export const AppSidebar = () => {
-  const t = useTranslations("common");
   const tSidebar = useTranslations("sidebar");
   const [isOpen, setIsOpen] = useState(false);
   const { data: user } = useCurrentUser();
   const brandName =
     user?.role !== "super_admin" && user?.companyName
       ? user.companyName
-      : t("appName");
+      : siteConfig.name;
 
   const closeSidebar = () => setIsOpen(false);
 

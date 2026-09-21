@@ -578,7 +578,7 @@ export const DateTimePicker = ({
   };
 
   return (
-    <div className="relative w-full">
+    <div className="relative">
       {/* Trigger Button */}
       <button
         ref={triggerRef}
