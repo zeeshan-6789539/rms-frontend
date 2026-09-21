@@ -122,8 +122,8 @@ export const UsersView = () => {
         onSuccess: (updated) => {
           showToast(
             updated.status
-              ? t("restored", { name: updated.username })
-              : t("deactivated", { name: updated.username }),
+              ? t("restored", { name: updated.name })
+              : t("deactivated", { name: updated.name }),
           );
           setStatusTarget(null);
         },
@@ -229,8 +229,8 @@ export const UsersView = () => {
         title={statusTarget?.status ? t("deactivateTitle") : t("restoreTitle")}
         description={
           statusTarget?.status
-            ? t("deactivateConfirm", { name: statusTarget?.username ?? "" })
-            : t("restoreConfirm", { name: statusTarget?.username ?? "" })
+            ? t("deactivateConfirm", { name: statusTarget?.name ?? "" })
+            : t("restoreConfirm", { name: statusTarget?.name ?? "" })
         }
         confirmLabel={statusTarget?.status ? t("deactivate") : t("restore")}
         isDestructive={statusTarget?.status ?? false}

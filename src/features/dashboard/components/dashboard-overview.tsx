@@ -13,6 +13,8 @@ import { Link } from "@/i18n/navigation";
 import { RECENT_ITEMS_LIMIT } from "@/config/pagination";
 import { getApiErrorMessage } from "@/utils/api";
 import { formatDate, formatNumber } from "@/utils/format";
+import { DatePicker } from "@/components/ui/date-picker";
+import { DateTimePicker } from "@/components/ui/date-time-picker";
 
 export const DashboardOverview = () => {
   const t = useTranslations("dashboard");
@@ -146,10 +148,10 @@ export const DashboardOverview = () => {
                 >
                   <div className="min-w-0">
                     <p className="truncate text-sm font-medium">
-                      {user.firstName} {user.lastName}
+                      {user.name}
                     </p>
                     <p className="truncate text-xs text-muted-foreground">
-                      {user.username}
+                      {user.email}
                     </p>
                   </div>
                   <div className="flex shrink-0 items-center gap-2">
@@ -165,6 +167,12 @@ export const DashboardOverview = () => {
             </ul>
           )}
         </Card>
+      <DatePicker onChange={function (value: string): void {
+          throw new Error("Function not implemented.");
+        } } />
+      <DateTimePicker onChange={function (value: string): void {
+          throw new Error("Function not implemented.");
+        } }/>
       </div>
     </div>
   );
