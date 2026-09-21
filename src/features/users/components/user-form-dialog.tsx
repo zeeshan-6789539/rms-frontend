@@ -26,11 +26,9 @@ import type { IUser, IUserFormValues, TUserRole } from "@/types/user";
 import type { IUserFormDialogProps } from "@/features/users/types/user-components";
 
 const toFormValues = (user: IUser | null): IUserFormValues => ({
-  username: user?.username ?? "",
   email: user?.email ?? "",
   password: "",
-  firstName: user?.firstName ?? "",
-  lastName: user?.lastName ?? "",
+  name: user?.name ?? "",
   phone: user?.phone ?? "",
   companyId: user?.companyId ?? "",
   role: user?.role ?? "staff",
@@ -38,11 +36,9 @@ const toFormValues = (user: IUser | null): IUserFormValues => ({
 });
 
 const toPayload = (values: IUserFormValues) => ({
-  username: values.username.trim(),
   email: values.email.trim(),
   password: values.password,
-  firstName: values.firstName.trim(),
-  lastName: values.lastName.trim(),
+  name: values.name.trim(),
   phone: emptyToUndefined(values.phone),
   companyId: emptyToUndefined(values.companyId),
   role: values.role,
@@ -114,7 +110,7 @@ export const UserFormDialog = ({ isOpen, user, onClose }: IUserFormDialogProps) 
         { mode: "update", id: user.id, payload: parsed.data },
         {
           onSuccess: (saved) => {
-            showToast(t("updated", { name: saved.username }));
+            showToast(t("updated", { name: saved.name }));
             onClose();
           },
         },
@@ -134,7 +130,7 @@ export const UserFormDialog = ({ isOpen, user, onClose }: IUserFormDialogProps) 
       { mode: "create", payload: parsed.data },
       {
         onSuccess: (saved) => {
-          showToast(t("created", { name: saved.username }));
+          showToast(t("created", { name: saved.name }));
           onClose();
         },
       },
@@ -163,40 +159,14 @@ export const UserFormDialog = ({ isOpen, user, onClose }: IUserFormDialogProps) 
         {error ? <Alert>{getApiErrorMessage(error, tCommon("error"))}</Alert> : null}
 
         <div className="grid gap-4 sm:grid-cols-2">
-          <FormField id="firstName" label={t("fields.firstName")} error={errors.firstName}>
+          <FormField id="name" label={t("fields.name")} error={errors.name}>
             <Input
-              id="firstName"
-              value={values.firstName}
-              onChange={(event) => setValue("firstName", event.target.value)}
-              hasError={Boolean(errors.firstName)}
+              id="name"
+              value={values.name}
+              onChange={(event) => setValue("name", event.target.value)}
+              hasError={Boolean(errors.name)}
               disabled={isPending}
               autoFocus
-            />
-          </FormField>
-
-          <FormField id="lastName" label={t("fields.lastName")} error={errors.lastName}>
-            <Input
-              id="lastName"
-              value={values.lastName}
-              onChange={(event) => setValue("lastName", event.target.value)}
-              hasError={Boolean(errors.lastName)}
-              disabled={isPending}
-            />
-          </FormField>
-
-          <FormField
-            id="username"
-            label={t("fields.username")}
-            error={errors.username}
-            hint={t("usernameHint")}
-          >
-            <Input
-              id="username"
-              value={values.username}
-              onChange={(event) => setValue("username", event.target.value)}
-              hasError={Boolean(errors.username)}
-              disabled={isPending}
-              autoComplete="off"
             />
           </FormField>
 

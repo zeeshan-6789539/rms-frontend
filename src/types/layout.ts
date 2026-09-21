@@ -9,6 +9,7 @@ export interface IPageHeadingProps {
   title: string;
   description?: string;
   children?: ReactNode;
+  className?: string;
 }
 
 export interface IRequireRoleProps {

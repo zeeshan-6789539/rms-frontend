@@ -19,12 +19,12 @@ export const UserMenu = () => {
   return (
     <div className="flex items-center gap-3">
       <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary-soft text-xs font-semibold text-primary-soft-foreground">
-        {getInitials(user.firstName, user.lastName)}
+        {getInitials(...user.name.split(" "))}
       </span>
 
       <div className="min-w-0 flex-1">
         <p className="truncate text-sm font-medium">
-          {user.firstName} {user.lastName}
+          {user.name}
         </p>
         <p className="truncate text-xs text-muted-foreground">{tRoles(user.role)}</p>
       </div>

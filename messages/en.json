@@ -73,9 +73,9 @@
   },
   "auth": {
     "title": "Sign in",
-    "subtitle": "Use your RMS username and password to continue.",
-    "username": "Username",
-    "usernamePlaceholder": "superadmin",
+    "subtitle": "Use your RMS email and password to continue.",
+    "email": "Email",
+    "emailPlaceholder": "superadmin@rms.local",
     "password": "Password",
     "passwordPlaceholder": "••••••••",
     "showPassword": "Show password",
@@ -83,7 +83,7 @@
     "submit": "Sign in",
     "submitting": "Signing in…",
     "errors": {
-      "usernameLength": "Username must be between 3 and 50 characters.",
+      "emailInvalid": "Enter a valid email address.",
       "passwordLength": "Password must be between 8 and 128 characters.",
       "generic": "Could not sign you in. Please try again."
     }
@@ -204,21 +204,18 @@
     "restored": "User \"{name}\" reactivated.",
     "emptyTitle": "No users found",
     "emptySubtitle": "Adjust your filters, or create the first account.",
-    "searchPlaceholder": "Search username, email, name…",
+    "searchPlaceholder": "Search email, name…",
     "platformLevel": "Platform level",
     "noCompany": "No company",
     "you": "(you)",
     "cannotEditSelf": "You cannot deactivate your own account.",
-    "usernameHint": "Letters, digits, dots, dashes and underscores.",
     "passwordHint": "At least 8 characters.",
     "phoneHint": "Pakistani number, e.g. 03296789539.",
     "superAdminHint": "A super admin is platform-level and cannot belong to a company.",
     "passwordHintUpdate": "Leave blank to keep the current password.",
     "fields": {
       "user": "User",
-      "firstName": "First name",
-      "lastName": "Last name",
-      "username": "Username",
+      "name": "Name",
       "email": "Email",
       "password": "Password",
       "showPassword": "Show password",
@@ -230,13 +227,11 @@
       "lastLoginAt": "Last sign-in"
     },
     "errors": {
-      "usernameLength": "Username must be between 3 and 50 characters.",
-      "usernameFormat": "Use letters, digits, dots, dashes and underscores only.",
       "emailInvalid": "Enter a valid email address.",
       "emailLength": "Email must be at most 255 characters.",
       "passwordLength": "Password must be between 8 and 128 characters.",
       "required": "This field is required.",
-      "nameLength": "Must be at most 100 characters.",
+      "nameLength": "Must be at most 150 characters.",
       "phoneInvalid": "Enter a valid Pakistani number, e.g. 03296789539.",
       "companyInvalid": "Choose a valid company.",
       "superAdminNoCompany": "A super admin cannot belong to a company — clear the company, or pick another role."

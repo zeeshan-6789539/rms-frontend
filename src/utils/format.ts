@@ -1,5 +1,3 @@
-export const getTodayIsoDate = (): string => new Date().toISOString().slice(0, 10);
-
 export const formatCurrency = (
   value: number,
   locale: string,
@@ -39,6 +37,13 @@ export const formatDate = (value: string | number | Date, locale: string): strin
     month: "short",
     year: "numeric",
   }).format(new Date(value));
+
+export const getTodayIsoDate = (): string => {
+  const today = new Date();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+  return `${today.getFullYear()}-${month}-${day}`;
+};
 
 export const formatDateTime = (
   value: string | number | Date,
