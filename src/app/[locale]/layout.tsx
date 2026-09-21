@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { setRequestLocale } from "next-intl/server";
 import { Geist, Geist_Mono, Noto_Nastaliq_Urdu } from "next/font/google";
 import { AppProviders } from "@/components/providers/app-providers";
+import { siteConfig } from "@/config/site";
 import { routing } from "@/i18n/routing";
 import { getDirection } from "@/utils/direction";
 import "@/app/globals.css";
@@ -18,17 +19,10 @@ const notoUrdu = Noto_Nastaliq_Urdu({
 export const generateStaticParams = () =>
   routing.locales.map((locale) => ({ locale }));
 
-export const generateMetadata = async ({
-  params,
-}: LayoutProps<"/[locale]">): Promise<Metadata> => {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "common" });
-
-  return {
-    title: { default: t("appName"), template: `%s · ${t("appName")}` },
-    description: t("appTagline"),
-  };
-};
+export const generateMetadata = async (): Promise<Metadata> => ({
+  title: { default: siteConfig.name, template: `%s · ${siteConfig.name}` },
+  description: siteConfig.description,
+});
 
 const LocaleLayout = async ({ children, params }: LayoutProps<"/[locale]">) => {
   const { locale } = await params;
