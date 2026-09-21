@@ -351,7 +351,7 @@ export const DatePicker = ({
   const isTodayDisabled = (Boolean(min) && todayIso < min!) || (Boolean(max) && todayIso > max!);
 
   return (
-    <div className="relative">
+    <div className="relative w-full">
       {/* Trigger Button */}
       <button
         ref={triggerRef}
@@ -422,229 +422,229 @@ export const DatePicker = ({
       {/* Floating Popover rendered in Body Portal so it is never clipped by modal overflow */}
       {isOpen && isHydrated
         ? createPortal(
-          <div
-            ref={popoverRef}
-            role="dialog"
-            aria-modal="true"
-            style={{
-              position: "fixed",
-              top: `${popoverPosition.top}px`,
-              left: `${popoverPosition.left}px`,
-              width: `${POPOVER_WIDTH}px`,
-            }}
-            className="animate-in fade-in zoom-in-95 z-[100] rounded-xl border border-input bg-popover p-3.5 text-popover-foreground shadow-2xl outline-none backdrop-blur-sm"
-          >
-            {/* Header Navigation */}
-            <div className="flex items-center justify-between gap-1 pb-3">
-              <button
-                type="button"
-                onClick={handlePrev}
-                aria-label={t("previousMonth")}
-                className="flex h-8 w-8 items-center justify-center rounded-lg border border-transparent text-muted-foreground transition-colors hover:border-input hover:bg-card hover:text-foreground active:scale-95"
-              >
-                <ChevronLeft className="h-4 w-4" aria-hidden />
-              </button>
+            <div
+              ref={popoverRef}
+              role="dialog"
+              aria-modal="true"
+              style={{
+                position: "fixed",
+                top: `${popoverPosition.top}px`,
+                left: `${popoverPosition.left}px`,
+                width: `${POPOVER_WIDTH}px`,
+              }}
+              className="animate-in fade-in zoom-in-95 z-[100] rounded-xl border border-input bg-popover p-3.5 text-popover-foreground shadow-2xl outline-none backdrop-blur-sm"
+            >
+              {/* Header Navigation */}
+              <div className="flex items-center justify-between gap-1 pb-3">
+                <button
+                  type="button"
+                  onClick={handlePrev}
+                  aria-label={t("previousMonth")}
+                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-transparent text-muted-foreground transition-colors hover:border-input hover:bg-card hover:text-foreground active:scale-95"
+                >
+                  <ChevronLeft className="h-4 w-4" aria-hidden />
+                </button>
 
-              {/* Interactive Mode Selectors */}
-              <div className="flex items-center gap-1">
-                {viewMode === "days" && (
-                  <>
-                    <button
-                      type="button"
-                      onClick={() => setViewMode("months")}
-                      className="flex items-center gap-1 rounded-lg px-2.5 py-1 text-sm font-semibold text-foreground transition-colors hover:bg-muted active:scale-95"
-                    >
-                      <span>{monthLongNames[viewMonth]}</span>
-                      <ChevronDown className="h-3.5 w-3.5 opacity-60" aria-hidden />
-                    </button>
+                {/* Interactive Mode Selectors */}
+                <div className="flex items-center gap-1">
+                  {viewMode === "days" && (
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => setViewMode("months")}
+                        className="flex items-center gap-1 rounded-lg px-2.5 py-1 text-sm font-semibold text-foreground transition-colors hover:bg-muted active:scale-95"
+                      >
+                        <span>{monthLongNames[viewMonth]}</span>
+                        <ChevronDown className="h-3.5 w-3.5 opacity-60" aria-hidden />
+                      </button>
 
+                      <button
+                        type="button"
+                        onClick={() => setViewMode("years")}
+                        className="flex items-center gap-1 rounded-lg px-2 py-1 text-sm font-semibold text-foreground transition-colors hover:bg-muted active:scale-95"
+                      >
+                        <span>{viewYear}</span>
+                        <ChevronDown className="h-3.5 w-3.5 opacity-60" aria-hidden />
+                      </button>
+                    </>
+                  )}
+
+                  {viewMode === "months" && (
                     <button
                       type="button"
                       onClick={() => setViewMode("years")}
-                      className="flex items-center gap-1 rounded-lg px-2 py-1 text-sm font-semibold text-foreground transition-colors hover:bg-muted active:scale-95"
+                      className="flex items-center gap-1 rounded-lg px-3 py-1 text-sm font-semibold text-foreground transition-colors hover:bg-muted active:scale-95"
                     >
                       <span>{viewYear}</span>
                       <ChevronDown className="h-3.5 w-3.5 opacity-60" aria-hidden />
                     </button>
-                  </>
-                )}
+                  )}
 
-                {viewMode === "months" && (
-                  <button
-                    type="button"
-                    onClick={() => setViewMode("years")}
-                    className="flex items-center gap-1 rounded-lg px-3 py-1 text-sm font-semibold text-foreground transition-colors hover:bg-muted active:scale-95"
-                  >
-                    <span>{viewYear}</span>
-                    <ChevronDown className="h-3.5 w-3.5 opacity-60" aria-hidden />
-                  </button>
-                )}
-
-                {viewMode === "years" && (
-                  <span className="px-2 py-1 text-sm font-semibold text-foreground">
-                    {decadeStart} – {decadeStart + 11}
-                  </span>
-                )}
-              </div>
-
-              <button
-                type="button"
-                onClick={handleNext}
-                aria-label={t("nextMonth")}
-                className="flex h-8 w-8 items-center justify-center rounded-lg border border-transparent text-muted-foreground transition-colors hover:border-input hover:bg-card hover:text-foreground active:scale-95"
-              >
-                <ChevronRight className="h-4 w-4" aria-hidden />
-              </button>
-            </div>
-
-            {/* View Mode 1: Days Grid */}
-            {viewMode === "days" && (
-              <>
-                <div className="grid grid-cols-7 gap-1 text-center">
-                  {weekdayNames.map((day, idx) => (
-                    <span
-                      key={idx}
-                      className="h-7 flex items-center justify-center text-[11px] font-semibold tracking-wider text-muted-foreground uppercase"
-                    >
-                      {day}
+                  {viewMode === "years" && (
+                    <span className="px-2 py-1 text-sm font-semibold text-foreground">
+                      {decadeStart} – {decadeStart + 11}
                     </span>
-                  ))}
+                  )}
                 </div>
 
-                <div className="grid grid-cols-7 gap-1 pt-1">
-                  {calendarCells.map((cell) => {
-                    const isSelected = cell.isSelected;
-                    const isToday = cell.isToday;
-                    const isDisabled = cell.isDisabled;
+                <button
+                  type="button"
+                  onClick={handleNext}
+                  aria-label={t("nextMonth")}
+                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-transparent text-muted-foreground transition-colors hover:border-input hover:bg-card hover:text-foreground active:scale-95"
+                >
+                  <ChevronRight className="h-4 w-4" aria-hidden />
+                </button>
+              </div>
+
+              {/* View Mode 1: Days Grid */}
+              {viewMode === "days" && (
+                <>
+                  <div className="grid grid-cols-7 gap-1 text-center">
+                    {weekdayNames.map((day, idx) => (
+                      <span
+                        key={idx}
+                        className="h-7 flex items-center justify-center text-[11px] font-semibold tracking-wider text-muted-foreground uppercase"
+                      >
+                        {day}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="grid grid-cols-7 gap-1 pt-1">
+                    {calendarCells.map((cell) => {
+                      const isSelected = cell.isSelected;
+                      const isToday = cell.isToday;
+                      const isDisabled = cell.isDisabled;
+
+                      return (
+                        <button
+                          key={cell.isoDate}
+                          type="button"
+                          disabled={isDisabled}
+                          onClick={() => selectDate(cell.isoDate)}
+                          className={cn(
+                            "flex h-8 w-full sm:h-9 items-center justify-center rounded-lg text-xs sm:text-sm transition-all focus:outline-none focus:ring-2 focus:ring-ring/40",
+                            cell.isCurrentMonth
+                              ? "text-foreground font-normal"
+                              : "text-muted-foreground/40 font-normal",
+                            !isSelected && !isDisabled && "hover:bg-accent hover:text-accent-foreground",
+                            isToday && !isSelected && "border border-primary/60 font-semibold text-primary",
+                            isSelected &&
+                              "bg-primary text-primary-foreground font-semibold shadow-sm hover:bg-primary-hover",
+                            isDisabled &&
+                              "cursor-not-allowed opacity-25 hover:bg-transparent pointer-events-none",
+                          )}
+                        >
+                          {cell.day}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </>
+              )}
+
+              {/* View Mode 2: Month Grid (Zero native select, clean 4x3 pills) */}
+              {viewMode === "months" && (
+                <div className="grid grid-cols-3 gap-2 py-2">
+                  {monthShortNames.map((name, index) => {
+                    const isSelected = index === viewMonth;
+                    const isCurrent =
+                      index === new Date().getMonth() && viewYear === new Date().getFullYear();
 
                     return (
                       <button
-                        key={cell.isoDate}
+                        key={index}
                         type="button"
-                        disabled={isDisabled}
-                        onClick={() => selectDate(cell.isoDate)}
+                        onClick={() => {
+                          setViewMonth(index);
+                          setViewMode("days");
+                        }}
                         className={cn(
-                          "flex h-8 w-full sm:h-9 items-center justify-center rounded-lg text-xs sm:text-sm transition-all focus:outline-none focus:ring-2 focus:ring-ring/40",
-                          cell.isCurrentMonth
-                            ? "text-foreground font-normal"
-                            : "text-muted-foreground/40 font-normal",
-                          !isSelected && !isDisabled && "hover:bg-accent hover:text-accent-foreground",
-                          isToday && !isSelected && "border border-primary/60 font-semibold text-primary",
-                          isSelected &&
-                          "bg-primary text-primary-foreground font-semibold shadow-sm hover:bg-primary-hover",
-                          isDisabled &&
-                          "cursor-not-allowed opacity-25 hover:bg-transparent pointer-events-none",
+                          "flex h-11 items-center justify-center rounded-lg text-sm font-medium transition-all active:scale-95",
+                          isSelected
+                            ? "bg-primary text-primary-foreground font-semibold shadow-sm"
+                            : isCurrent
+                              ? "border border-primary/60 text-primary font-semibold hover:bg-accent"
+                              : "text-foreground hover:bg-accent hover:text-accent-foreground",
                         )}
                       >
-                        {cell.day}
+                        {name}
                       </button>
                     );
                   })}
                 </div>
-              </>
-            )}
+              )}
 
-            {/* View Mode 2: Month Grid (Zero native select, clean 4x3 pills) */}
-            {viewMode === "months" && (
-              <div className="grid grid-cols-3 gap-2 py-2">
-                {monthShortNames.map((name, index) => {
-                  const isSelected = index === viewMonth;
-                  const isCurrent =
-                    index === new Date().getMonth() && viewYear === new Date().getFullYear();
+              {/* View Mode 3: Year Grid (12-year block) */}
+              {viewMode === "years" && (
+                <div className="grid grid-cols-3 gap-2 py-2">
+                  {Array.from({ length: 12 }, (_, i) => decadeStart + i).map((year) => {
+                    const isSelected = year === viewYear;
+                    const isCurrent = year === new Date().getFullYear();
 
-                  return (
-                    <button
-                      key={index}
-                      type="button"
-                      onClick={() => {
-                        setViewMonth(index);
-                        setViewMode("days");
-                      }}
-                      className={cn(
-                        "flex h-11 items-center justify-center rounded-lg text-sm font-medium transition-all active:scale-95",
-                        isSelected
-                          ? "bg-primary text-primary-foreground font-semibold shadow-sm"
-                          : isCurrent
-                            ? "border border-primary/60 text-primary font-semibold hover:bg-accent"
-                            : "text-foreground hover:bg-accent hover:text-accent-foreground",
-                      )}
-                    >
-                      {name}
-                    </button>
-                  );
-                })}
-              </div>
-            )}
+                    return (
+                      <button
+                        key={year}
+                        type="button"
+                        onClick={() => {
+                          setViewYear(year);
+                          setViewMode("months");
+                        }}
+                        className={cn(
+                          "flex h-11 items-center justify-center rounded-lg text-sm font-medium transition-all active:scale-95",
+                          isSelected
+                            ? "bg-primary text-primary-foreground font-semibold shadow-sm"
+                            : isCurrent
+                              ? "border border-primary/60 text-primary font-semibold hover:bg-accent"
+                              : "text-foreground hover:bg-accent hover:text-accent-foreground",
+                        )}
+                      >
+                        {year}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
 
-            {/* View Mode 3: Year Grid (12-year block) */}
-            {viewMode === "years" && (
-              <div className="grid grid-cols-3 gap-2 py-2">
-                {Array.from({ length: 12 }, (_, i) => decadeStart + i).map((year) => {
-                  const isSelected = year === viewYear;
-                  const isCurrent = year === new Date().getFullYear();
-
-                  return (
-                    <button
-                      key={year}
-                      type="button"
-                      onClick={() => {
-                        setViewYear(year);
-                        setViewMode("months");
-                      }}
-                      className={cn(
-                        "flex h-11 items-center justify-center rounded-lg text-sm font-medium transition-all active:scale-95",
-                        isSelected
-                          ? "bg-primary text-primary-foreground font-semibold shadow-sm"
-                          : isCurrent
-                            ? "border border-primary/60 text-primary font-semibold hover:bg-accent"
-                            : "text-foreground hover:bg-accent hover:text-accent-foreground",
-                      )}
-                    >
-                      {year}
-                    </button>
-                  );
-                })}
-              </div>
-            )}
-
-            {/* Quick Action Footer */}
-            <div className="mt-3 flex items-center justify-between border-t border-border pt-2.5">
-              <button
-                type="button"
-                onClick={handleClear}
-                className="rounded-md px-2.5 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-              >
-                {t("clear")}
-              </button>
-
-              <div className="flex items-center gap-1.5">
+              {/* Quick Action Footer */}
+              <div className="mt-3 flex items-center justify-between border-t border-border pt-2.5">
                 <button
                   type="button"
-                  disabled={isTodayDisabled}
-                  onClick={handleSelectToday}
-                  className={cn(
-                    "rounded-md px-2.5 py-1 text-xs font-semibold text-primary transition-colors hover:bg-primary-soft hover:text-primary-soft-foreground",
-                    isTodayDisabled && "cursor-not-allowed opacity-40 pointer-events-none",
-                  )}
+                  onClick={handleClear}
+                  className="rounded-md px-2.5 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                 >
-                  {t("today")}
+                  {t("clear")}
                 </button>
 
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsOpen(false);
-                    setViewMode("days");
-                  }}
-                  className="rounded-md bg-muted px-2.5 py-1 text-xs font-medium text-foreground transition-colors hover:bg-muted/80"
-                >
-                  {t("close")}
-                </button>
+                <div className="flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    disabled={isTodayDisabled}
+                    onClick={handleSelectToday}
+                    className={cn(
+                      "rounded-md px-2.5 py-1 text-xs font-semibold text-primary transition-colors hover:bg-primary-soft hover:text-primary-soft-foreground",
+                      isTodayDisabled && "cursor-not-allowed opacity-40 pointer-events-none",
+                    )}
+                  >
+                    {t("today")}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsOpen(false);
+                      setViewMode("days");
+                    }}
+                    className="rounded-md bg-muted px-2.5 py-1 text-xs font-medium text-foreground transition-colors hover:bg-muted/80"
+                  >
+                    {t("close")}
+                  </button>
+                </div>
               </div>
-            </div>
-          </div>,
-          document.body,
-        )
+            </div>,
+            document.body,
+          )
         : null}
     </div>
   );

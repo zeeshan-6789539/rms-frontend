@@ -1,20 +1,13 @@
 import { z } from "zod";
 import { USER_ROLES } from "@/config/roles";
 
-const USERNAME_PATTERN = /^[a-zA-Z0-9._-]+$/;
 const PHONE_PATTERN = /^(?:\+92|0)3\d{9}$/;
 
 // Mirrors CreateUserDto — messages are message-catalogue keys, resolved at render
 const baseUserSchema = z.object({
-  username: z
-    .string()
-    .min(3, "usernameLength")
-    .max(50, "usernameLength")
-    .regex(USERNAME_PATTERN, "usernameFormat"),
   email: z.email("emailInvalid").max(255, "emailLength"),
   password: z.string().min(8, "passwordLength").max(128, "passwordLength"),
-  firstName: z.string().min(1, "required").max(100, "nameLength"),
-  lastName: z.string().min(1, "required").max(100, "nameLength"),
+  name: z.string().min(1, "required").max(150, "nameLength"),
   phone: z.string().regex(PHONE_PATTERN, "phoneInvalid").optional(),
   companyId: z.uuid("companyInvalid").optional(),
   role: z.enum(USER_ROLES),

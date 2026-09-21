@@ -146,10 +146,10 @@ export const DashboardOverview = () => {
                 >
                   <div className="min-w-0">
                     <p className="truncate text-sm font-medium">
-                      {user.firstName} {user.lastName}
+                      {user.name}
                     </p>
                     <p className="truncate text-xs text-muted-foreground">
-                      {user.username}
+                      {user.email}
                     </p>
                   </div>
                   <div className="flex shrink-0 items-center gap-2">

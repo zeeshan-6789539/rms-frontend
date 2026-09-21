@@ -14,7 +14,7 @@ import { getApiErrorMessage } from "@/utils/api";
 import { toTranslatedFieldErrors } from "@/utils/zod";
 import type { ILoginPayload } from "@/types/auth";
 
-const EMPTY_VALUES: ILoginPayload = { username: "", password: "" };
+const EMPTY_VALUES: ILoginPayload = { email: "", password: "" };
 
 export const LoginForm = () => {
   const t = useTranslations("auth");
@@ -43,17 +43,18 @@ export const LoginForm = () => {
     <form onSubmit={handleSubmit} noValidate className="space-y-5">
       {error ? <Alert>{getApiErrorMessage(error, t("errors.generic"))}</Alert> : null}
 
-      <FormField id="username" label={t("username")} error={errors.username}>
+      <FormField id="email" label={t("email")} error={errors.email}>
         <Input
-          id="username"
-          name="username"
-          autoComplete="username"
+          id="email"
+          name="email"
+          type="email"
+          autoComplete="email"
           autoFocus
-          placeholder={t("usernamePlaceholder")}
-          value={values.username}
-          onChange={(event) => setValue("username", event.target.value)}
-          hasError={Boolean(errors.username)}
-          aria-describedby={errors.username ? "username-error" : undefined}
+          placeholder={t("emailPlaceholder")}
+          value={values.email}
+          onChange={(event) => setValue("email", event.target.value)}
+          hasError={Boolean(errors.email)}
+          aria-describedby={errors.email ? "email-error" : undefined}
           disabled={isPending}
         />
       </FormField>

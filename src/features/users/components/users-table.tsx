@@ -50,11 +50,11 @@ export const UsersTable = ({
               <TableCell>
                 <div className="flex items-center gap-3">
                   <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary-soft text-xs font-semibold text-primary-soft-foreground">
-                    {getInitials(user.firstName, user.lastName)}
+                    {getInitials(...user.name.split(" "))}
                   </span>
                   <div className="min-w-0 space-y-0.5">
                     <p className="font-medium">
-                      {user.firstName} {user.lastName}
+                      {user.name}
                       {isCurrentUser ? (
                         <span className="ms-2 text-xs font-normal text-muted-foreground">
                           {t("you")}
@@ -62,7 +62,7 @@ export const UsersTable = ({
                       ) : null}
                     </p>
                     <p className="truncate text-xs text-muted-foreground">
-                      {user.username} · {user.email}
+                      {user.email}
                     </p>
                   </div>
                 </div>

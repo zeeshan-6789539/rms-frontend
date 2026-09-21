@@ -7,10 +7,8 @@ export interface IUser {
   companyId: string | null;
   // Only populated on the authenticated profile response
   companyName?: string | null;
-  username: string;
   email: string;
-  firstName: string;
-  lastName: string;
+  name: string;
   phone: string | null;
   role: TUserRole;
   status: boolean;
@@ -32,11 +30,9 @@ export interface IUserQueryParams extends IUserFilters {
 }
 
 export interface ICreateUserPayload {
-  username: string;
   email: string;
   password: string;
-  firstName: string;
-  lastName: string;
+  name: string;
   phone?: string;
   companyId?: string;
   role: TUserRole;
@@ -53,11 +49,9 @@ export type TSaveUserArgs =
   | { mode: "update"; id: string; payload: IUpdateUserPayload };
 
 export interface IUserFormValues {
-  username: string;
   email: string;
   password: string;
-  firstName: string;
-  lastName: string;
+  name: string;
   phone: string;
   companyId: string;
   role: TUserRole;
