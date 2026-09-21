@@ -167,12 +167,6 @@ export const DashboardOverview = () => {
             </ul>
           )}
         </Card>
-      <DatePicker onChange={function (value: string): void {
-          throw new Error("Function not implemented.");
-        } } />
-      <DateTimePicker onChange={function (value: string): void {
-          throw new Error("Function not implemented.");
-        } }/>
       </div>
     </div>
   );
