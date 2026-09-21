@@ -13,7 +13,6 @@ import { useSaveProperty } from "@/features/properties/hooks/use-save-property";
 import { useFormState } from "@/hooks/use-form-state";
 import { useToast } from "@/hooks/use-toast";
 import { getApiErrorMessage } from "@/utils/api";
-import { emptyToUndefined } from "@/utils/string";
 import { toTranslatedFieldErrors } from "@/utils/zod";
 import type { IProperty, IPropertyFormValues } from "@/types/property";
 import type { IPropertyFormDialogProps } from "@/features/properties/types/property-components";
@@ -21,20 +20,14 @@ import type { IPropertyFormDialogProps } from "@/features/properties/types/prope
 const toFormValues = (property: IProperty | null): IPropertyFormValues => ({
   name: property?.name ?? "",
   addressLine1: property?.addressLine1 ?? "",
-  addressLine2: property?.addressLine2 ?? "",
   city: property?.city ?? "",
-  state: property?.state ?? "",
-  postalCode: property?.postalCode ?? "",
   status: property?.status ?? true,
 });
 
 const toPayload = (values: IPropertyFormValues) => ({
   name: values.name.trim(),
   addressLine1: values.addressLine1.trim(),
-  addressLine2: emptyToUndefined(values.addressLine2),
   city: values.city.trim(),
-  state: emptyToUndefined(values.state),
-  postalCode: emptyToUndefined(values.postalCode),
   status: values.status,
 });
 
@@ -147,50 +140,12 @@ export const PropertyFormDialog = ({
             />
           </FormField>
 
-          <FormField
-            id="addressLine2"
-            label={t("fields.addressLine2")}
-            error={errors.addressLine2}
-          >
-            <Input
-              id="addressLine2"
-              value={values.addressLine2}
-              onChange={(event) => setValue("addressLine2", event.target.value)}
-              hasError={Boolean(errors.addressLine2)}
-              disabled={isPending}
-            />
-          </FormField>
-
           <FormField id="city" label={t("fields.city")} error={errors.city}>
             <Input
               id="city"
               value={values.city}
               onChange={(event) => setValue("city", event.target.value)}
               hasError={Boolean(errors.city)}
-              disabled={isPending}
-            />
-          </FormField>
-
-          <FormField id="state" label={t("fields.state")} error={errors.state}>
-            <Input
-              id="state"
-              value={values.state}
-              onChange={(event) => setValue("state", event.target.value)}
-              hasError={Boolean(errors.state)}
-              disabled={isPending}
-            />
-          </FormField>
-
-          <FormField
-            id="postalCode"
-            label={t("fields.postalCode")}
-            error={errors.postalCode}
-          >
-            <Input
-              id="postalCode"
-              value={values.postalCode}
-              onChange={(event) => setValue("postalCode", event.target.value)}
-              hasError={Boolean(errors.postalCode)}
               disabled={isPending}
             />
           </FormField>

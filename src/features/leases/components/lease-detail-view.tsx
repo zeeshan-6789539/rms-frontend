@@ -314,11 +314,21 @@ export const LeaseDetailView = ({ leaseId }: ILeaseDetailViewProps) => {
               placeholder={t("searchLedgerPlaceholder")}
               className="w-full sm:w-56"
             />
-            <Button variant="outline" size="sm" onClick={handleDownloadInvoice}>
+            <Button
+              variant="outline"
+              size="sm"
+              className="h-11"
+              onClick={handleDownloadInvoice}
+            >
               <FileText className="h-4 w-4" aria-hidden />
               {t("invoicePdf")}
             </Button>
-            <Button variant="outline" size="sm" onClick={handleDownloadLedgerPdf}>
+            <Button
+              variant="outline"
+              size="sm"
+              className="h-11"
+              onClick={handleDownloadLedgerPdf}
+            >
               <Download className="h-4 w-4" aria-hidden />
               {t("ledgerPdf")}
             </Button>

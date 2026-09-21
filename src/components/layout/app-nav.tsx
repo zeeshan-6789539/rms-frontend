@@ -20,7 +20,8 @@ export const AppNav = ({ onNavigate }: IAppNavProps) => {
   return (
     <nav className="flex flex-col gap-1">
       {visibleItems.map(({ href, labelKey, icon: Icon }) => {
-        const isActive = pathname === href;
+        const isActive =
+          pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
 
         return (
           <Link

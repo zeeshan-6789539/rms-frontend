@@ -1,4 +1,5 @@
 import type jsPDF from "jspdf";
+import { siteConfig } from "@/config/site";
 import { formatDate } from "@/utils/format";
 import { PDF_COLORS } from "@/utils/pdf-theme";
 import type { IPdfInfoField, IPdfPageContext } from "@/types/pdf";
@@ -37,12 +38,12 @@ export const drawPdfHeader = (doc: jsPDF, title: string, documentNumber: string)
   doc.setFont("helvetica", "bold");
   doc.setFontSize(20);
   doc.setTextColor(...PDF_COLORS.black);
-  doc.text("RMS", PAGE_MARGIN, topY);
+  doc.text(siteConfig.name, PAGE_MARGIN, topY);
 
   doc.setFont("helvetica", "normal");
   doc.setFontSize(9);
   doc.setTextColor(...PDF_COLORS.textMuted);
-  doc.text("Rent Management System", PAGE_MARGIN, topY + 5);
+  doc.text(siteConfig.description, PAGE_MARGIN, topY + 5);
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(18);

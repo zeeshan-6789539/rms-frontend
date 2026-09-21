@@ -48,17 +48,11 @@ export const PropertiesTable = ({
             <TableCell className="text-muted-foreground">
               <div className="space-y-0.5">
                 <p>{property.addressLine1}</p>
-                {property.addressLine2 ? (
-                  <p className="text-xs">{property.addressLine2}</p>
-                ) : null}
               </div>
             </TableCell>
 
             <TableCell className="text-muted-foreground">
               <p>{property.city}</p>
-              {property.state ? (
-                <p className="text-xs">{property.state}</p>
-              ) : null}
             </TableCell>
 
             <TableCell className="text-muted-foreground">

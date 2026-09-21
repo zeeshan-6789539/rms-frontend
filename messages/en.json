@@ -260,10 +260,7 @@
     "fields": {
       "name": "Name",
       "addressLine1": "Address line 1",
-      "addressLine2": "Address line 2",
       "city": "City",
-      "state": "State",
-      "postalCode": "Postal code",
       "status": "Status",
       "createdAt": "Created",
       "tenants": "Tenant(s)"
@@ -271,10 +268,7 @@
     "errors": {
       "nameLength": "Name must be between 2 and 255 characters.",
       "addressLine1Length": "Address line 1 is required and must be at most 500 characters.",
-      "addressLine2Length": "Address line 2 must be at most 500 characters.",
-      "cityLength": "City is required and must be at most 100 characters.",
-      "stateLength": "State must be at most 100 characters.",
-      "postalCodeLength": "Postal code must be at most 20 characters."
+      "cityLength": "City is required and must be at most 100 characters."
     }
   },
   "tenants": {
