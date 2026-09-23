@@ -333,6 +333,7 @@
     "subtitle": "Add products and check out an order.",
     "searchPlaceholder": "Search products to add…",
     "add": "Add",
+    "added": "Added",
     "empty": "Your cart is empty.",
     "cartTitle": "Cart ({count})",
     "outOfStock": "Out of stock",
