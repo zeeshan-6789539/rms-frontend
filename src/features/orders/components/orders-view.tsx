@@ -180,6 +180,7 @@ export const OrdersView = () => {
         <div className="space-y-4">
           <OrdersTable
             orders={data.items}
+            canUpdateStatus={canUpdateStatus}
             onView={(order) => setViewTargetId(order.id)}
           />
           <Pagination meta={data.meta} onPageChange={setPage} />

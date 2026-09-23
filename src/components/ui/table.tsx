@@ -27,13 +27,16 @@ export const TableHead = ({ children, className, ...props }: ITableSectionProps)
 );
 
 export const TableBody = ({ children, className, ...props }: ITableSectionProps) => (
-  <tbody className={cn("divide-y divide-border", className)} {...props}>
+  <tbody className={className} {...props}>
     {children}
   </tbody>
 );
 
 export const TableRow = ({ children, className, ...props }: ITableRowProps) => (
-  <tr className={cn("transition-colors hover:bg-muted/60", className)} {...props}>
+  <tr
+    className={cn("border-b border-border transition-colors hover:bg-muted/60", className)}
+    {...props}
+  >
     {children}
   </tr>
 );

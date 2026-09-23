@@ -46,7 +46,7 @@ export const CartLines = ({ items, onQuantityChange, onRemove }: ICartLinesProps
               onChange={(event) =>
                 onQuantityChange(item.product.id, Number(event.target.value))
               }
-              className="h-9 w-14 text-center"
+              className="h-9 w-16 px-1 text-center [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
             />
 
             <Button

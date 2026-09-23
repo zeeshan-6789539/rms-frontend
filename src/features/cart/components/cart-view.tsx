@@ -13,6 +13,7 @@ import { PageHeading } from "@/components/layout/page-heading";
 import { CartCatalog } from "@/features/cart/components/cart-catalog";
 import { CartLines } from "@/features/cart/components/cart-lines";
 import { useCart } from "@/features/cart/hooks/use-cart";
+import { useCategoryTree } from "@/features/categories/hooks/use-category-tree";
 import { useCheckoutOrder } from "@/features/orders/hooks/use-checkout-order";
 import { useProducts } from "@/features/products/hooks/use-products";
 import { useDebouncedValue } from "@/hooks/use-debounced-value";
@@ -44,11 +45,22 @@ export const CartView = () => {
   });
 
   const { mutate: checkout, isPending: isCheckingOut } = useCheckoutOrder();
+  const { data: categoryTree } = useCategoryTree();
 
   const cartQuantityById = useMemo(
     () => new Map(items.map((item) => [item.product.id, item.quantity])),
     [items],
   );
+
+  const categoryLabelBySubcategoryId = useMemo(() => {
+    const map = new Map<string, string>();
+    (categoryTree ?? []).forEach((category) => {
+      category.subcategories.forEach((subcategory) => {
+        map.set(subcategory.id, `${category.name} / ${subcategory.name}`);
+      });
+    });
+    return map;
+  }, [categoryTree]);
 
   const handleCheckout = () => {
     checkout(
@@ -77,8 +89,8 @@ export const CartView = () => {
     <div className="space-y-4">
       <PageHeading title={t("title")} description={t("subtitle")} />
 
-      <div className="grid gap-4 lg:grid-cols-3">
-        <Card className="space-y-4 lg:col-span-2">
+      <div className="grid gap-4 lg:grid-cols-5">
+        <Card className="space-y-4 lg:col-span-3">
           <SearchInput
             value={searchTerm}
             onChange={setSearchTerm}
@@ -94,18 +106,19 @@ export const CartView = () => {
             <CartCatalog
               products={data.items}
               cartQuantityById={cartQuantityById}
+              categoryLabelBySubcategoryId={categoryLabelBySubcategoryId}
               onAdd={addItem}
             />
           ) : null}
         </Card>
 
-        <Card className="flex flex-col gap-4">
+        <Card className="flex max-h-[85vh] flex-col gap-4 lg:col-span-2">
           <h2 className="flex items-center gap-2 font-semibold tracking-tight">
             <ShoppingCart className="h-4 w-4" aria-hidden />
             {t("cartTitle", { count: totalItems })}
           </h2>
 
-          <div className="flex-1 overflow-y-auto">
+          <div className="min-h-0 flex-1 overflow-y-auto">
             <CartLines items={items} onQuantityChange={setQuantity} onRemove={removeItem} />
           </div>
 

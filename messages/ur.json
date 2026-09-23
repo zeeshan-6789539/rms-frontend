@@ -324,13 +324,8 @@
     },
     "statuses": {
       "pending": "زیر التواء",
-      "processing": "زیر عمل",
       "paid": "ادا شدہ",
-      "shipped": "بھیج دیا گیا",
-      "delivered": "پہنچا دیا گیا",
-      "cancelled": "منسوخ شدہ",
-      "refunded": "رقم واپس",
-      "failed": "ناکام"
+      "cancelled": "منسوخ شدہ"
     }
   },
   "cart": {

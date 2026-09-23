@@ -2,6 +2,7 @@ import type { IOrder } from "@/types/order";
 
 export interface IOrdersTableProps {
   orders: readonly IOrder[];
+  canUpdateStatus: boolean;
   onView: (order: IOrder) => void;
 }
 

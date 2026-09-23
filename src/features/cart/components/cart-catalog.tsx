@@ -18,19 +18,20 @@ import { formatCurrency } from "@/utils/format";
 export const CartCatalog = ({
   products,
   cartQuantityById,
+  categoryLabelBySubcategoryId,
   onAdd,
 }: ICartCatalogProps) => {
   const t = useTranslations("cart");
   const locale = useLocale();
 
   return (
-    <Table>
+    <Table className="max-h-[70vh]">
       <TableHead>
         <TableRow className="hover:bg-transparent">
           <TableHeaderCell>{t("fields.product")}</TableHeaderCell>
           <TableHeaderCell>{t("fields.price")}</TableHeaderCell>
           <TableHeaderCell>{t("fields.stock")}</TableHeaderCell>
-          <TableHeaderCell className="text-end">{t("add")}</TableHeaderCell>
+          <TableHeaderCell className="w-24 text-end">{t("add")}</TableHeaderCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -41,7 +42,12 @@ export const CartCatalog = ({
 
           return (
             <TableRow key={product.id}>
-              <TableCell className="font-medium">{product.name}</TableCell>
+              <TableCell className="font-medium">
+                <div>{product.name}</div>
+                <div className="text-xs font-normal text-muted-foreground">
+                  {categoryLabelBySubcategoryId.get(product.subcategoryId) ?? "—"}
+                </div>
+              </TableCell>
               <TableCell>{formatCurrency(product.sellPrice, locale)}</TableCell>
               <TableCell>
                 {isOutOfStock ? (
@@ -50,7 +56,7 @@ export const CartCatalog = ({
                   product.remainingStock
                 )}
               </TableCell>
-              <TableCell className="text-end">
+              <TableCell className="w-24 text-end">
                 <Button
                   variant="outline"
                   size="sm"
