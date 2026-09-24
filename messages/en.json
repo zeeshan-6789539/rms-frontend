@@ -9,7 +9,9 @@
     "actions": "Actions",
     "active": "Active",
     "deactivated": "Deactivated",
-    "viewAll": "View all"
+    "viewAll": "View all",
+    "yes": "Yes",
+    "no": "No"
   },
   "datePicker": {
     "selectDate": "Select date",
@@ -159,6 +161,7 @@
     "emptySubtitle": "Adjust your filters, or add the first tenant.",
     "searchPlaceholder": "Search name, email, city…",
     "phoneHint": "Pakistani number, e.g. 03296789539.",
+    "invoiceMailSendHint": "Email the monthly rent invoice to this company's tenants.",
     "fields": {
       "name": "Name",
       "email": "Email",
@@ -170,7 +173,8 @@
       "location": "Location",
       "propertyCount": "Properties",
       "tenantCount": "Tenants",
-      "createdAt": "Created"
+      "createdAt": "Created",
+      "invoiceMailSend": "Send invoice emails"
     },
     "errors": {
       "nameLength": "Name must be between 2 and 255 characters.",

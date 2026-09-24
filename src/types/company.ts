@@ -6,6 +6,7 @@ export interface ICompany {
   address: string | null;
   city: string | null;
   status: boolean;
+  invoiceMailSend: boolean;
   createdAt: string;
   updatedAt: string;
   propertyCount: number;
@@ -30,6 +31,7 @@ export interface ICompanyPayload {
   address?: string;
   city?: string;
   status: boolean;
+  invoiceMailSend: boolean;
 }
 
 export interface ISaveCompanyArgs {
@@ -44,4 +46,5 @@ export interface ICompanyFormValues {
   address: string;
   city: string;
   status: boolean;
+  invoiceMailSend: boolean;
 }

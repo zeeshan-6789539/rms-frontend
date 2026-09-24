@@ -52,6 +52,16 @@ export interface ISelectProps {
   "aria-label"?: string;
 }
 
+export interface IRadioGroupProps {
+  id: string;
+  name: string;
+  options: readonly ISelectOption[];
+  value: string;
+  onChange: (value: string) => void;
+  disabled?: boolean;
+  className?: string;
+}
+
 export interface IFormFieldProps {
   id: string;
   label: string;

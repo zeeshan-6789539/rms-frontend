@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { FormField } from "@/components/ui/form-field";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
+import { RadioGroup } from "@/components/ui/radio-group";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { companySchema } from "@/features/companies/schemas/company-schema";
@@ -26,6 +27,7 @@ const toFormValues = (company: ICompany | null): ICompanyFormValues => ({
   address: company?.address ?? "",
   city: company?.city ?? "",
   status: company?.status ?? true,
+  invoiceMailSend: company?.invoiceMailSend ?? false,
 });
 
 const toPayload = (values: ICompanyFormValues) => ({
@@ -35,6 +37,7 @@ const toPayload = (values: ICompanyFormValues) => ({
   address: emptyToUndefined(values.address),
   city: emptyToUndefined(values.city),
   status: values.status,
+  invoiceMailSend: values.invoiceMailSend,
 });
 
 export const CompanyFormDialog = ({
@@ -60,6 +63,11 @@ export const CompanyFormDialog = ({
   const statusOptions = [
     { value: "true", label: tCommon("active") },
     { value: "false", label: tCommon("deactivated") },
+  ];
+
+  const invoiceMailSendOptions = [
+    { value: "true", label: tCommon("yes") },
+    { value: "false", label: tCommon("no") },
   ];
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -165,6 +173,21 @@ export const CompanyFormDialog = ({
               value={String(values.status)}
               onChange={(value) => setValue("status", value === "true")}
               options={statusOptions}
+              disabled={isPending}
+            />
+          </FormField>
+
+          <FormField
+            id="invoiceMailSend"
+            label={t("fields.invoiceMailSend")}
+            hint={t("invoiceMailSendHint")}
+          >
+            <RadioGroup
+              id="invoiceMailSend"
+              name="invoiceMailSend"
+              value={String(values.invoiceMailSend)}
+              onChange={(value) => setValue("invoiceMailSend", value === "true")}
+              options={invoiceMailSendOptions}
               disabled={isPending}
             />
           </FormField>

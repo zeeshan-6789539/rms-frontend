@@ -9,7 +9,9 @@
     "actions": "اقدامات",
     "active": "فعال",
     "deactivated": "غیر فعال",
-    "viewAll": "سب دیکھیں"
+    "viewAll": "سب دیکھیں",
+    "yes": "ہاں",
+    "no": "نہیں"
   },
   "datePicker": {
     "selectDate": "تاریخ منتخب کریں",
@@ -159,6 +161,7 @@
     "emptySubtitle": "فلٹر تبدیل کریں، یا پہلا ٹیننٹ شامل کریں۔",
     "searchPlaceholder": "نام، ای میل، شہر تلاش کریں…",
     "phoneHint": "پاکستانی نمبر، مثلاً 03296789539۔",
+    "invoiceMailSendHint": "اس کمپنی کے ٹیننٹس کو ماہانہ کرایہ انوائس ای میل کریں۔",
     "fields": {
       "name": "نام",
       "email": "ای میل",
@@ -170,7 +173,8 @@
       "location": "مقام",
       "propertyCount": "پراپرٹیز",
       "tenantCount": "ٹیننٹس",
-      "createdAt": "تاریخ اندراج"
+      "createdAt": "تاریخ اندراج",
+      "invoiceMailSend": "انوائس ای میل بھیجیں"
     },
     "errors": {
       "nameLength": "نام 2 سے 255 حروف کے درمیان ہونا چاہیے۔",
