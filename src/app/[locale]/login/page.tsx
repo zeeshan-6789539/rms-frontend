@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ChefHat } from "lucide-react";
 import { LanguageSwitcher } from "@/components/layout/language-switcher";
+import { PoweredBy } from "@/components/layout/powered-by";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { Card } from "@/components/ui/card";
 import { siteConfig } from "@/config/site";
@@ -49,7 +50,7 @@ const LoginPage = async ({ params }: PageProps<"/[locale]/login">) => {
         <LoginForm />
       </Card>
 
-      <p className="text-xs text-muted-foreground">{siteConfig.description}</p>
+      <PoweredBy />
     </div>
   );
 };

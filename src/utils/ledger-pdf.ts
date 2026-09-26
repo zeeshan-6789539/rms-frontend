@@ -1,7 +1,14 @@
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { formatCurrency, formatDate } from "@/utils/format";
-import { buildDocumentNumber, drawInfoSection, drawPdfHeader, PAGE_MARGIN, trimTrailingWhitespace } from "@/utils/pdf";
+import {
+  buildDocumentNumber,
+  drawInfoSection,
+  drawPdfHeader,
+  drawPoweredByFooter,
+  PAGE_MARGIN,
+  trimTrailingWhitespace,
+} from "@/utils/pdf";
 import { ENTRY_TYPE_PDF_LABELS, PAYMENT_METHOD_PDF_LABELS } from "@/utils/pdf-labels";
 import { PDF_COLORS } from "@/utils/pdf-theme";
 import type { ILease } from "@/types/lease";
@@ -16,13 +23,18 @@ export const generateLedgerPdf = (
   paymentByPaymentId: Map<string, IPayment>,
   periodLabel: string,
   searchQuery: string,
+  companyName: string | null | undefined,
 ): jsPDF => {
   const doc = new jsPDF();
-  const headerBottomY = drawPdfHeader(doc, "Ledger statement", buildDocumentNumber("LDG", lease.id));
+  const headerBottomY = drawPdfHeader(
+    doc,
+    companyName,
+    "Ledger statement",
+    buildDocumentNumber("LDG", lease.id),
+    [lease.tenantName, lease.propertyName],
+  );
 
   const sectionBottomY = drawInfoSection(doc, headerBottomY, [
-    { label: "Tenant", value: lease.tenantName },
-    { label: "Property", value: lease.propertyName },
     { label: "Period", value: periodLabel },
     { label: "Filter", value: searchQuery ? `Search: "${searchQuery}"` : "None" },
   ]);
@@ -92,7 +104,7 @@ export const generateLedgerPdf = (
     },
   });
 
-  trimTrailingWhitespace(doc, tableBottomY);
+  trimTrailingWhitespace(doc, drawPoweredByFooter(doc, tableBottomY));
 
   return doc;
 };

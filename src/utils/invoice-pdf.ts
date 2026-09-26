@@ -6,6 +6,7 @@ import {
   buildDocumentNumber,
   drawInfoSection,
   drawPdfHeader,
+  drawPoweredByFooter,
   drawTotalBox,
   PAGE_MARGIN,
   trimTrailingWhitespace,
@@ -17,7 +18,11 @@ import type { ILedgerEntry } from "@/types/ledger";
 
 const PDF_LOCALE = "en";
 
-export const generateInvoicePdf = (lease: ILease, entries: ILedgerEntry[]): jsPDF => {
+export const generateInvoicePdf = (
+  lease: ILease,
+  entries: ILedgerEntry[],
+  companyName: string | null | undefined,
+): jsPDF => {
   const periodRange = getPeriodRange("current_month");
   const entriesThisMonth = entries.filter((entry) => {
     if (!entry.status) return false;
@@ -37,11 +42,15 @@ export const generateInvoicePdf = (lease: ILease, entries: ILedgerEntry[]): jsPD
   });
 
   const doc = new jsPDF();
-  const headerBottomY = drawPdfHeader(doc, "Invoice", buildDocumentNumber("INV", lease.id));
+  const headerBottomY = drawPdfHeader(
+    doc,
+    companyName,
+    "Invoice",
+    buildDocumentNumber("INV", lease.id),
+    [lease.tenantName, lease.propertyName],
+  );
 
   const sectionBottomY = drawInfoSection(doc, headerBottomY, [
-    { label: "Bill to", value: lease.tenantName },
-    { label: "Property", value: lease.propertyName },
     { label: "Billing period", value: invoiceMonthLabel },
     {
       label: "Lease term",
@@ -109,7 +118,7 @@ export const generateInvoicePdf = (lease: ILease, entries: ILedgerEntry[]): jsPD
     noteY,
   );
 
-  trimTrailingWhitespace(doc, noteY);
+  trimTrailingWhitespace(doc, drawPoweredByFooter(doc, noteY));
 
   return doc;
 };

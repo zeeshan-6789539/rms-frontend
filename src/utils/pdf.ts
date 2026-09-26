@@ -31,19 +31,32 @@ export const openPdfInNewTab = (doc: jsPDF, fileName: string): void => {
   window.open(blobUrl, "_blank", "noopener,noreferrer");
 };
 
-export const drawPdfHeader = (doc: jsPDF, title: string, documentNumber: string): number => {
+export const drawPdfHeader = (
+  doc: jsPDF,
+  companyName: string | null | undefined,
+  title: string,
+  documentNumber: string,
+  subtitleLines: string[] = [],
+): number => {
   const pageWidth = doc.internal.pageSize.getWidth();
   const topY = 16;
+  const subtitleLineHeight = 4.5;
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(20);
   doc.setTextColor(...PDF_COLORS.black);
-  doc.text(siteConfig.name, PAGE_MARGIN, topY);
+  doc.text(companyName || siteConfig.name, PAGE_MARGIN, topY);
 
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(9);
-  doc.setTextColor(...PDF_COLORS.textMuted);
-  doc.text(siteConfig.description, PAGE_MARGIN, topY + 5);
+  // First subtitle line is emphasised, the rest are muted details
+  subtitleLines.forEach((line, index) => {
+    doc.setFont("helvetica", index === 0 ? "bold" : "normal");
+    doc.setFontSize(index === 0 ? 11 : 9.5);
+    doc.setTextColor(...(index === 0 ? PDF_COLORS.text : PDF_COLORS.textMuted));
+    doc.text(line, PAGE_MARGIN, topY + 6.5 + index * subtitleLineHeight);
+  });
+
+  const lastSubtitleY = topY + 6.5 + (subtitleLines.length - 1) * subtitleLineHeight;
+  const dividerY = subtitleLines.length > 0 ? Math.max(topY + 12, lastSubtitleY + 3) : topY + 12;
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(18);
@@ -60,10 +73,32 @@ export const drawPdfHeader = (doc: jsPDF, title: string, documentNumber: string)
 
   doc.setDrawColor(...PDF_COLORS.black);
   doc.setLineWidth(0.5);
-  doc.line(PAGE_MARGIN, topY + 12, pageWidth - PAGE_MARGIN, topY + 12);
+  doc.line(PAGE_MARGIN, dividerY, pageWidth - PAGE_MARGIN, dividerY);
 
   doc.setTextColor(...PDF_COLORS.text);
-  return topY + 12;
+  return dividerY;
+};
+
+// Earlier pages get the line in their bottom margin; the last page gets it under the content so trimming keeps it
+export const drawPoweredByFooter = (doc: jsPDF, contentBottomY: number): number => {
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageBottomY = doc.internal.pageSize.getHeight() - PAGE_MARGIN / 2;
+  const pageCount = doc.getNumberOfPages();
+  const lastPageY = Math.min(contentBottomY + 10, pageBottomY);
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(8);
+  doc.setTextColor(...PDF_COLORS.textMuted);
+
+  for (let page = 1; page <= pageCount; page++) {
+    doc.setPage(page);
+    doc.text(siteConfig.poweredBy, pageWidth / 2, page === pageCount ? lastPageY : pageBottomY, {
+      align: "center",
+    });
+  }
+
+  doc.setTextColor(...PDF_COLORS.text);
+  return lastPageY;
 };
 
 export const trimTrailingWhitespace = (

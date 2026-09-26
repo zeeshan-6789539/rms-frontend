@@ -26,6 +26,7 @@ import { Link } from "@/i18n/navigation";
 import { LeaseFormDialog } from "@/features/leases/components/lease-form-dialog";
 import { LeaseStatusDialog } from "@/features/leases/components/lease-status-dialog";
 import { UpdateLeaseRentDialog } from "@/features/leases/components/update-lease-rent-dialog";
+import { useCurrentUser } from "@/features/auth/hooks/use-current-user";
 import { useLease } from "@/features/leases/hooks/use-lease";
 import { LedgerEntryFormDialog } from "@/features/ledger/components/ledger-entry-form-dialog";
 import { LedgerTable } from "@/features/ledger/components/ledger-table";
@@ -77,6 +78,7 @@ export const LeaseDetailView = ({ leaseId }: ILeaseDetailViewProps) => {
   const tFilters = useTranslations("filters");
   const locale = useLocale();
   const { showToast } = useToast();
+  const { data: user } = useCurrentUser();
 
   const [ledgerSearch, setLedgerSearch] = useState("");
   const [ledgerPeriod, setLedgerPeriod] = useState<TPeriodFilter>("all");
@@ -205,7 +207,10 @@ export const LeaseDetailView = ({ leaseId }: ILeaseDetailViewProps) => {
   }
 
   const handleDownloadInvoice = () => {
-    openPdfInNewTab(generateInvoicePdf(lease, ledgerEntries), buildPdfFileName("Invoice", lease.tenantName));
+    openPdfInNewTab(
+      generateInvoicePdf(lease, ledgerEntries, user?.companyName),
+      buildPdfFileName("Invoice", lease.tenantName),
+    );
   };
 
   const handleDownloadLedgerPdf = () => {
@@ -216,6 +221,7 @@ export const LeaseDetailView = ({ leaseId }: ILeaseDetailViewProps) => {
         paymentByPaymentId,
         PERIOD_PDF_LABELS[ledgerPeriod],
         debouncedLedgerSearch,
+        user?.companyName,
       ),
       buildPdfFileName("Ledger_statement", lease.tenantName),
     );
@@ -243,23 +249,23 @@ export const LeaseDetailView = ({ leaseId }: ILeaseDetailViewProps) => {
         </div>
 
         <div className="flex flex-wrap gap-2">
-          <Button variant="outline" size="sm" onClick={() => setIsChargeOpen(true)}>
+          <Button variant="outline" size="sm" className="h-11" onClick={() => setIsChargeOpen(true)}>
             <Plus className="h-4 w-4" aria-hidden />
             {tLedger("create")}
           </Button>
-          <Button size="sm" onClick={() => setIsPaymentOpen(true)}>
+          <Button size="sm" className="h-11" onClick={() => setIsPaymentOpen(true)}>
             <CreditCard className="h-4 w-4" aria-hidden />
             {tPayments("create")}
           </Button>
-          <Button variant="outline" size="sm" onClick={() => setIsFormOpen(true)}>
+          <Button variant="outline" size="sm" className="h-11" onClick={() => setIsFormOpen(true)}>
             <Pencil className="h-4 w-4" aria-hidden />
             {t("edit")}
           </Button>
-          <Button variant="outline" size="sm" onClick={() => setIsRentOpen(true)}>
+          <Button variant="outline" size="sm" className="h-11" onClick={() => setIsRentOpen(true)}>
             <Banknote className="h-4 w-4" aria-hidden />
             {t("changeRent")}
           </Button>
-          <Button variant="outline" size="sm" onClick={() => setIsStatusOpen(true)}>
+          <Button variant="outline" size="sm" className="h-11" onClick={() => setIsStatusOpen(true)}>
             <RefreshCw className="h-4 w-4" aria-hidden />
             {t("changeStatus")}
           </Button>

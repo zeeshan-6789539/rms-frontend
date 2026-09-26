@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { ChefHat, Menu, X } from "lucide-react";
 import { AppNav } from "@/components/layout/app-nav";
 import { LanguageSwitcher } from "@/components/layout/language-switcher";
+import { PoweredBy } from "@/components/layout/powered-by";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { UserMenu } from "@/components/layout/user-menu";
 import { Button } from "@/components/ui/button";
@@ -17,10 +18,7 @@ export const AppSidebar = () => {
   const tSidebar = useTranslations("sidebar");
   const [isOpen, setIsOpen] = useState(false);
   const { data: user } = useCurrentUser();
-  const brandName =
-    user?.role !== "super_admin" && user?.companyName
-      ? user.companyName
-      : siteConfig.name;
+  const brandName = user?.companyName || siteConfig.name;
 
   const closeSidebar = () => setIsOpen(false);
 
@@ -55,12 +53,12 @@ export const AppSidebar = () => {
           <Link
             href="/"
             onClick={closeSidebar}
-            className="flex items-center gap-2.5 font-semibold"
+            className="flex min-w-0 items-center gap-2.5 font-semibold"
           >
-            <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-brand-gradient text-primary-foreground shadow-brand">
+            <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-brand-gradient text-primary-foreground shadow-brand">
               <ChefHat className="h-4.5 w-4.5" aria-hidden />
             </span>
-            <span>{brandName}</span>
+            <span className="truncate">{brandName}</span>
           </Link>
 
           <Button
@@ -87,6 +85,8 @@ export const AppSidebar = () => {
               <ThemeToggle />
             </div>
           </div>
+
+          <PoweredBy />
         </div>
       </aside>
     </>
