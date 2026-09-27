@@ -1,11 +1,6 @@
-export const formatCurrency = (
-  value: number,
-  locale: string,
-  currency = "PKR",
-): string =>
+// Amounts render as plain grouped numbers, with no currency code or symbol
+export const formatCurrency = (value: number, locale: string): string =>
   new Intl.NumberFormat(locale, {
-    style: "currency",
-    currency,
     maximumFractionDigits: 0,
   }).format(value);
 
