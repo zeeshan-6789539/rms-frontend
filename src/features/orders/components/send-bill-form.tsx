@@ -6,6 +6,7 @@ import { Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FormField } from "@/components/ui/form-field";
 import { Input } from "@/components/ui/input";
+import { siteConfig } from "@/config/site";
 import type { ISendBillFormProps } from "@/features/orders/types/order-components";
 import { formatCurrency, formatDateTime } from "@/utils/format";
 import { buildWhatsAppWebUrl } from "@/utils/whatsapp";
@@ -17,6 +18,7 @@ const buildBillMessage = (
   locale: string,
   t: ReturnType<typeof useTranslations<"orders">>,
   tStatus: ReturnType<typeof useTranslations<"orders.statuses">>,
+  tSidebar: ReturnType<typeof useTranslations<"sidebar">>,
 ): string => {
   const itemLines = order.items.map(
     (item) =>
@@ -32,6 +34,8 @@ const buildBillMessage = (
     "",
     "――――――――――――――",
     `*${t("fields.total")}: ${formatCurrency(order.total, locale)}*`,
+    "",
+    `_${tSidebar("poweredBy")} ${siteConfig.poweredByName}_`,
   ].join("\n");
 };
 
@@ -39,6 +43,7 @@ export const SendBillForm = ({ order }: ISendBillFormProps) => {
   const t = useTranslations("orders");
   const tStatus = useTranslations("orders.statuses");
   const tCommon = useTranslations("common");
+  const tSidebar = useTranslations("sidebar");
   const locale = useLocale();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -53,7 +58,7 @@ export const SendBillForm = ({ order }: ISendBillFormProps) => {
       return;
     }
 
-    const message = buildBillMessage(order, locale, t, tStatus);
+    const message = buildBillMessage(order, locale, t, tStatus, tSidebar);
     window.open(buildWhatsAppWebUrl(phone, message), "_blank", "noopener,noreferrer");
 
     setIsOpen(false);
