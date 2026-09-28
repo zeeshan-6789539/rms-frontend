@@ -11,4 +11,5 @@ export const companySchema = z.object({
   city: z.string().max(100, "cityLength").optional(),
   status: z.boolean(),
   invoiceMailSend: z.boolean(),
+  mailPassword: z.string().max(255, "mailPasswordLength").optional(),
 });

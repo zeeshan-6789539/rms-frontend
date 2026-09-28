@@ -6,6 +6,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { FormField } from "@/components/ui/form-field";
+import { FormGrid } from "@/components/ui/form-grid";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { Select } from "@/components/ui/select";
@@ -17,6 +18,7 @@ import {
 } from "@/features/users/schemas/user-schema";
 import { useFormState } from "@/hooks/use-form-state";
 import { useToast } from "@/hooks/use-toast";
+import { PHONE_MAX_LENGTH, PHONE_PLACEHOLDER } from "@/config/phone";
 import { USER_ROLES } from "@/config/roles";
 import { getApiErrorMessage } from "@/utils/api";
 import { emptyToUndefined } from "@/utils/string";
@@ -31,7 +33,7 @@ const toFormValues = (user: IUser | null): IUserFormValues => ({
   name: user?.name ?? "",
   phone: user?.phone ?? "",
   companyId: user?.companyId ?? "",
-  role: user?.role ?? "staff",
+  role: user?.role ?? "client_admin",
   status: user?.status ?? true,
 });
 
@@ -158,7 +160,7 @@ export const UserFormDialog = ({ isOpen, user, onClose }: IUserFormDialogProps) 
       <form id="user-form" onSubmit={handleSubmit} noValidate className="space-y-4">
         {error ? <Alert>{getApiErrorMessage(error, tCommon("error"))}</Alert> : null}
 
-        <div className="grid gap-4 sm:grid-cols-2">
+        <FormGrid>
           <FormField id="name" label={t("fields.name")} error={errors.name}>
             <Input
               id="name"
@@ -218,19 +220,16 @@ export const UserFormDialog = ({ isOpen, user, onClose }: IUserFormDialogProps) 
             />
           </FormField>
 
-          <FormField
-            id="phone"
-            label={t("fields.phone")}
-            error={errors.phone}
-            hint={t("phoneHint")}
-          >
+          <FormField id="phone" label={t("fields.phone")} error={errors.phone}>
             <Input
               id="phone"
               value={values.phone}
               onChange={(event) => setValue("phone", event.target.value)}
               hasError={Boolean(errors.phone)}
               disabled={isPending}
-              placeholder="03296789539"
+              placeholder={PHONE_PLACEHOLDER}
+              inputMode="numeric"
+              maxLength={PHONE_MAX_LENGTH}
             />
           </FormField>
 
@@ -270,7 +269,7 @@ export const UserFormDialog = ({ isOpen, user, onClose }: IUserFormDialogProps) 
               disabled={isPending}
             />
           </FormField>
-        </div>
+        </FormGrid>
       </form>
     </Modal>
   );

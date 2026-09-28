@@ -6,6 +6,7 @@ import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { DatePicker } from "@/components/ui/date-picker";
 import { FormField } from "@/components/ui/form-field";
+import { FormGrid } from "@/components/ui/form-grid";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { Select } from "@/components/ui/select";
@@ -129,7 +130,7 @@ export const LeaseFormDialog = ({ isOpen, lease, onClose }: ILeaseFormDialogProp
       <form id="lease-form" onSubmit={handleSubmit} noValidate className="space-y-4">
         {error ? <Alert>{getApiErrorMessage(error, tCommon("error"))}</Alert> : null}
 
-        <div className="grid gap-4 sm:grid-cols-2">
+        <FormGrid>
           {lease ? (
             <>
               <FormField id="propertyName" label={t("fields.property")}>
@@ -220,7 +221,7 @@ export const LeaseFormDialog = ({ isOpen, lease, onClose }: ILeaseFormDialogProp
               placeholder="0.00"
             />
           </FormField>
-        </div>
+        </FormGrid>
       </form>
     </Modal>
   );

@@ -1,7 +1,8 @@
+import { cn } from "@/utils/cn";
 import type { IFormFieldProps } from "@/types/ui";
 
-export const FormField = ({ id, label, error, hint, children }: IFormFieldProps) => (
-  <div className="space-y-1.5">
+export const FormField = ({ id, label, error, hint, className, children }: IFormFieldProps) => (
+  <div className={cn("space-y-1.5", className)}>
     <label htmlFor={id} className="block text-sm font-medium">
       {label}
     </label>

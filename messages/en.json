@@ -161,8 +161,6 @@
     "emptyTitle": "No companies found",
     "emptySubtitle": "Adjust your filters, or add the first tenant.",
     "searchPlaceholder": "Search name, email, city…",
-    "phoneHint": "Pakistani number, e.g. 03296789539.",
-    "invoiceMailSendHint": "Email the monthly rent invoice to this company's tenants.",
     "fields": {
       "name": "Name",
       "email": "Email",
@@ -175,7 +173,10 @@
       "propertyCount": "Properties",
       "tenantCount": "Tenants",
       "createdAt": "Created",
-      "invoiceMailSend": "Send invoice emails"
+      "invoiceMailSend": "Send invoice emails",
+      "mailPassword": "Mail password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password"
     },
     "errors": {
       "nameLength": "Name must be between 2 and 255 characters.",
@@ -183,7 +184,8 @@
       "emailLength": "Email must be at most 255 characters.",
       "phoneInvalid": "Enter a valid Pakistani number, e.g. 03296789539.",
       "addressLength": "Address must be at most 500 characters.",
-      "cityLength": "City must be at most 100 characters."
+      "cityLength": "City must be at most 100 characters.",
+      "mailPasswordLength": "Mail password must be at most 255 characters."
     }
   },
   "users": {
@@ -213,7 +215,6 @@
     "you": "(you)",
     "cannotEditSelf": "You cannot deactivate your own account.",
     "passwordHint": "At least 8 characters.",
-    "phoneHint": "Pakistani number, e.g. 03296789539.",
     "superAdminHint": "A super admin is platform-level and cannot belong to a company.",
     "passwordHintUpdate": "Leave blank to keep the current password.",
     "fields": {
@@ -298,7 +299,6 @@
     "emptyTitle": "No tenants found",
     "emptySubtitle": "Adjust your filters, or add the first tenant.",
     "searchPlaceholder": "Search name, email, phone…",
-    "phoneHint": "Pakistani number, e.g. 03296789539.",
     "fields": {
       "name": "Name",
       "email": "Email",

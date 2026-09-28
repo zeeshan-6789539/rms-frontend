@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { FormField } from "@/components/ui/form-field";
+import { FormGrid } from "@/components/ui/form-grid";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { Select } from "@/components/ui/select";
@@ -104,7 +105,7 @@ export const PropertyFormDialog = ({
       <form id="property-form" onSubmit={handleSubmit} noValidate className="space-y-4">
         {error ? <Alert>{getApiErrorMessage(error, tCommon("error"))}</Alert> : null}
 
-        <div className="grid gap-4 sm:grid-cols-2">
+        <FormGrid>
           <FormField id="name" label={t("fields.name")} error={errors.name}>
             <Input
               id="name"
@@ -149,7 +150,7 @@ export const PropertyFormDialog = ({
               disabled={isPending}
             />
           </FormField>
-        </div>
+        </FormGrid>
       </form>
     </Modal>
   );

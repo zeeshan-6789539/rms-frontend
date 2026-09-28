@@ -6,6 +6,7 @@ import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { DatePicker } from "@/components/ui/date-picker";
 import { FormField } from "@/components/ui/form-field";
+import { FormGrid } from "@/components/ui/form-grid";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { Textarea } from "@/components/ui/textarea";
@@ -79,6 +80,7 @@ export const UpdateLeaseRentDialog = ({
       isOpen={isOpen}
       title={t("changeRentTitle")}
       description={t("changeRentSubtitle", { property: lease.propertyName })}
+      size="lg"
       onClose={onClose}
       footer={
         <>
@@ -94,32 +96,34 @@ export const UpdateLeaseRentDialog = ({
       <form id="lease-rent-form" onSubmit={handleSubmit} noValidate className="space-y-4">
         {error ? <Alert>{getApiErrorMessage(error, tCommon("error"))}</Alert> : null}
 
-        <FormField id="rentAmount" label={t("fields.newRentAmount")} error={errors.rentAmount}>
-          <Input
-            id="rentAmount"
-            inputMode="decimal"
-            value={values.rentAmount}
-            onChange={(event) => setValue("rentAmount", event.target.value)}
-            hasError={Boolean(errors.rentAmount)}
-            disabled={isPending}
-            placeholder="55000.00"
-            autoFocus
-          />
-        </FormField>
+        <FormGrid>
+          <FormField id="rentAmount" label={t("fields.newRentAmount")} error={errors.rentAmount}>
+            <Input
+              id="rentAmount"
+              inputMode="decimal"
+              value={values.rentAmount}
+              onChange={(event) => setValue("rentAmount", event.target.value)}
+              hasError={Boolean(errors.rentAmount)}
+              disabled={isPending}
+              placeholder="55000.00"
+              autoFocus
+            />
+          </FormField>
 
-        <FormField
-          id="effectiveFrom"
-          label={t("fields.effectiveFrom")}
-          error={errors.effectiveFrom}
-        >
-          <DatePicker
+          <FormField
             id="effectiveFrom"
-            value={values.effectiveFrom}
-            onChange={(date) => setValue("effectiveFrom", date)}
-            hasError={Boolean(errors.effectiveFrom)}
-            disabled={isPending}
-          />
-        </FormField>
+            label={t("fields.effectiveFrom")}
+            error={errors.effectiveFrom}
+          >
+            <DatePicker
+              id="effectiveFrom"
+              value={values.effectiveFrom}
+              onChange={(date) => setValue("effectiveFrom", date)}
+              hasError={Boolean(errors.effectiveFrom)}
+              disabled={isPending}
+            />
+          </FormField>
+        </FormGrid>
 
         <FormField id="notes" label={t("fields.notes")} error={errors.notes}>
           <Textarea

@@ -6,6 +6,7 @@ import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { DatePicker } from "@/components/ui/date-picker";
 import { FormField } from "@/components/ui/form-field";
+import { FormGrid } from "@/components/ui/form-grid";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { Select } from "@/components/ui/select";
@@ -110,22 +111,22 @@ export const PaymentFormDialog = ({
       <form id="payment-form" onSubmit={handleSubmit} noValidate className="space-y-4">
         {error ? <Alert>{getApiErrorMessage(error, tCommon("error"))}</Alert> : null}
 
-        <FormField id="leaseId" label={t("fields.lease")} error={errors.leaseId}>
-          {defaultLeaseId ? (
-            <Input id="leaseId" value={defaultLeaseLabel ?? ""} disabled readOnly />
-          ) : (
-            <Select
-              id="leaseId"
-              value={values.leaseId}
-              onChange={(value) => setValue("leaseId", value)}
-              options={[{ value: "", label: t("selectLease") }, ...leaseOptions]}
-              hasError={Boolean(errors.leaseId)}
-              disabled={isPending || isLeasesPending}
-            />
-          )}
-        </FormField>
+        <FormGrid>
+          <FormField id="leaseId" label={t("fields.lease")} error={errors.leaseId}>
+            {defaultLeaseId ? (
+              <Input id="leaseId" value={defaultLeaseLabel ?? ""} disabled readOnly />
+            ) : (
+              <Select
+                id="leaseId"
+                value={values.leaseId}
+                onChange={(value) => setValue("leaseId", value)}
+                options={[{ value: "", label: t("selectLease") }, ...leaseOptions]}
+                hasError={Boolean(errors.leaseId)}
+                disabled={isPending || isLeasesPending}
+              />
+            )}
+          </FormField>
 
-        <div className="grid gap-4 sm:grid-cols-2">
           <FormField id="amountPaid" label={t("fields.amountPaid")} error={errors.amountPaid}>
             <Input
               id="amountPaid"
@@ -218,7 +219,7 @@ export const PaymentFormDialog = ({
               />
             </FormField>
           ) : null}
-        </div>
+        </FormGrid>
 
         <FormField id="notes" label={t("fields.notes")} error={errors.notes}>
           <Textarea

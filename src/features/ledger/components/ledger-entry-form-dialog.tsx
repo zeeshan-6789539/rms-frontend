@@ -6,6 +6,7 @@ import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { DatePicker } from "@/components/ui/date-picker";
 import { FormField } from "@/components/ui/form-field";
+import { FormGrid } from "@/components/ui/form-grid";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { Select } from "@/components/ui/select";
@@ -93,6 +94,7 @@ export const LedgerEntryFormDialog = ({
       isOpen={isOpen}
       title={t("createTitle")}
       description={t("createSubtitle")}
+      size="lg"
       onClose={onClose}
       footer={
         <>
@@ -108,32 +110,32 @@ export const LedgerEntryFormDialog = ({
       <form id="ledger-entry-form" onSubmit={handleSubmit} noValidate className="space-y-4">
         {error ? <Alert>{getApiErrorMessage(error, tCommon("error"))}</Alert> : null}
 
-        <FormField id="leaseId" label={t("fields.lease")} error={errors.leaseId}>
-          {defaultLeaseId ? (
-            <Input id="leaseId" value={defaultLeaseLabel ?? ""} disabled readOnly />
-          ) : (
+        <FormGrid>
+          <FormField id="leaseId" label={t("fields.lease")} error={errors.leaseId}>
+            {defaultLeaseId ? (
+              <Input id="leaseId" value={defaultLeaseLabel ?? ""} disabled readOnly />
+            ) : (
+              <Select
+                id="leaseId"
+                value={values.leaseId}
+                onChange={(value) => setValue("leaseId", value)}
+                options={[{ value: "", label: t("selectLease") }, ...leaseOptions]}
+                hasError={Boolean(errors.leaseId)}
+                disabled={isPending || isLeasesPending}
+              />
+            )}
+          </FormField>
+
+          <FormField id="entryType" label={t("fields.entryType")}>
             <Select
-              id="leaseId"
-              value={values.leaseId}
-              onChange={(value) => setValue("leaseId", value)}
-              options={[{ value: "", label: t("selectLease") }, ...leaseOptions]}
-              hasError={Boolean(errors.leaseId)}
-              disabled={isPending || isLeasesPending}
+              id="entryType"
+              value={values.entryType}
+              onChange={(value) => setValue("entryType", value as TPostableChargeType)}
+              options={ENTRY_TYPES.map((value) => ({ value, label: tEntryType(value) }))}
+              disabled={isPending}
             />
-          )}
-        </FormField>
+          </FormField>
 
-        <FormField id="entryType" label={t("fields.entryType")}>
-          <Select
-            id="entryType"
-            value={values.entryType}
-            onChange={(value) => setValue("entryType", value as TPostableChargeType)}
-            options={ENTRY_TYPES.map((value) => ({ value, label: tEntryType(value) }))}
-            disabled={isPending}
-          />
-        </FormField>
-
-        <div className="grid gap-4 sm:grid-cols-2">
           <FormField id="amount" label={t("fields.amount")} error={errors.amount}>
             <Input
               id="amount"
@@ -155,17 +157,22 @@ export const LedgerEntryFormDialog = ({
               disabled={isPending}
             />
           </FormField>
-        </div>
 
-        <FormField id="description" label={t("fields.description")} error={errors.description}>
-          <Textarea
+          <FormField
             id="description"
-            value={values.description}
-            onChange={(event) => setValue("description", event.target.value)}
-            hasError={Boolean(errors.description)}
-            disabled={isPending}
-          />
-        </FormField>
+            label={t("fields.description")}
+            error={errors.description}
+            className="sm:col-span-2"
+          >
+            <Textarea
+              id="description"
+              value={values.description}
+              onChange={(event) => setValue("description", event.target.value)}
+              hasError={Boolean(errors.description)}
+              disabled={isPending}
+            />
+          </FormField>
+        </FormGrid>
       </form>
     </Modal>
   );

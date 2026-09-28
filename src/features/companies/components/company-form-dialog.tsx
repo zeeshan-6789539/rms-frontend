@@ -1,15 +1,16 @@
 "use client";
 
-import { useEffect, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { useTranslations } from "next-intl";
+import { Eye, EyeOff } from "lucide-react";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { FormField } from "@/components/ui/form-field";
+import { FormGrid } from "@/components/ui/form-grid";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
-import { RadioGroup } from "@/components/ui/radio-group";
 import { Select } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
+import { PHONE_MAX_LENGTH, PHONE_PLACEHOLDER } from "@/config/phone";
 import { companySchema } from "@/features/companies/schemas/company-schema";
 import { useSaveCompany } from "@/features/companies/hooks/use-save-company";
 import { useFormState } from "@/hooks/use-form-state";
@@ -28,6 +29,8 @@ const toFormValues = (company: ICompany | null): ICompanyFormValues => ({
   city: company?.city ?? "",
   status: company?.status ?? true,
   invoiceMailSend: company?.invoiceMailSend ?? false,
+  // Never returned by the API, so the field always starts blank
+  mailPassword: "",
 });
 
 const toPayload = (values: ICompanyFormValues) => ({
@@ -38,6 +41,8 @@ const toPayload = (values: ICompanyFormValues) => ({
   city: emptyToUndefined(values.city),
   status: values.status,
   invoiceMailSend: values.invoiceMailSend,
+  // Blank means "keep the current one" — dropped before sending
+  mailPassword: emptyToUndefined(values.mailPassword),
 });
 
 export const CompanyFormDialog = ({
@@ -51,6 +56,7 @@ export const CompanyFormDialog = ({
   const { values, errors, setValue, setErrors, reset } = useFormState(
     toFormValues(company),
   );
+  const [isMailPasswordVisible, setIsMailPasswordVisible] = useState(false);
   const { mutate, isPending, error, reset: resetMutation } = useSaveCompany();
 
   useEffect(() => {
@@ -118,7 +124,7 @@ export const CompanyFormDialog = ({
       <form id="company-form" onSubmit={handleSubmit} noValidate className="space-y-4">
         {error ? <Alert>{getApiErrorMessage(error, tCommon("error"))}</Alert> : null}
 
-        <div className="grid gap-4 sm:grid-cols-2">
+        <FormGrid>
           <FormField id="name" label={t("fields.name")} error={errors.name}>
             <Input
               id="name"
@@ -142,18 +148,52 @@ export const CompanyFormDialog = ({
           </FormField>
 
           <FormField
-            id="phone"
-            label={t("fields.phone")}
-            error={errors.phone}
-            hint={t("phoneHint")}
+            id="mailPassword"
+            label={t("fields.mailPassword")}
+            error={errors.mailPassword}
           >
+            <Input
+              id="mailPassword"
+              type={isMailPasswordVisible ? "text" : "password"}
+              value={values.mailPassword}
+              onChange={(event) => setValue("mailPassword", event.target.value)}
+              hasError={Boolean(errors.mailPassword)}
+              disabled={isPending}
+              autoComplete="new-password"
+              placeholder={company?.hasMailPassword ? "••••••••" : undefined}
+              trailing={
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setIsMailPasswordVisible((current) => !current)}
+                  aria-label={
+                    isMailPasswordVisible
+                      ? t("fields.hidePassword")
+                      : t("fields.showPassword")
+                  }
+                  tabIndex={-1}
+                >
+                  {isMailPasswordVisible ? (
+                    <EyeOff className="h-4 w-4" aria-hidden />
+                  ) : (
+                    <Eye className="h-4 w-4" aria-hidden />
+                  )}
+                </Button>
+              }
+            />
+          </FormField>
+
+          <FormField id="phone" label={t("fields.phone")} error={errors.phone}>
             <Input
               id="phone"
               value={values.phone}
               onChange={(event) => setValue("phone", event.target.value)}
               hasError={Boolean(errors.phone)}
               disabled={isPending}
-              placeholder="03296789539"
+              placeholder={PHONE_PLACEHOLDER}
+              inputMode="numeric"
+              maxLength={PHONE_MAX_LENGTH}
             />
           </FormField>
 
@@ -177,31 +217,31 @@ export const CompanyFormDialog = ({
             />
           </FormField>
 
-          <FormField
-            id="invoiceMailSend"
-            label={t("fields.invoiceMailSend")}
-            hint={t("invoiceMailSendHint")}
-          >
-            <RadioGroup
+          <FormField id="invoiceMailSend" label={t("fields.invoiceMailSend")}>
+            <Select
               id="invoiceMailSend"
-              name="invoiceMailSend"
               value={String(values.invoiceMailSend)}
               onChange={(value) => setValue("invoiceMailSend", value === "true")}
               options={invoiceMailSendOptions}
               disabled={isPending}
             />
           </FormField>
-        </div>
 
-        <FormField id="address" label={t("fields.address")} error={errors.address}>
-          <Textarea
+          <FormField
             id="address"
-            value={values.address}
-            onChange={(event) => setValue("address", event.target.value)}
-            hasError={Boolean(errors.address)}
-            disabled={isPending}
-          />
-        </FormField>
+            label={t("fields.address")}
+            error={errors.address}
+            className="sm:col-span-2"
+          >
+            <Input
+              id="address"
+              value={values.address}
+              onChange={(event) => setValue("address", event.target.value)}
+              hasError={Boolean(errors.address)}
+              disabled={isPending}
+            />
+          </FormField>
+        </FormGrid>
       </form>
     </Modal>
   );

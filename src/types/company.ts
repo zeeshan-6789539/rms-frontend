@@ -7,6 +7,7 @@ export interface ICompany {
   city: string | null;
   status: boolean;
   invoiceMailSend: boolean;
+  hasMailPassword: boolean;
   createdAt: string;
   updatedAt: string;
   propertyCount: number;
@@ -32,6 +33,7 @@ export interface ICompanyPayload {
   city?: string;
   status: boolean;
   invoiceMailSend: boolean;
+  mailPassword?: string;
 }
 
 export interface ISaveCompanyArgs {
@@ -47,4 +49,5 @@ export interface ICompanyFormValues {
   city: string;
   status: boolean;
   invoiceMailSend: boolean;
+  mailPassword: string;
 }

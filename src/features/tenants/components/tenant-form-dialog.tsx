@@ -5,9 +5,11 @@ import { useTranslations } from "next-intl";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { FormField } from "@/components/ui/form-field";
+import { FormGrid } from "@/components/ui/form-grid";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { Select } from "@/components/ui/select";
+import { PHONE_MAX_LENGTH, PHONE_PLACEHOLDER } from "@/config/phone";
 import { tenantSchema } from "@/features/tenants/schemas/tenant-schema";
 import { useSaveTenant } from "@/features/tenants/hooks/use-save-tenant";
 import { useFormState } from "@/hooks/use-form-state";
@@ -85,6 +87,7 @@ export const TenantFormDialog = ({ isOpen, tenant, onClose }: ITenantFormDialogP
       isOpen={isOpen}
       title={tenant ? t("editTitle") : t("createTitle")}
       description={tenant ? t("editSubtitle") : t("createSubtitle")}
+      size="lg"
       onClose={onClose}
       footer={
         <>
@@ -100,53 +103,52 @@ export const TenantFormDialog = ({ isOpen, tenant, onClose }: ITenantFormDialogP
       <form id="tenant-form" onSubmit={handleSubmit} noValidate className="space-y-4">
         {error ? <Alert>{getApiErrorMessage(error, tCommon("error"))}</Alert> : null}
 
-        <FormField id="name" label={t("fields.name")} error={errors.name}>
-          <Input
-            id="name"
-            value={values.name}
-            onChange={(event) => setValue("name", event.target.value)}
-            hasError={Boolean(errors.name)}
-            disabled={isPending}
-            autoFocus
-          />
-        </FormField>
+        <FormGrid>
+          <FormField id="name" label={t("fields.name")} error={errors.name}>
+            <Input
+              id="name"
+              value={values.name}
+              onChange={(event) => setValue("name", event.target.value)}
+              hasError={Boolean(errors.name)}
+              disabled={isPending}
+              autoFocus
+            />
+          </FormField>
 
-        <FormField id="email" label={t("fields.email")} error={errors.email}>
-          <Input
-            id="email"
-            type="email"
-            value={values.email}
-            onChange={(event) => setValue("email", event.target.value)}
-            hasError={Boolean(errors.email)}
-            disabled={isPending}
-          />
-        </FormField>
+          <FormField id="email" label={t("fields.email")} error={errors.email}>
+            <Input
+              id="email"
+              type="email"
+              value={values.email}
+              onChange={(event) => setValue("email", event.target.value)}
+              hasError={Boolean(errors.email)}
+              disabled={isPending}
+            />
+          </FormField>
 
-        <FormField
-          id="phone"
-          label={t("fields.phone")}
-          error={errors.phone}
-          hint={t("phoneHint")}
-        >
-          <Input
-            id="phone"
-            value={values.phone}
-            onChange={(event) => setValue("phone", event.target.value)}
-            hasError={Boolean(errors.phone)}
-            disabled={isPending}
-            placeholder="03296789539"
-          />
-        </FormField>
+          <FormField id="phone" label={t("fields.phone")} error={errors.phone}>
+            <Input
+              id="phone"
+              value={values.phone}
+              onChange={(event) => setValue("phone", event.target.value)}
+              hasError={Boolean(errors.phone)}
+              disabled={isPending}
+              placeholder={PHONE_PLACEHOLDER}
+              inputMode="numeric"
+              maxLength={PHONE_MAX_LENGTH}
+            />
+          </FormField>
 
-        <FormField id="status" label={t("fields.status")}>
-          <Select
-            id="status"
-            value={String(values.status)}
-            onChange={(value) => setValue("status", value === "true")}
-            options={statusOptions}
-            disabled={isPending}
-          />
-        </FormField>
+          <FormField id="status" label={t("fields.status")}>
+            <Select
+              id="status"
+              value={String(values.status)}
+              onChange={(value) => setValue("status", value === "true")}
+              options={statusOptions}
+              disabled={isPending}
+            />
+          </FormField>
+        </FormGrid>
       </form>
     </Modal>
   );
