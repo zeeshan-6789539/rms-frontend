@@ -135,7 +135,6 @@ export const PaymentFormDialog = ({
               onChange={(event) => setValue("amountPaid", event.target.value)}
               hasError={Boolean(errors.amountPaid)}
               disabled={isPending}
-              placeholder="50000.00"
             />
           </FormField>
 

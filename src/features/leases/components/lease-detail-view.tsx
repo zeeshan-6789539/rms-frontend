@@ -220,7 +220,6 @@ export const LeaseDetailView = ({ leaseId }: ILeaseDetailViewProps) => {
         filteredLedgerEntries,
         paymentByPaymentId,
         PERIOD_PDF_LABELS[ledgerPeriod],
-        debouncedLedgerSearch,
         user?.companyName,
       ),
       buildPdfFileName("Ledger_statement", lease.tenantName),
@@ -350,7 +349,11 @@ export const LeaseDetailView = ({ leaseId }: ILeaseDetailViewProps) => {
         ) : null}
 
         {!isLedgerPending && filteredLedgerEntries.length > 0 ? (
-          <LedgerTable entries={filteredLedgerEntries} onToggleStatus={setLedgerStatusTarget} />
+          <LedgerTable
+            entries={filteredLedgerEntries}
+            onToggleStatus={setLedgerStatusTarget}
+            className="max-h-[68vh]"
+          />
         ) : null}
       </div>
 

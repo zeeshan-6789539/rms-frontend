@@ -105,7 +105,6 @@ export const UpdateLeaseRentDialog = ({
               onChange={(event) => setValue("rentAmount", event.target.value)}
               hasError={Boolean(errors.rentAmount)}
               disabled={isPending}
-              placeholder="55000.00"
               autoFocus
             />
           </FormField>

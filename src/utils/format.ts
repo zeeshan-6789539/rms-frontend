@@ -11,7 +11,14 @@ export const formatCompactCurrency = (value: number, locale: string): string =>
     maximumFractionDigits: 1,
   }).format(value);
 
-export const formatNumber = (value: number, locale: string): string =>
+// Drops trailing zero decimals for form inputs ("50000.00" → "50000", "12.50" → "12.5")
+export const toPlainAmount = (value: string | null | undefined): string => {
+  if (!value) return "";
+  const amount = Number(value);
+  return Number.isFinite(amount) ? String(amount) : value;
+};
+
+export const formatNumber =(value: number, locale: string): string =>
   new Intl.NumberFormat(locale).format(value);
 
 export const formatTime = (value: string | number | Date, locale: string): string =>

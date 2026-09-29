@@ -85,6 +85,7 @@ export const drawPoweredByFooter = (doc: jsPDF, contentBottomY: number): number 
   const pageBottomY = doc.internal.pageSize.getHeight() - PAGE_MARGIN / 2;
   const pageCount = doc.getNumberOfPages();
   const lastPageY = Math.min(contentBottomY + 10, pageBottomY);
+  const footerText = `${siteConfig.poweredBy}  |  ${siteConfig.contactNumber}`;
 
   doc.setFont("helvetica", "normal");
   doc.setFontSize(8);
@@ -92,7 +93,7 @@ export const drawPoweredByFooter = (doc: jsPDF, contentBottomY: number): number 
 
   for (let page = 1; page <= pageCount; page++) {
     doc.setPage(page);
-    doc.text(siteConfig.poweredBy, pageWidth / 2, page === pageCount ? lastPageY : pageBottomY, {
+    doc.text(footerText, pageWidth / 2, page === pageCount ? lastPageY : pageBottomY, {
       align: "center",
     });
   }

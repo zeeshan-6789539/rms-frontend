@@ -4,13 +4,11 @@ import { useEffect, type FormEvent } from "react";
 import { useTranslations } from "next-intl";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { DatePicker } from "@/components/ui/date-picker";
 import { FormField } from "@/components/ui/form-field";
 import { FormGrid } from "@/components/ui/form-grid";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { Select } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
 import { useLeaseOptions } from "@/features/leases/hooks/use-lease-options";
 import { ledgerEntrySchema } from "@/features/ledger/schemas/ledger-schema";
 import { useCreateLedgerEntry } from "@/features/ledger/hooks/use-create-ledger-entry";
@@ -36,7 +34,6 @@ const EMPTY_VALUES: ILedgerFormValues = {
   leaseId: "",
   entryType: "other_charge",
   amount: "",
-  dueDate: "",
   description: "",
 };
 
@@ -70,7 +67,6 @@ export const LedgerEntryFormDialog = ({
       leaseId: values.leaseId,
       entryType: values.entryType,
       amount: values.amount,
-      dueDate: emptyToUndefined(values.dueDate),
       description: emptyToUndefined(values.description),
     });
 
@@ -144,17 +140,6 @@ export const LedgerEntryFormDialog = ({
               onChange={(event) => setValue("amount", event.target.value)}
               hasError={Boolean(errors.amount)}
               disabled={isPending}
-              placeholder="2500.00"
-            />
-          </FormField>
-
-          <FormField id="dueDate" label={t("fields.dueDate")} error={errors.dueDate}>
-            <DatePicker
-              id="dueDate"
-              value={values.dueDate}
-              onChange={(date) => setValue("dueDate", date)}
-              hasError={Boolean(errors.dueDate)}
-              disabled={isPending}
             />
           </FormField>
 
@@ -162,9 +147,9 @@ export const LedgerEntryFormDialog = ({
             id="description"
             label={t("fields.description")}
             error={errors.description}
-            className="sm:col-span-2"
+            className="sm:col-span-2 lg:col-span-3"
           >
-            <Textarea
+            <Input
               id="description"
               value={values.description}
               onChange={(event) => setValue("description", event.target.value)}

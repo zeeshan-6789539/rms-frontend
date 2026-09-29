@@ -59,7 +59,6 @@ export interface ILedgerFormValues {
   leaseId: string;
   entryType: TPostableChargeType;
   amount: string;
-  dueDate: string;
   description: string;
 }
 

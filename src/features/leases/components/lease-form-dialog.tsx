@@ -17,6 +17,7 @@ import { useSaveLease } from "@/features/leases/hooks/use-save-lease";
 import { useFormState } from "@/hooks/use-form-state";
 import { useToast } from "@/hooks/use-toast";
 import { getApiErrorMessage } from "@/utils/api";
+import { toPlainAmount } from "@/utils/format";
 import { emptyToUndefined } from "@/utils/string";
 import { toTranslatedFieldErrors } from "@/utils/zod";
 import type { ILease, ILeaseFormValues } from "@/types/lease";
@@ -27,8 +28,8 @@ const toFormValues = (lease: ILease | null): ILeaseFormValues => ({
   tenantId: lease?.tenantId ?? "",
   startDate: lease?.startDate ?? "",
   endDate: lease?.endDate ?? "",
-  monthlyRent: lease?.currentRent ?? "",
-  advanceAmount: lease?.advanceAmount ?? "",
+  monthlyRent: toPlainAmount(lease?.currentRent),
+  advanceAmount: toPlainAmount(lease?.advanceAmount),
 });
 
 export const LeaseFormDialog = ({ isOpen, lease, onClose }: ILeaseFormDialogProps) => {
@@ -201,7 +202,6 @@ export const LeaseFormDialog = ({ isOpen, lease, onClose }: ILeaseFormDialogProp
                 onChange={(event) => setValue("monthlyRent", event.target.value)}
                 hasError={Boolean(errors.monthlyRent)}
                 disabled={isPending}
-                placeholder="50000.00"
               />
             </FormField>
           ) : null}
@@ -218,7 +218,6 @@ export const LeaseFormDialog = ({ isOpen, lease, onClose }: ILeaseFormDialogProp
               onChange={(event) => setValue("advanceAmount", event.target.value)}
               hasError={Boolean(errors.advanceAmount)}
               disabled={isPending}
-              placeholder="0.00"
             />
           </FormField>
         </FormGrid>

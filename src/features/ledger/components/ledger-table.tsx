@@ -14,16 +14,17 @@ import {
 } from "@/components/ui/table";
 import { cn } from "@/utils/cn";
 import { formatCurrency, formatDate } from "@/utils/format";
+import { getLedgerDisplayDate } from "@/utils/ledger-display";
 import type { ILedgerTableProps } from "@/features/ledger/types/ledger-components";
 
-export const LedgerTable = ({ entries, onToggleStatus }: ILedgerTableProps) => {
+export const LedgerTable = ({ entries, onToggleStatus, className }: ILedgerTableProps) => {
   const t = useTranslations("ledger");
   const tCommon = useTranslations("common");
   const tEntryType = useTranslations("ledger.entryTypes");
   const locale = useLocale();
 
   return (
-    <Table>
+    <Table className={className}>
       <TableHead>
         <TableRow className="hover:bg-transparent">
           <TableHeaderCell>{t("fields.property")}</TableHeaderCell>
@@ -70,7 +71,7 @@ export const LedgerTable = ({ entries, onToggleStatus }: ILedgerTableProps) => {
             </TableCell>
 
             <TableCell className="whitespace-nowrap text-muted-foreground">
-              {formatDate(entry.dueDate ?? entry.createdAt, locale)}
+              {formatDate(getLedgerDisplayDate(entry), locale)}
             </TableCell>
 
             <TableCell>

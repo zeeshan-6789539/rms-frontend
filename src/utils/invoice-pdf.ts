@@ -67,16 +67,15 @@ export const generateInvoicePdf = (
 
   autoTable(doc, {
     startY: sectionBottomY,
-    head: [["Description", "Due date", "Amount"]],
+    head: [["Description", "Amount"]],
     body:
       entriesThisMonth.length === 0
-        ? [[`No charges for ${invoiceMonthLabel}.`, "", ""]]
+        ? [[`No charges for ${invoiceMonthLabel}.`, ""]]
         : combinedEntries.map((entry) => {
             const isPayment = entry.entryType === "payment_received";
             const label = ENTRY_TYPE_PDF_LABELS[entry.entryType];
             return [
               entry.description ? `${label} — ${entry.description}` : label,
-              formatDate(entry.dueDate ?? entry.createdAt, PDF_LOCALE),
               `${isPayment ? "-" : ""}${formatCurrency(Number(entry.amount), PDF_LOCALE)}`,
             ];
           }),
@@ -97,7 +96,7 @@ export const generateInvoicePdf = (
       lineWidth: { bottom: 0.5, top: 0, left: 0, right: 0 },
     },
     alternateRowStyles: { fillColor: PDF_COLORS.rowStripe },
-    columnStyles: { 2: { halign: "right" } },
+    columnStyles: { 1: { halign: "right" } },
     didParseCell: (data) => {
       if (data.section === "body" && combinedEntries[data.row.index]?.entryType === "payment_received") {
         data.cell.styles.fillColor = PDF_COLORS.paymentHighlight;
@@ -110,17 +109,7 @@ export const generateInvoicePdf = (
 
   const totalBoxBottomY = drawTotalBox(doc, tableBottomY + 4, "Total due", formatCurrency(totalDue, PDF_LOCALE));
 
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(9);
-  doc.setTextColor(...PDF_COLORS.textMuted);
-  const noteY = totalBoxBottomY + 6;
-  doc.text(
-    `Lease outstanding balance: ${formatCurrency(Number(lease.outstandingBalance), PDF_LOCALE)}`,
-    PAGE_MARGIN,
-    noteY,
-  );
-
-  trimTrailingWhitespace(doc, drawPoweredByFooter(doc, noteY));
+  trimTrailingWhitespace(doc, drawPoweredByFooter(doc, totalBoxBottomY));
 
   return doc;
 };

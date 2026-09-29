@@ -1,6 +1,7 @@
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { formatCurrency, formatDate } from "@/utils/format";
+import { getLedgerDisplayDate } from "@/utils/ledger-display";
 import {
   buildDocumentNumber,
   drawInfoSection,
@@ -22,7 +23,6 @@ export const generateLedgerPdf = (
   entries: ILedgerEntry[],
   paymentByPaymentId: Map<string, IPayment>,
   periodLabel: string,
-  searchQuery: string,
   companyName: string | null | undefined,
 ): jsPDF => {
   const doc = new jsPDF();
@@ -36,7 +36,7 @@ export const generateLedgerPdf = (
 
   const sectionBottomY = drawInfoSection(doc, headerBottomY, [
     { label: "Period", value: periodLabel },
-    { label: "Filter", value: searchQuery ? `Search: "${searchQuery}"` : "None" },
+    { label: "Advance amount", value: formatCurrency(Number(lease.advanceAmount), PDF_LOCALE) },
   ]);
 
   let tableBottomY = sectionBottomY;
@@ -57,7 +57,7 @@ export const generateLedgerPdf = (
               : entry.description ?? "—";
             return [
               ENTRY_TYPE_PDF_LABELS[entry.entryType],
-              entry.dueDate ? formatDate(entry.dueDate, PDF_LOCALE) : "—",
+              entry.dueDate ? formatDate(getLedgerDisplayDate(entry), PDF_LOCALE) : "—",
               details,
               amountLabel,
               entry.runningBalance != null ? formatCurrency(Number(entry.runningBalance), PDF_LOCALE) : "—",
