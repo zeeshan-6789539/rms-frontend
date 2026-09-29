@@ -35,7 +35,8 @@
   },
   "sidebar": {
     "open": "Open menu",
-    "close": "Close menu"
+    "close": "Close menu",
+    "poweredBy": "Powered by"
   },
   "theme": {
     "label": "Theme",
@@ -128,7 +129,6 @@
     "emptyTitle": "No companies found",
     "emptySubtitle": "Adjust your filters, or add the first tenant.",
     "searchPlaceholder": "Search name, email, city…",
-    "phoneHint": "Pakistani number, e.g. 03296789539.",
     "fields": {
       "name": "Name",
       "email": "Email",
@@ -176,7 +176,6 @@
     "you": "(you)",
     "cannotEditSelf": "You cannot deactivate your own account.",
     "passwordHint": "At least 8 characters.",
-    "phoneHint": "Pakistani number, e.g. 03296789539.",
     "superAdminHint": "A super admin is platform-level and cannot belong to a company.",
     "passwordHintUpdate": "Leave blank to keep the current password.",
     "fields": {

@@ -5,10 +5,11 @@ import { useTranslations } from "next-intl";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { FormField } from "@/components/ui/form-field";
+import { FormGrid } from "@/components/ui/form-grid";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { Select } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
+import { PHONE_MAX_LENGTH, PHONE_PLACEHOLDER } from "@/config/phone";
 import { companySchema } from "@/features/companies/schemas/company-schema";
 import { useSaveCompany } from "@/features/companies/hooks/use-save-company";
 import { useFormState } from "@/hooks/use-form-state";
@@ -110,7 +111,7 @@ export const CompanyFormDialog = ({
       <form id="company-form" onSubmit={handleSubmit} noValidate className="space-y-4">
         {error ? <Alert>{getApiErrorMessage(error, tCommon("error"))}</Alert> : null}
 
-        <div className="grid gap-4 sm:grid-cols-2">
+        <FormGrid>
           <FormField id="name" label={t("fields.name")} error={errors.name}>
             <Input
               id="name"
@@ -133,19 +134,16 @@ export const CompanyFormDialog = ({
             />
           </FormField>
 
-          <FormField
-            id="phone"
-            label={t("fields.phone")}
-            error={errors.phone}
-            hint={t("phoneHint")}
-          >
+          <FormField id="phone" label={t("fields.phone")} error={errors.phone}>
             <Input
               id="phone"
               value={values.phone}
               onChange={(event) => setValue("phone", event.target.value)}
               hasError={Boolean(errors.phone)}
               disabled={isPending}
-              placeholder="03296789539"
+              placeholder={PHONE_PLACEHOLDER}
+              inputMode="numeric"
+              maxLength={PHONE_MAX_LENGTH}
             />
           </FormField>
 
@@ -168,17 +166,22 @@ export const CompanyFormDialog = ({
               disabled={isPending}
             />
           </FormField>
-        </div>
 
-        <FormField id="address" label={t("fields.address")} error={errors.address}>
-          <Textarea
+          <FormField
             id="address"
-            value={values.address}
-            onChange={(event) => setValue("address", event.target.value)}
-            hasError={Boolean(errors.address)}
-            disabled={isPending}
-          />
-        </FormField>
+            label={t("fields.address")}
+            error={errors.address}
+            className="sm:col-span-2"
+          >
+            <Input
+              id="address"
+              value={values.address}
+              onChange={(event) => setValue("address", event.target.value)}
+              hasError={Boolean(errors.address)}
+              disabled={isPending}
+            />
+          </FormField>
+        </FormGrid>
       </form>
     </Modal>
   );

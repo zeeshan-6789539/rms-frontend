@@ -9,6 +9,13 @@ export const formatCurrency = (
     maximumFractionDigits: 0,
   }).format(value);
 
+// Short form ("40K") for tight spaces like chart axis ticks
+export const formatCompactCurrency = (value: number, locale: string): string =>
+  new Intl.NumberFormat(locale, {
+    notation: "compact",
+    maximumFractionDigits: 1,
+  }).format(value);
+
 export const formatNumber = (value: number, locale: string): string =>
   new Intl.NumberFormat(locale).format(value);
 

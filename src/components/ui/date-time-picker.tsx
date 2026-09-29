@@ -64,8 +64,8 @@ const toIsoDateTimeString = (
 };
 
 // Helper: Convert 24h to 12h + AM/PM
-const to12HourFormat = (hour24: number) => {
-  const period = hour24 >= 12 ? "PM" : "AM";
+const to12HourFormat = (hour24: number): { hour12: number; period: "AM" | "PM" } => {
+  const period: "AM" | "PM" = hour24 >= 12 ? "PM" : "AM";
   let hour12 = hour24 % 12;
   if (hour12 === 0) hour12 = 12;
   return { hour12, period };

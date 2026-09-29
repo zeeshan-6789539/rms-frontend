@@ -57,6 +57,11 @@ export interface IFormFieldProps {
   label: string;
   error?: string;
   hint?: string;
+  className?: string;
+  children: ReactNode;
+}
+
+export interface IFormGridProps {
   children: ReactNode;
 }
 
