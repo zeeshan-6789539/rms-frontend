@@ -11,7 +11,7 @@ import type { IModalProps, TModalSize } from "@/types/modal";
 
 const sizeClasses: Record<TModalSize, string> = {
   md: "max-w-md",
-  lg: "max-w-2xl",
+  lg: "max-w-4xl",
 };
 
 export const Modal = ({

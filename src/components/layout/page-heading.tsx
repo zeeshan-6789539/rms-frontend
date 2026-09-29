@@ -1,6 +1,6 @@
 import type { IPageHeadingProps } from "@/types/layout";
 
-export const PageHeading = ({ title, description, children, className }: IPageHeadingProps & { className?: string }) => (
+export const PageHeading = ({ title, description, children, className }: IPageHeadingProps) => (
   <div className={`sticky top-0 z-10 ${className ?? ''}`}>
     <div className="flex flex-wrap items-center justify-between gap-3">
       <div className="space-y-1">
