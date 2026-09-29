@@ -64,7 +64,9 @@
     "periodLabel": "Filter by period",
     "allStatuses": "All statuses",
     "allRoles": "All roles",
-    "allCompanies": "All companies"
+    "allCompanies": "All companies",
+    "propertyTypeLabel": "Filter by property type",
+    "allPropertyTypes": "All types"
   },
   "pagination": {
     "summary": "Showing {from}–{to} of {total}",
@@ -269,13 +271,28 @@
       "city": "City",
       "status": "Status",
       "createdAt": "Created",
-      "tenants": "Tenant(s)"
+      "tenants": "Tenant(s)",
+      "propertyType": "Property type",
+      "rentDueDay": "Rent due day"
     },
     "errors": {
       "nameLength": "Name must be between 2 and 255 characters.",
       "addressLine1Length": "Address line 1 is required and must be at most 500 characters.",
-      "cityLength": "City is required and must be at most 100 characters."
-    }
+      "cityLength": "City is required and must be at most 100 characters.",
+      "propertyTypeInvalid": "Choose a property type.",
+      "rentDueDayRange": "Rent due day must be between 1 and 28."
+    },
+    "rentDueDayOption": "Day {day}"
+  },
+  "propertyTypes": {
+    "home": "Home",
+    "apartment": "Apartment",
+    "room": "Room",
+    "shop": "Shop",
+    "office": "Office",
+    "warehouse": "Warehouse",
+    "land": "Land",
+    "other": "Other"
   },
   "tenants": {
     "title": "Tenants",

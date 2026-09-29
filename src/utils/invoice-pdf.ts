@@ -36,6 +36,7 @@ export const generateInvoicePdf = (
   const paymentsTotal = paymentsThisMonth.reduce((sum, entry) => sum + Number(entry.amount), 0);
   const getEntryTime = (entry: ILedgerEntry) => new Date(entry.dueDate ?? entry.createdAt).getTime();
   const totalDue = chargesTotal - paymentsTotal;
+  const rentDueDate = chargesThisMonth.find((entry) => entry.entryType === "monthly_rent")?.dueDate;
   const invoiceMonthLabel = new Date().toLocaleDateString(PDF_LOCALE, {
     month: "long",
     year: "numeric",
@@ -52,6 +53,7 @@ export const generateInvoicePdf = (
 
   const sectionBottomY = drawInfoSection(doc, headerBottomY, [
     { label: "Billing period", value: invoiceMonthLabel },
+    ...(rentDueDate ? [{ label: "Due date", value: formatDate(rentDueDate, PDF_LOCALE) }] : []),
     {
       label: "Lease term",
       value: `${formatDate(lease.startDate, PDF_LOCALE)} - ${formatDate(lease.endDate, PDF_LOCALE)}`,

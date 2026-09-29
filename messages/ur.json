@@ -64,7 +64,9 @@
     "periodLabel": "مدت کے مطابق چھانٹیں",
     "allStatuses": "تمام حیثیتیں",
     "allRoles": "تمام کردار",
-    "allCompanies": "تمام کمپنیاں"
+    "allCompanies": "تمام کمپنیاں",
+    "propertyTypeLabel": "پراپرٹی کی قسم کے لحاظ سے فلٹر کریں",
+    "allPropertyTypes": "تمام اقسام"
   },
   "pagination": {
     "summary": "{total} میں سے {from}–{to} دکھائے جا رہے ہیں",
@@ -269,13 +271,28 @@
       "city": "شہر",
       "status": "حیثیت",
       "createdAt": "تاریخ اندراج",
-      "tenants": "ٹیننٹ(س)"
+      "tenants": "ٹیننٹ(س)",
+      "propertyType": "پراپرٹی کی قسم",
+      "rentDueDay": "کرایہ کی مقررہ تاریخ"
     },
     "errors": {
       "nameLength": "نام 2 سے 255 حروف کے درمیان ہونا چاہیے۔",
       "addressLine1Length": "پتہ سطر 1 ضروری ہے اور زیادہ سے زیادہ 500 حروف کا ہو سکتا ہے۔",
-      "cityLength": "شہر ضروری ہے اور زیادہ سے زیادہ 100 حروف کا ہو سکتا ہے۔"
-    }
+      "cityLength": "شہر ضروری ہے اور زیادہ سے زیادہ 100 حروف کا ہو سکتا ہے۔",
+      "propertyTypeInvalid": "پراپرٹی کی قسم منتخب کریں۔",
+      "rentDueDayRange": "کرایہ کی مقررہ تاریخ 1 سے 28 کے درمیان ہونی چاہیے۔"
+    },
+    "rentDueDayOption": "{day} تاریخ"
+  },
+  "propertyTypes": {
+    "home": "گھر",
+    "apartment": "اپارٹمنٹ",
+    "room": "کمرہ",
+    "shop": "دکان",
+    "office": "دفتر",
+    "warehouse": "گودام",
+    "land": "زمین",
+    "other": "دیگر"
   },
   "tenants": {
     "title": "ٹیننٹس",

@@ -23,18 +23,21 @@ import { getApiErrorMessage } from "@/utils/api";
 import { emptyToUndefined } from "@/utils/string";
 import { toStatusValue } from "@/utils/status";
 import { DEFAULT_PAGE_SIZE } from "@/config/pagination";
-import type { IProperty, IPropertyQueryParams } from "@/types/property";
+import { PROPERTY_TYPES } from "@/config/property";
+import type { IProperty, IPropertyQueryParams, TPropertyType } from "@/types/property";
 import type { TStatusFilter } from "@/types/query-params";
 
 export const PropertiesView = () => {
   const t = useTranslations("properties");
   const tCommon = useTranslations("common");
   const tFilters = useTranslations("filters");
+  const tTypes = useTranslations("propertyTypes");
   const { showToast } = useToast();
 
   const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<TStatusFilter>("all");
+  const [typeFilter, setTypeFilter] = useState<TPropertyType | "">("");
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingProperty, setEditingProperty] = useState<IProperty | null>(null);
   const [statusTarget, setStatusTarget] = useState<IProperty | null>(null);
@@ -52,14 +55,20 @@ export const PropertiesView = () => {
     setPage(1);
   };
 
+  const handleTypeChange = (value: string) => {
+    setTypeFilter(value as TPropertyType | "");
+    setPage(1);
+  };
+
   const params = useMemo<IPropertyQueryParams>(
     () => ({
       page,
       limit: DEFAULT_PAGE_SIZE,
       search: emptyToUndefined(debouncedSearch),
+      propertyType: typeFilter || undefined,
       status: toStatusValue(statusFilter),
     }),
-    [page, debouncedSearch, statusFilter],
+    [page, debouncedSearch, typeFilter, statusFilter],
   );
 
   const { data, isPending, isError, error, refetch } = useProperties(params);
@@ -69,6 +78,11 @@ export const PropertiesView = () => {
     { value: "all", label: tFilters("allStatuses") },
     { value: "active", label: tCommon("active") },
     { value: "inactive", label: tCommon("deactivated") },
+  ];
+
+  const typeOptions = [
+    { value: "", label: tFilters("allPropertyTypes") },
+    ...PROPERTY_TYPES.map((type) => ({ value: type, label: tTypes(type) })),
   ];
 
   const openCreateDialog = () => {
@@ -111,6 +125,14 @@ export const PropertiesView = () => {
             label={tFilters("searchLabel")}
             placeholder={t("searchPlaceholder")}
             className="w-full shrink-0 sm:w-56"
+          />
+
+          <Select
+            value={typeFilter}
+            onChange={handleTypeChange}
+            options={typeOptions}
+            aria-label={tFilters("propertyTypeLabel")}
+            className="w-full shrink-0 sm:w-40"
           />
 
           <Select

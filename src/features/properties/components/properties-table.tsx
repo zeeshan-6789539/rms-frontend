@@ -22,6 +22,7 @@ export const PropertiesTable = ({
 }: IPropertiesTableProps) => {
   const t = useTranslations("properties");
   const tCommon = useTranslations("common");
+  const tTypes = useTranslations("propertyTypes");
   const locale = useLocale();
 
   return (
@@ -29,8 +30,10 @@ export const PropertiesTable = ({
       <TableHead>
         <TableRow className="hover:bg-transparent">
           <TableHeaderCell>{t("fields.name")}</TableHeaderCell>
+          <TableHeaderCell>{t("fields.propertyType")}</TableHeaderCell>
           <TableHeaderCell>{t("fields.address")}</TableHeaderCell>
           <TableHeaderCell>{t("fields.city")}</TableHeaderCell>
+          <TableHeaderCell>{t("fields.rentDueDay")}</TableHeaderCell>
           <TableHeaderCell>{t("fields.tenants")}</TableHeaderCell>
           <TableHeaderCell>{t("fields.status")}</TableHeaderCell>
           <TableHeaderCell>{t("fields.createdAt")}</TableHeaderCell>
@@ -46,6 +49,10 @@ export const PropertiesTable = ({
             </TableCell>
 
             <TableCell className="text-muted-foreground">
+              <p>{tTypes(property.propertyType)}</p>
+            </TableCell>
+
+            <TableCell className="text-muted-foreground">
               <div className="space-y-0.5">
                 <p>{property.addressLine1}</p>
               </div>
@@ -53,6 +60,10 @@ export const PropertiesTable = ({
 
             <TableCell className="text-muted-foreground">
               <p>{property.city}</p>
+            </TableCell>
+
+            <TableCell className="whitespace-nowrap text-muted-foreground">
+              <p>{t("rentDueDayOption", { day: property.rentDueDay })}</p>
             </TableCell>
 
             <TableCell className="text-muted-foreground">

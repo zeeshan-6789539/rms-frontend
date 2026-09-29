@@ -9,19 +9,27 @@ import { FormGrid } from "@/components/ui/form-grid";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { Select } from "@/components/ui/select";
+import {
+  DEFAULT_PROPERTY_TYPE,
+  DEFAULT_RENT_DUE_DAY,
+  PROPERTY_TYPES,
+  RENT_DUE_DAYS,
+} from "@/config/property";
 import { propertySchema } from "@/features/properties/schemas/property-schema";
 import { useSaveProperty } from "@/features/properties/hooks/use-save-property";
 import { useFormState } from "@/hooks/use-form-state";
 import { useToast } from "@/hooks/use-toast";
 import { getApiErrorMessage } from "@/utils/api";
 import { toTranslatedFieldErrors } from "@/utils/zod";
-import type { IProperty, IPropertyFormValues } from "@/types/property";
+import type { IProperty, IPropertyFormValues, TPropertyType } from "@/types/property";
 import type { IPropertyFormDialogProps } from "@/features/properties/types/property-components";
 
 const toFormValues = (property: IProperty | null): IPropertyFormValues => ({
   name: property?.name ?? "",
   addressLine1: property?.addressLine1 ?? "",
   city: property?.city ?? "",
+  propertyType: property?.propertyType ?? DEFAULT_PROPERTY_TYPE,
+  rentDueDay: property?.rentDueDay ?? DEFAULT_RENT_DUE_DAY,
   status: property?.status ?? true,
 });
 
@@ -29,6 +37,8 @@ const toPayload = (values: IPropertyFormValues) => ({
   name: values.name.trim(),
   addressLine1: values.addressLine1.trim(),
   city: values.city.trim(),
+  propertyType: values.propertyType,
+  rentDueDay: values.rentDueDay,
   status: values.status,
 });
 
@@ -39,6 +49,7 @@ export const PropertyFormDialog = ({
 }: IPropertyFormDialogProps) => {
   const t = useTranslations("properties");
   const tCommon = useTranslations("common");
+  const tTypes = useTranslations("propertyTypes");
   const { showToast } = useToast();
   const { values, errors, setValue, setErrors, reset } = useFormState(
     toFormValues(property),
@@ -56,6 +67,16 @@ export const PropertyFormDialog = ({
     { value: "true", label: tCommon("active") },
     { value: "false", label: tCommon("deactivated") },
   ];
+
+  const propertyTypeOptions = PROPERTY_TYPES.map((type) => ({
+    value: type,
+    label: tTypes(type),
+  }));
+
+  const rentDueDayOptions = RENT_DUE_DAYS.map((day) => ({
+    value: String(day),
+    label: t("rentDueDayOption", { day }),
+  }));
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -117,6 +138,21 @@ export const PropertyFormDialog = ({
             />
           </FormField>
 
+          <FormField
+            id="propertyType"
+            label={t("fields.propertyType")}
+            error={errors.propertyType}
+          >
+            <Select
+              id="propertyType"
+              value={values.propertyType}
+              onChange={(value) => setValue("propertyType", value as TPropertyType)}
+              options={propertyTypeOptions}
+              hasError={Boolean(errors.propertyType)}
+              disabled={isPending}
+            />
+          </FormField>
+
           <FormField id="status" label={t("fields.status")}>
             <Select
               id="status"
@@ -147,6 +183,21 @@ export const PropertyFormDialog = ({
               value={values.city}
               onChange={(event) => setValue("city", event.target.value)}
               hasError={Boolean(errors.city)}
+              disabled={isPending}
+            />
+          </FormField>
+
+          <FormField
+            id="rentDueDay"
+            label={t("fields.rentDueDay")}
+            error={errors.rentDueDay}
+          >
+            <Select
+              id="rentDueDay"
+              value={String(values.rentDueDay)}
+              onChange={(value) => setValue("rentDueDay", Number(value))}
+              options={rentDueDayOptions}
+              hasError={Boolean(errors.rentDueDay)}
               disabled={isPending}
             />
           </FormField>
