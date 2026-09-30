@@ -2,6 +2,11 @@ import { z } from "zod";
 
 const MONEY_PATTERN = /^\d+(\.\d{1,2})?$/;
 
+// http(s) only, so a stored link can never become a javascript: href
+const documentUrlSchema = z
+  .url({ protocol: /^https?$/, error: "documentUrlInvalid" })
+  .max(2048, "documentUrlLength");
+
 // Mirrors CreateLeaseDto — messages are message-catalogue keys, resolved at render
 export const createLeaseSchema = z
   .object({
@@ -11,6 +16,7 @@ export const createLeaseSchema = z
     endDate: z.iso.date("endDateRequired"),
     monthlyRent: z.string().regex(MONEY_PATTERN, "monthlyRentInvalid"),
     advanceAmount: z.string().regex(MONEY_PATTERN, "advanceAmountInvalid").optional(),
+    documentUrl: documentUrlSchema.optional(),
   })
   .refine((values) => values.endDate > values.startDate, {
     message: "endDateBeforeStart",
@@ -23,6 +29,7 @@ export const updateLeaseSchema = z
     startDate: z.iso.date("startDateRequired"),
     endDate: z.iso.date("endDateRequired"),
     advanceAmount: z.string().regex(MONEY_PATTERN, "advanceAmountInvalid").optional(),
+    documentUrl: documentUrlSchema.nullable(),
   })
   .refine((values) => values.endDate > values.startDate, {
     message: "endDateBeforeStart",

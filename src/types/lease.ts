@@ -11,6 +11,7 @@ export interface ILease {
   startDate: string;
   endDate: string;
   advanceAmount: string;
+  documentUrl: string | null;
   currentRent: string | null;
   outstandingBalance: string;
   createdAt: string;
@@ -36,12 +37,14 @@ export interface ICreateLeasePayload {
   endDate: string;
   monthlyRent: string;
   advanceAmount?: string;
+  documentUrl?: string;
 }
 
 export interface IUpdateLeasePayload {
   startDate?: string;
   endDate?: string;
   advanceAmount?: string;
+  documentUrl?: string | null;
 }
 
 export interface ILeaseFormValues {
@@ -51,6 +54,7 @@ export interface ILeaseFormValues {
   endDate: string;
   monthlyRent: string;
   advanceAmount: string;
+  documentUrl: string;
 }
 
 export interface IUpdateLeaseStatusPayload {

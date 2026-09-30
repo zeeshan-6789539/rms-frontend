@@ -339,7 +339,7 @@
     "createTitle": "New lease",
     "createSubtitle": "Link a property to a tenant and set the rent.",
     "editTitle": "Edit lease",
-    "editSubtitle": "Update this lease's term or advance amount.",
+    "editSubtitle": "Update this lease's term, advance amount or document link.",
     "edit": "Edit lease",
     "changeStatus": "Change status",
     "changeRent": "Change rent",
@@ -364,6 +364,8 @@
     "invoicePdf": "Invoice",
     "ledgerPdf": "Ledger PDF",
     "searchLedgerPlaceholder": "Search ledger…",
+    "viewDocument": "Document",
+    "documentUrlPlaceholder": "https://drive.google.com/…",
     "periods": {
       "all": "All time",
       "current_month": "Current month",
@@ -382,6 +384,7 @@
       "endDate": "End date",
       "monthlyRent": "Monthly rent",
       "advanceAmount": "Advance amount",
+      "documentUrl": "Document link",
       "newRentAmount": "New rent amount",
       "effectiveFrom": "Effective from",
       "notes": "Notes"
@@ -399,6 +402,8 @@
       "endDateBeforeStart": "End date must be after the start date.",
       "monthlyRentInvalid": "Enter a monetary amount with up to 2 decimal places.",
       "advanceAmountInvalid": "Enter a monetary amount with up to 2 decimal places.",
+      "documentUrlInvalid": "Enter a full link starting with http:// or https://.",
+      "documentUrlLength": "Document link must be at most 2048 characters.",
       "rentAmountInvalid": "Enter a monetary amount with up to 2 decimal places.",
       "effectiveFromRequired": "Enter a valid date.",
       "notesLength": "Notes must be at most 500 characters."

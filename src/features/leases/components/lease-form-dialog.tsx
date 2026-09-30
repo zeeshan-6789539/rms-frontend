@@ -30,6 +30,7 @@ const toFormValues = (lease: ILease | null): ILeaseFormValues => ({
   endDate: lease?.endDate ?? "",
   monthlyRent: toPlainAmount(lease?.currentRent),
   advanceAmount: toPlainAmount(lease?.advanceAmount),
+  documentUrl: lease?.documentUrl ?? "",
 });
 
 export const LeaseFormDialog = ({ isOpen, lease, onClose }: ILeaseFormDialogProps) => {
@@ -62,6 +63,8 @@ export const LeaseFormDialog = ({ isOpen, lease, onClose }: ILeaseFormDialogProp
         startDate: values.startDate,
         endDate: values.endDate,
         advanceAmount: emptyToUndefined(values.advanceAmount),
+        // null clears a previously saved link
+        documentUrl: emptyToUndefined(values.documentUrl) ?? null,
       });
 
       if (!parsed.success) {
@@ -90,6 +93,7 @@ export const LeaseFormDialog = ({ isOpen, lease, onClose }: ILeaseFormDialogProp
       endDate: values.endDate,
       monthlyRent: values.monthlyRent,
       advanceAmount: emptyToUndefined(values.advanceAmount),
+      documentUrl: emptyToUndefined(values.documentUrl),
     });
 
     if (!parsed.success) {
@@ -217,6 +221,19 @@ export const LeaseFormDialog = ({ isOpen, lease, onClose }: ILeaseFormDialogProp
               value={values.advanceAmount}
               onChange={(event) => setValue("advanceAmount", event.target.value)}
               hasError={Boolean(errors.advanceAmount)}
+              disabled={isPending}
+            />
+          </FormField>
+
+          <FormField id="documentUrl" label={t("fields.documentUrl")} error={errors.documentUrl}>
+            <Input
+              id="documentUrl"
+              type="url"
+              inputMode="url"
+              placeholder={t("documentUrlPlaceholder")}
+              value={values.documentUrl}
+              onChange={(event) => setValue("documentUrl", event.target.value)}
+              hasError={Boolean(errors.documentUrl)}
               disabled={isPending}
             />
           </FormField>

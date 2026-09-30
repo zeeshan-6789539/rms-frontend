@@ -339,7 +339,7 @@
     "createTitle": "نئی لیز",
     "createSubtitle": "پراپرٹی کو ٹیننٹ سے منسلک کریں اور کرایہ مقرر کریں۔",
     "editTitle": "لیز میں ترمیم",
-    "editSubtitle": "اس لیز کی مدت یا ایڈوانس رقم اپ ڈیٹ کریں۔",
+    "editSubtitle": "اس لیز کی مدت، ایڈوانس رقم یا دستاویز کا لنک اپ ڈیٹ کریں۔",
     "edit": "لیز میں ترمیم کریں",
     "changeStatus": "حیثیت تبدیل کریں",
     "changeRent": "کرایہ تبدیل کریں",
@@ -364,6 +364,8 @@
     "invoicePdf": "انوائس",
     "ledgerPdf": "لیجر پی ڈی ایف",
     "searchLedgerPlaceholder": "لیجر تلاش کریں…",
+    "viewDocument": "دستاویز",
+    "documentUrlPlaceholder": "https://drive.google.com/…",
     "periods": {
       "all": "ہمیشہ",
       "current_month": "موجودہ مہینہ",
@@ -382,6 +384,7 @@
       "endDate": "ختم ہونے کی تاریخ",
       "monthlyRent": "ماہانہ کرایہ",
       "advanceAmount": "ایڈوانس رقم",
+      "documentUrl": "دستاویز کا لنک",
       "newRentAmount": "نئی کرایہ رقم",
       "effectiveFrom": "نافذ العمل از",
       "notes": "نوٹس"
@@ -399,6 +402,8 @@
       "endDateBeforeStart": "اختتامی تاریخ شروع کی تاریخ کے بعد ہونی چاہیے۔",
       "monthlyRentInvalid": "زیادہ سے زیادہ 2 اعشاریہ جگہوں کے ساتھ رقم درج کریں۔",
       "advanceAmountInvalid": "زیادہ سے زیادہ 2 اعشاریہ جگہوں کے ساتھ رقم درج کریں۔",
+      "documentUrlInvalid": "http:// یا https:// سے شروع ہونے والا مکمل لنک درج کریں۔",
+      "documentUrlLength": "دستاویز کا لنک زیادہ سے زیادہ 2048 حروف کا ہو سکتا ہے۔",
       "rentAmountInvalid": "زیادہ سے زیادہ 2 اعشاریہ جگہوں کے ساتھ رقم درج کریں۔",
       "effectiveFromRequired": "درست تاریخ درج کریں۔",
       "notesLength": "نوٹس زیادہ سے زیادہ 500 حروف کے ہو سکتے ہیں۔"

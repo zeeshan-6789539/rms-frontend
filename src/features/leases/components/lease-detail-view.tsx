@@ -7,6 +7,7 @@ import {
   Banknote,
   CreditCard,
   Download,
+  ExternalLink,
   FileQuestion,
   FileText,
   Pencil,
@@ -248,6 +249,17 @@ export const LeaseDetailView = ({ leaseId }: ILeaseDetailViewProps) => {
         </div>
 
         <div className="flex flex-wrap gap-2">
+          {lease.documentUrl ? (
+            <a
+              href={lease.documentUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-border bg-card px-3 text-xs font-medium text-foreground shadow-sm transition-[background-color,border-color] duration-150 hover:border-border-strong hover:bg-muted"
+            >
+              <ExternalLink className="h-4 w-4" aria-hidden />
+              {t("viewDocument")}
+            </a>
+          ) : null}
           <Button variant="outline" size="sm" className="h-11" onClick={() => setIsChargeOpen(true)}>
             <Plus className="h-4 w-4" aria-hidden />
             {tLedger("create")}
