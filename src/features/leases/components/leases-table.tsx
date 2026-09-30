@@ -55,6 +55,7 @@ export const LeasesTable = ({
           <TableRow key={lease.id}>
             <TableCell>
               <p className="font-medium">{lease.propertyName}</p>
+              <p className="font-mono text-xs text-muted-foreground">{lease.propertyNumber}</p>
             </TableCell>
 
             <TableCell className="text-muted-foreground">{lease.tenantName}</TableCell>

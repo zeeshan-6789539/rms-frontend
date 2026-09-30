@@ -29,6 +29,7 @@ export const PropertiesTable = ({
     <Table>
       <TableHead>
         <TableRow className="hover:bg-transparent">
+          <TableHeaderCell>{t("fields.propertyNumber")}</TableHeaderCell>
           <TableHeaderCell>{t("fields.name")}</TableHeaderCell>
           <TableHeaderCell>{t("fields.propertyType")}</TableHeaderCell>
           <TableHeaderCell>{t("fields.address")}</TableHeaderCell>
@@ -44,6 +45,10 @@ export const PropertiesTable = ({
       <TableBody>
         {properties.map((property) => (
           <TableRow key={property.id}>
+            <TableCell className="whitespace-nowrap font-mono text-xs text-muted-foreground">
+              {property.propertyNumber}
+            </TableCell>
+
             <TableCell>
               <p className="font-medium">{property.name}</p>
             </TableCell>

@@ -6,6 +6,7 @@ export type TPropertyType = (typeof PROPERTY_TYPES)[number];
 export interface IProperty {
   id: string;
   companyId: string;
+  propertyNumber: string;
   name: string;
   addressLine1: string;
   city: string;

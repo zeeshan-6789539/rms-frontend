@@ -39,6 +39,7 @@ import { usePayments } from "@/features/payments/hooks/use-payments";
 import { useDebouncedValue } from "@/hooks/use-debounced-value";
 import { useToast } from "@/hooks/use-toast";
 import { getApiErrorMessage } from "@/utils/api";
+import { buildLeaseLabel } from "@/utils/lease";
 import { formatCurrency, formatDate } from "@/utils/format";
 import { generateInvoicePdf } from "@/utils/invoice-pdf";
 import { generateLedgerPdf } from "@/utils/ledger-pdf";
@@ -244,7 +245,9 @@ export const LeaseDetailView = ({ leaseId }: ILeaseDetailViewProps) => {
               <h1 className="text-2xl font-semibold tracking-tight">{lease.propertyName}</h1>
               <Badge variant={STATUS_VARIANT[lease.status]}>{tStatus(lease.status)}</Badge>
             </div>
-            <p className="text-sm text-muted-foreground">{lease.tenantName}</p>
+            <p className="text-sm text-muted-foreground">
+              <span className="font-mono">{lease.propertyNumber}</span> · {lease.tenantName}
+            </p>
           </div>
         </div>
 
@@ -387,14 +390,14 @@ export const LeaseDetailView = ({ leaseId }: ILeaseDetailViewProps) => {
         isOpen={isChargeOpen}
         onClose={() => setIsChargeOpen(false)}
         defaultLeaseId={lease.id}
-        defaultLeaseLabel={`${lease.propertyName} – ${lease.tenantName}`}
+        defaultLeaseLabel={buildLeaseLabel(lease)}
       />
 
       <PaymentFormDialog
         isOpen={isPaymentOpen}
         onClose={() => setIsPaymentOpen(false)}
         defaultLeaseId={lease.id}
-        defaultLeaseLabel={`${lease.propertyName} – ${lease.tenantName}`}
+        defaultLeaseLabel={buildLeaseLabel(lease)}
       />
 
       <ConfirmDialog

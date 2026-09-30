@@ -3,6 +3,7 @@
 import { useMemo } from "react";
 import { useLeases } from "@/features/leases/hooks/use-leases";
 import { MAX_PAGE_SIZE } from "@/config/pagination";
+import { buildLeaseLabel } from "@/utils/lease";
 
 // One page of active leases is enough to label and pick a lease in the payment/ledger forms
 export const useLeaseOptions = (isEnabled = true) => {
@@ -17,7 +18,7 @@ export const useLeaseOptions = (isEnabled = true) => {
     return {
       options: leases.map((lease) => ({
         value: lease.id,
-        label: `${lease.propertyName} – ${lease.tenantName}`,
+        label: buildLeaseLabel(lease),
       })),
       leaseById: new Map(leases.map((lease) => [lease.id, lease])),
       isPending,

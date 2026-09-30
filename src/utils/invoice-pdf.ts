@@ -52,6 +52,7 @@ export const generateInvoicePdf = (
   );
 
   const sectionBottomY = drawInfoSection(doc, headerBottomY, [
+    { label: "Property no.", value: lease.propertyNumber },
     { label: "Billing period", value: invoiceMonthLabel },
     ...(rentDueDate ? [{ label: "Due date", value: formatDate(rentDueDate, PDF_LOCALE) }] : []),
     {

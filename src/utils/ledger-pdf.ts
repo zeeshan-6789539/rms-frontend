@@ -35,6 +35,7 @@ export const generateLedgerPdf = (
   );
 
   const sectionBottomY = drawInfoSection(doc, headerBottomY, [
+    { label: "Property no.", value: lease.propertyNumber },
     { label: "Period", value: periodLabel },
     { label: "Advance amount", value: formatCurrency(Number(lease.advanceAmount), PDF_LOCALE) },
   ]);

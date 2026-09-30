@@ -127,6 +127,12 @@ export const PropertyFormDialog = ({
         {error ? <Alert>{getApiErrorMessage(error, tCommon("error"))}</Alert> : null}
 
         <FormGrid>
+          {property ? (
+            <FormField id="propertyNumber" label={t("fields.propertyNumber")}>
+              <Input id="propertyNumber" value={property.propertyNumber} disabled />
+            </FormField>
+          ) : null}
+
           <FormField id="name" label={t("fields.name")} error={errors.name}>
             <Input
               id="name"
